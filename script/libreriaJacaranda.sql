@@ -35,9 +35,9 @@ INSERT INTO users  VALUES ('User1', 'user1');
 -- Adding articles
 
 
-INSERT INTO libreriaJacaranda.articles (isbn,title,author,published_date,quantity,price,stock) VALUES ('015296093-7','Kings of Pastry (Les rois de la p‚tisserie)','Lil Sink','2020-10-21',0,47.88,0);
+INSERT INTO libreriaJacaranda.articles (isbn,title,author,published_date,quantity,price,stock) VALUES ('015296093-7','Kings of Pastry (Les rois de la p√¢tisserie)','Lil Sink','2020-10-21',0,47.88,0);
 INSERT INTO libreriaJacaranda.articles (isbn,title,author,published_date,quantity,price,stock) VALUES ('028734454-1','Road to Utopia','Bearnard Steptoe','2021-08-05',100,83.51,1);
-INSERT INTO libreriaJacaranda.articles (isbn,title,author,published_date,quantity,price,stock) VALUES ('032267769-6','Hollywood and The†Pentagon: A Dangerous Liaison','Jeramie Base','2022-04-13',95,31.33,1);
+INSERT INTO libreriaJacaranda.articles (isbn,title,author,published_date,quantity,price,stock) VALUES ('032267769-6','Hollywood and The Pentagon: A Dangerous Liaison','Jeramie Base','2022-04-13',95,31.33,1);
 INSERT INTO libreriaJacaranda.articles (isbn,title,author,published_date,quantity,price,stock) VALUES ('034185474-3','It''s a Wonderful Afterlife','Tabitha McFayden','2022-04-17',40,12.28,1);
 INSERT INTO libreriaJacaranda.articles (isbn,title,author,published_date,quantity,price,stock) VALUES ('050396907-9','Hangman''s Curse','Ilyse Joselevitch','2022-09-19',50,88.22,1);
 INSERT INTO libreriaJacaranda.articles (isbn,title,author,published_date,quantity,price,stock) VALUES ('053704419-1','Now!','Sofia Kleinhandler','2021-08-29',0,97.62,0);
@@ -93,7 +93,7 @@ INSERT INTO libreriaJacaranda.articles (isbn,title,author,published_date,quantit
 INSERT INTO libreriaJacaranda.articles (isbn,title,author,published_date,quantity,price,stock) VALUES ('480299923-2','Ellen DeGeneres: The Beginning','Garth Halpeine','2022-08-03',0,78.71,0);
 INSERT INTO libreriaJacaranda.articles (isbn,title,author,published_date,quantity,price,stock) VALUES ('482827152-X','Postcards From the Edge','Frasquito Brendel','2021-11-19',28,76.71,1);
 INSERT INTO libreriaJacaranda.articles (isbn,title,author,published_date,quantity,price,stock) VALUES ('507297555-X','Before Night Falls','Sergent Drayn','2021-02-02',0,68.54,0);
-INSERT INTO libreriaJacaranda.articles (isbn,title,author,published_date,quantity,price,stock) VALUES ('514987288-1','Adventures of Picasso, The (Picassos ‰ventyr)','Rosemaria Linturn','2021-12-05',0,61.46,0);
+INSERT INTO libreriaJacaranda.articles (isbn,title,author,published_date,quantity,price,stock) VALUES ('514987288-1','Adventures of Picasso, The (Picassos √§ventyr)','Rosemaria Linturn','2021-12-05',0,61.46,0);
 INSERT INTO libreriaJacaranda.articles (isbn,title,author,published_date,quantity,price,stock) VALUES ('515817615-9','Please Don''t Eat the Daisies','Aime Colvin','2021-02-27',0,23.29,0);
 INSERT INTO libreriaJacaranda.articles (isbn,title,author,published_date,quantity,price,stock) VALUES ('530220386-3','Cowboy Bebop','Atlanta MacPaike','2021-07-08',70,18.96,1);
 INSERT INTO libreriaJacaranda.articles (isbn,title,author,published_date,quantity,price,stock) VALUES ('531414858-7','Karate Kid, Part II, The','Joete Didsbury','2022-02-01',0,26.90,0);
@@ -136,6 +136,8 @@ INSERT INTO libreriaJacaranda.articles (isbn,title,author,published_date,quantit
 INSERT INTO libreriaJacaranda.articles (isbn,title,author,published_date,quantity,price,stock) VALUES ('978104130-7','Age of Heroes','Halli Poff','2021-03-11',0,25.16,0);
 INSERT INTO libreriaJacaranda.articles (isbn,title,author,published_date,quantity,price,stock) VALUES ('984002124-9','Easy','Any Scarman','2020-03-10',0,25.64,0);
 INSERT INTO libreriaJacaranda.articles (isbn,title,author,published_date,quantity,price,stock) VALUES ('988581387-X','Chase a Crooked Shadow','Gil Koeppke','2020-11-25',11,30.98,1);
+
+
 
 
 
