@@ -5,49 +5,65 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 public class DaoUser {
 	
-	private HashMap users;
-
 	public DaoUser() {
-		// TODO Auto-generated constructor stub
 		
 	}
-	private Connection accesoBBDD() {
+	
+	private Connection accessDDBB() {
 		Connection conexion = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/libreriaJacaranda?useSSL=false","librera","librera");
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return conexion;
 	}
-	public HashMap getUsers() throws SQLException {
-		HashMap result = null;
-		Connection conexion = accesoBBDD();
+	
+	public List<User> getUsers() throws SQLException, UserException {
+		List<User> result = new ArrayList<User>();
+		Connection conexion = accessDDBB();
 		Statement instruccion = conexion.createStatement();
 		ResultSet users = instruccion.executeQuery("Select * from users;");
-//		ResultSet passwords = instruccion.executeQuery("Select pasword from users;");
-//		Iterator<ResultSet> usersIt = users.iterator();
 		while(users.next()) {
-			result.put(users.getString("userCod"), users.getString("pasword"));
+			User nuevo = new User(users.getString("userCod"), users.getString("pasword"));
+			result.add(nuevo);
 		}
 		return result;
 	}
-	public User getUser(String userCod) throws UserException, DaoUserException {
+	
+	public User getUser(String userCod) throws UserException, DaoUserException, SQLException {
 		User result = null;
-		if(users.containsKey(userCod)) {
-			String password = users.get(userCod).toString();
-			result = new User(userCod, password);
+		Connection conexion = accessDDBB();
+		Statement instruccion = conexion.createStatement();
+		ResultSet users = instruccion.executeQuery("Select * from users where userCod like '" + userCod + "';");
+		
+		if(users.next()) {
+			result = new User(users.getString("userCod"), users.getString("pasword"));		
 		}else {
 			throw new DaoUserException("No se ha encontrado el usuario");
 		}
 		return result;
 	}
-
+	
+	public boolean userIsValid(String userCod, String password) throws SQLException {
+		boolean result = false;
+		
+		Connection conexion = accessDDBB();
+		Statement instruccion = conexion.createStatement();
+		ResultSet users = instruccion.executeQuery("Select * from users where userCod like '" + userCod + "' and pasword like '"+ password + "';");
+		
+		if(users.next()) {
+			result = true;
+		}
+		return result;
+	}
+	
 }

@@ -39,6 +39,21 @@ public class Book {
 		this.setPrice(price);
 		this.setStock(quantity);
 	}
+	
+	
+
+	public Book(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price,
+			boolean stock) {
+		super();
+		this.isbn = isbn;
+		this.title = title;
+		this.author = author;
+		this.publishedDate = publishedDate;
+		this.quantity = quantity;
+		this.price = price;
+		this.stock = stock;
+	}
+
 
 	public Book(String isbn) {
 		super();
@@ -76,8 +91,12 @@ public class Book {
 	}
 
 
-	public boolean isStock() {
-		return stock;
+	public int getStock() {
+		int result = 0;
+		if(stock) {
+			result = 1;
+		}
+		return result;
 	}
 
 
@@ -87,7 +106,7 @@ public class Book {
 			this.isbn = isbn;
 		}else {
 			throw new BookException("ISBN incorrecto.");
-		
+		}
 	}
 
 
