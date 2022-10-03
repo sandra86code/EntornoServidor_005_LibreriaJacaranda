@@ -12,6 +12,7 @@ import java.util.Iterator;
 public class DaoBook {
 	
 	private Connection connection;
+	private String query = "";
 
 	public DaoBook() {
 		this.connection = null;
@@ -30,7 +31,7 @@ public class DaoBook {
 	public void deleteBook(String isbn) throws SQLException {
 		this.connection = openConnectionDdbb();
 		Statement instruction = connection.createStatement();
-		String query = "DELETE FROM articles WHERE isbn='" + isbn +"';";
+		this.query = "DELETE FROM articles WHERE isbn='" + isbn +"';";
 	}
 	
 	
@@ -38,7 +39,7 @@ public class DaoBook {
 		this.connection = openConnectionDdbb();
 		Book book = new Book(isbn, title, author, publishedDate, quantity, price);
 		Statement instruction = connection.createStatement();
-		String query = "INSERT INTO articles VALUES ('" + book.getIsbn() + "','" + book.getTitle() + "','" + book.getAuthor() 
+		this.query = "INSERT INTO articles VALUES ('" + book.getIsbn() + "','" + book.getTitle() + "','" + book.getAuthor() 
 			+ "','" + book.getPublishedDate() + "','" + book.getQuantity() + "','" + book.getStock() + "';";
 		instruction.executeUpdate(query);
 	}
@@ -60,18 +61,17 @@ public class DaoBook {
 		return bookItem;
 	}
 	
-	
+
 	//PREGUNTAR
 	public void updateBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException {
 		this.connection = openConnectionDdbb();
 		Book book = getBook(isbn);
 		Statement instruction = connection.createStatement();
-		String query = "";
 		if(!book.getTitle().equals(title) && !title.equals("")) {
-			query = "UPDATE articles SET title = '" + book.getTitle() + "' WHERE isbn ='" + isbn + "';";
+			this.query = "UPDATE articles SET title = '" + book.getTitle() + "' WHERE isbn ='" + isbn + "';";
 		}
 		if(!book.getAuthor().equals(author) && !author.equals("")) {
-			query = "UPDATE articles SET author = '" + book.getAuthor() + "' WHERE isbn ='" + isbn + "';";
+			this.query = "UPDATE articles SET author = '" + book.getAuthor() + "' WHERE isbn ='" + isbn + "';";
 		}
 
 		
@@ -121,6 +121,39 @@ public class DaoBook {
 		}
 		
 		return message.toString();
+	}
+	
+	public String showBook(String isbn) throws SQLException {
+		Book bookItem = getBook(isbn);
+		char stock = 'N';
+		if(bookItem.getStock()==1) {
+			stock = 'S';
+		}
+		
+		String message = "<tr>\n"
+				+ "\t<td>ISBN</td>\n"
+				+ "\t<td>" + bookItem.getIsbn() + "</td>\n"
+				+ "</tr>\n<tr>\n"
+				+ "\t<td>Título</td>\n"
+				+ "\t<td>" + bookItem.getTitle() + "</td>\n"
+				+ "</tr>\n<tr>\n"
+				+ "\t<td>Autor</td>\n"
+				+ "\t<td>" + bookItem.getAuthor() + "</td>\n"
+				+ "</tr>\n<tr>\n"
+				+ "\t<td>Fecha de publicación</td>\n"
+				+ "\t<td>" + bookItem.getPublishedDate() + "</td>\n"
+				+ "</tr>\n<tr>\n"
+				+ "\t<td>Cantidad</td>\n"
+				+ "\t<td>" + bookItem.getQuantity() + "</td>\n"
+				+ "</tr>\n<tr>\n"
+				+ "\t<td>Precio</td>\n"
+				+ "\t<td>" + bookItem.getPrice() + "</td>\n"
+				+ "</tr>\n<tr>\n"
+				+ "\t<td>Stock</td>\n"
+				+ "\t<td>" + stock + "</td>\n"
+				+ "</tr>\n";
+		
+		return message;
 	}
 	
 }
