@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class DaoBook {
 	
@@ -92,6 +93,34 @@ public class DaoBook {
 			bookList.add(bookItem);
 		}
 		return bookList;
+	}
+	
+	public String showTable() throws NumberFormatException, SQLException, BookException {
+		StringBuilder message = new StringBuilder();
+		ArrayList<Book> bookList = getBooks();
+		Iterator<Book> iterator = bookList.iterator();  // Iterator interface
+		
+		while(iterator.hasNext()) { // iterate through all the data until the last record
+			
+			Book bookDetails = iterator.next(); 
+			char stock = 'N';
+			if(bookDetails.getStock()==1) {
+				stock = 'S';
+			}
+			message.append("<tr>\n"
+					+ "\t<td>" + bookDetails.getIsbn() + "</td>\n"
+					+ "\t<td>" + bookDetails.getTitle() + "</td>\n"
+					+ "\t<td>" + bookDetails.getAuthor() + "</td>\n"
+					+ "\t<td>" + bookDetails.getPublishedDate() + "</td>\n"
+					+ "\t<td>" + bookDetails.getQuantity() + "</td>\n"
+					+ "\t<td>" + bookDetails.getPrice() + "</td>\n"
+					+ "\t<td>" + stock + "</td>\n"
+					+ "\t<td><a href=\"deleteBook.jsp\"><img src=\"images/delete.png\" id=\"<%=bookDetails.getIsbn()%>\" width=\"30px\"></a></td>\n"
+					+ "\t<td><a href=\"updateBook.jsp\"><img src=\"images/update.png\" id=\"<%=bookDetails.getIsbn()%>\" width=\"30px\"></a></td>\n"
+					+ "</tr>\n");
+		}
+		
+		return message.toString();
 	}
 	
 }
