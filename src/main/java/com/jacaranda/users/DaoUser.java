@@ -2,6 +2,7 @@ package com.jacaranda.users;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -53,12 +54,12 @@ public class DaoUser {
 		return result;
 	}
 	
-	public static boolean userIsValid(String userCod, String password) throws SQLException {
+	public static boolean userIsValid(String code, String key) throws SQLException {
 		boolean result = false;
 		
 		Connection conexion = accessDDBB();
 		Statement instruccion = conexion.createStatement();
-		ResultSet users = instruccion.executeQuery("Select * from users where userCod like '" + userCod + "' and pasword like '"+ password + "';");
+		ResultSet users = instruccion.executeQuery("Select * from users where userCod like '" + code + "' and pasword like '"+ key + "';");
 		
 		if(users.next()) {
 			result = true;

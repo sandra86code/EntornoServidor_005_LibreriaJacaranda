@@ -8,7 +8,7 @@
 <title>Comprobar datos usuario</title>
 </head>
 <body>
-	<%String user = request.getParameter("userName");
+	<%String user = request.getParameter("user");
 	String password =request.getParameter("password");
 	//DaoUser data = new DaoUser();
 	if(DaoUser.userIsValid(user, password)){
