@@ -21,32 +21,25 @@ public class DaoBook {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/libreriaJacaranda?useSSL=false","librera","librera");
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return connection;
 	}
 	
-	public void deleteBook(String isbn) throws SQLException, DaoBookException {
+	public void deleteBook(String isbn) throws SQLException {
 		this.connection = openConnectionDdbb();
 		Statement instruction = connection.createStatement();
 		String query = "DELETE FROM articles WHERE isbn='" + isbn +"';";
-		if(instruction.executeUpdate(query)==0) { //Preguntar si DaoBookException es necesaria o vale con SQLException
-			throw new DaoBookException("No existe un libro con el ISBN introducido.");
-		}
 	}
 	
 	
-	public void addBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException, DaoBookException {
+	public void addBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException {
 		this.connection = openConnectionDdbb();
 		Book book = new Book(isbn, title, author, publishedDate, quantity, price);
 		Statement instruction = connection.createStatement();
 		String query = "INSERT INTO articles VALUES ('" + book.getIsbn() + "','" + book.getTitle() + "','" + book.getAuthor() 
 			+ "','" + book.getPublishedDate() + "','" + book.getQuantity() + "','" + book.getStock() + "';";
 		instruction.executeUpdate(query);
-		if(instruction.executeUpdate(query)==0) { //Preguntar si DaoBookException es necesaria o vale con SQLException
-			throw new DaoBookException("Ya existe un libro con el ISBN introducido.");
-		}
 	}
 
 
@@ -61,14 +54,14 @@ public class DaoBook {
 		while(bookSet.next()) {
 			bookItem = new Book(bookSet.getString("isbn"), bookSet.getString("title"), bookSet.getString("author"), 
 					LocalDate.parse(bookSet.getString("published_date")), Integer.parseInt(bookSet.getString("quantity")), 
-					Double.parseDouble(bookSet.getString("price")), Boolean.parseBoolean(bookSet.getString("stock")));
+					Double.parseDouble(bookSet.getString("price")), Integer.parseInt(bookSet.getString("stock")));
 		}
 		return bookItem;
 	}
 	
 	
 	//PREGUNTAR
-	public void updateBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException, DaoBookException {
+	public void updateBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException {
 		this.connection = openConnectionDdbb();
 		Book book = getBook(isbn);
 		Statement instruction = connection.createStatement();
@@ -82,9 +75,7 @@ public class DaoBook {
 
 		
 		instruction.executeUpdate(query);
-		if(instruction.executeUpdate(query)==0) { //Preguntar si DaoBookException es necesaria o vale con SQLException
-			throw new DaoBookException("Ya existe un libro con el ISBN introducido.");
-		}
+		
 	}
 	
 	
@@ -96,7 +87,7 @@ public class DaoBook {
 		while(bookSet.next()) {
 			Book bookItem = new Book(bookSet.getString("isbn"), bookSet.getString("title"), bookSet.getString("author"), 
 					LocalDate.parse(bookSet.getString("published_date")), Integer.parseInt(bookSet.getString("quantity")), 
-					Double.parseDouble(bookSet.getString("price")), Boolean.parseBoolean(bookSet.getString("stock")));
+					Double.parseDouble(bookSet.getString("price")), Integer.parseInt(bookSet.getString("stock")));
 			
 			bookList.add(bookItem);
 		}

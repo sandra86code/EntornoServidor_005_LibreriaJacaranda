@@ -43,7 +43,7 @@ public class Book {
 	
 
 	public Book(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price,
-			boolean stock) {
+			int stock) {
 		super();
 		this.isbn = isbn;
 		this.title = title;
@@ -51,7 +51,11 @@ public class Book {
 		this.publishedDate = publishedDate;
 		this.quantity = quantity;
 		this.price = price;
-		this.stock = stock;
+		if(stock==0) {
+			this.stock = false;
+		}else {
+			this.stock = true;
+		}
 	}
 
 

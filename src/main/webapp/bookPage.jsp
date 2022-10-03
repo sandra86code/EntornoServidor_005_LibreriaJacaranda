@@ -4,7 +4,6 @@
 <%@ page import="com.jacaranda.articles.Book"%>
 <%@ page import="java.util.ArrayList"%>
 <%@page import="java.util.Iterator"%> 
-<%@page import="java.sql.SQLException"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +26,10 @@
 		}
 		
 		%>
+		<a href="login.jsp">Cerrar sesión</a>
 		<h1>Listado de libros de la Librería JACARANDÁ</h1>
+		
+		<a href="addBook.jsp"><img src="images/add.png" width="30px"></a>
 		
 		<table cellspacing="2" cellpadding="2">
 
@@ -39,6 +41,8 @@
 			<th>Cantidad</th>
 			<th>Precio</th>
 			<th>Stock</th>
+			<th></th>
+			<th></th>
 		</tr>
 		
 		<%
@@ -48,15 +52,22 @@
 			
 		while(iterator.hasNext()) { // iterate through all the data until the last record
 			
-			Book bookDetails = iterator.next(); //assign individual employee record to the employee class object
+			Book bookDetails = iterator.next(); 
+			char stock = 'N';
+			if(bookDetails.getStock()==1) {
+				stock = 'S';
+			}
 			%>
 			<tr>
 				<td><%=bookDetails.getIsbn()%></td>
+				<td><%=bookDetails.getTitle()%></td>
 				<td><%=bookDetails.getAuthor()%></td>
 				<td><%=bookDetails.getPublishedDate()%></td>
 				<td><%=bookDetails.getQuantity()%></td>
 				<td><%=bookDetails.getPrice()%></td>
-				<td><%=bookDetails.getStock()%></td>
+				<td><%=stock%></td>
+				<td><a href="deleteBook.jsp"><img src="images/delete.png" id="<%=bookDetails.getIsbn()%>" width="30px"></a></td>
+				<td><a href="updateBook.jsp"><img src="images/update.png" id="<%=bookDetails.getIsbn()%>" width="30px"></a></td>
 			</tr>
 			<%
 		}
@@ -70,6 +81,6 @@
 		<!-- Añadir botón para redireccionar a iniciar sesión -->
 	<%}
 	%> --%>
-<a href="login.html">Cerrar sesión</a>
+
 </body>
 </html>
