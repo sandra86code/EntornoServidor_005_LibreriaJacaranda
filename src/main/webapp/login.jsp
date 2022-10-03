@@ -11,7 +11,7 @@
 <% session.invalidate(); %>
 	<div id="container">
 		<div id="loginBox">
-			<form id="loginForm" action="" method="post">
+			<form id="loginForm" action="checkLogin.jsp" method="post">
 				<div id="loginIcon">
 					<img src="images/userIcon.png">
 				</div>

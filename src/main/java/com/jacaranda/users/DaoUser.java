@@ -16,7 +16,7 @@ public class DaoUser {
 		
 	}
 	
-	private Connection accessDDBB() {
+	private static Connection accessDDBB() {
 		Connection conexion = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -53,7 +53,7 @@ public class DaoUser {
 		return result;
 	}
 	
-	public boolean userIsValid(String userCod, String password) throws SQLException {
+	public static boolean userIsValid(String userCod, String password) throws SQLException {
 		boolean result = false;
 		
 		Connection conexion = accessDDBB();

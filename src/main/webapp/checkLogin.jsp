@@ -10,8 +10,8 @@
 <body>
 	<%String user = request.getParameter("userName");
 	String password =request.getParameter("password");
-	DaoUser data = new DaoUser();
-	if(data.isValid(user, password)){//TO DO comprobar con el método isValid
+	//DaoUser data = new DaoUser();
+	if(DaoUser.userIsValid(user, password)){
 		HttpSession sesion = request.getSession();
 		session.setAttribute("login", "True");
 		session.setAttribute("user", user);%>
