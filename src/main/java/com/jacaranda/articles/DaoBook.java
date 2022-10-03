@@ -18,7 +18,7 @@ public class DaoBook {
 	
 	private Connection openConnectionDdbb() {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/libreriaJacaranda?useSSL=false","librera","librera");
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -37,7 +37,7 @@ public class DaoBook {
 	}
 	
 	
-	public void addBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException {
+	public void addBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException, DaoBookException {
 		this.connection = openConnectionDdbb();
 		Book book = new Book(isbn, title, author, publishedDate, quantity, price);
 		Statement instruction = connection.createStatement();
@@ -56,7 +56,7 @@ public class DaoBook {
 	public Book getBook(String isbn) throws SQLException {
 		this.connection = openConnectionDdbb();
 		Statement instruction = connection.createStatement();
-		ResultSet bookSet = instruction.executeQuery("Select * from articles WHERE isbn ='" + isbn + "';'");
+		ResultSet bookSet = instruction.executeQuery("Select * from articles WHERE isbn ='" + isbn + "';");
 		Book bookItem = null;
 		while(bookSet.next()) {
 			bookItem = new Book(bookSet.getString("isbn"), bookSet.getString("title"), bookSet.getString("author"), 
@@ -68,21 +68,19 @@ public class DaoBook {
 	
 	
 	//PREGUNTAR
-	public void updateBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException {
+	public void updateBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException, DaoBookException {
 		this.connection = openConnectionDdbb();
 		Book book = getBook(isbn);
 		Statement instruction = connection.createStatement();
 		String query = "";
 		if(!book.getTitle().equals(title)) {
-			query = "UPDATE articles SET title = '" + book.getTitle() + "' WHERE isbn ='" + isbn + "';'";
+			query = "UPDATE articles SET title = '" + book.getTitle() + "' WHERE isbn ='" + isbn + "';";
 		}
 		if(!book.getTitle().equals(author)) {
-			query = "UPDATE articles SET author = '" + book.getAuthor() + "' WHERE isbn ='" + isbn + "';'";
+			query = "UPDATE articles SET author = '" + book.getAuthor() + "' WHERE isbn ='" + isbn + "';";
 		}
 		
-		String query = "UPDATE articles SET title = '" + book.getTitle() + "', author = '" + book.getAuthor() 
-			+ "', published_date = '" +  
-				+ +  WHERE isbn ='" + isbn + "';'");
+		
 		instruction.executeUpdate(query);
 		if(instruction.executeUpdate(query)==0) { //Preguntar si DaoBookException es necesaria o vale con SQLException
 			throw new DaoBookException("Ya existe un libro con el ISBN introducido.");
