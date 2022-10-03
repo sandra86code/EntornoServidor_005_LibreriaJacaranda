@@ -6,9 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Book database</title>
-<link rel="stylesheet" type="text/css" href="bookPage.css">
+<link rel="stylesheet" type="text/css" href="css/bookPage.css">
 </head>
 <body>
+	<div id="container">
+		<div id="tableBox">
+			
 	<% 
 	/* HttpSession se = request.getSession();
 	String isSession = (String) session.getAttribute("login");
@@ -22,10 +25,12 @@
 		
 		}%>
 			
-		<a href="login.jsp">Cerrar sesión</a>
-		<h1>Listado de libros de la Librería JACARANDÁ</h1>
+		<a href="login.jsp" class="closeSession">Cerrar sesión</a>
 		
-		<a href="addBook.jsp"><img src="images/add.png" width="30px"></a>
+		<div id="content">
+		<h1>LISTADO DE LIBROS DE LA LIBRERIA JACARANDÁ</h1>
+		
+		<a href="addBook.jsp" class="addBook">Añadir libro</a>
 		
 		<table cellspacing="2" cellpadding="2">
 
@@ -37,19 +42,14 @@
 			<th>Cantidad</th>
 			<th>Precio</th>
 			<th>Stock</th>
-			<th></th>
-			<th></th>
+			
 		</tr>
 		<%=message%>
 
 		</table>
-		<%-- %>
-		
-	<%}else{%>
-		<jsp:forward page="error.jsp?msg='No has iniciado sesión'"></jsp:forward>
-		<!-- Añadir botón para redireccionar a iniciar sesión -->
-	<%}
-	%> --%>
+		</div>
+		</div>
+	</div>
 
 </body>
 </html>
