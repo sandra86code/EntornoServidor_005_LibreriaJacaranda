@@ -26,20 +26,23 @@ public class DaoBook {
 		return connection;
 	}
 	
-	public void deleteBook(String isbn) throws SQLException {
+	public void deleteBook(String isbn) throws SQLException, DaoBookException {
 		this.connection = openConnectionDdbb();
 		Statement instruction = connection.createStatement();
 		String query = "DELETE FROM articles WHERE isbn='" + isbn +"';";
 	}
 	
 	
-	public void addBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException {
+	public void addBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException, DaoBookException {
 		this.connection = openConnectionDdbb();
 		Book book = new Book(isbn, title, author, publishedDate, quantity, price);
 		Statement instruction = connection.createStatement();
 		String query = "INSERT INTO articles VALUES ('" + book.getIsbn() + "','" + book.getTitle() + "','" + book.getAuthor() 
 			+ "','" + book.getPublishedDate() + "','" + book.getQuantity() + "','" + book.getStock() + "';";
 		instruction.executeUpdate(query);
+		if(instruction.executeUpdate(query)==0) { //Preguntar si DaoBookException es necesaria o vale con SQLException
+			throw new DaoBookException("Ya existe un libro con el ISBN introducido.");
+		}
 	}
 
 
@@ -61,7 +64,7 @@ public class DaoBook {
 	
 	
 	//PREGUNTAR
-	public void updateBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException {
+	public void updateBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException, DaoBookException {
 		this.connection = openConnectionDdbb();
 		Book book = getBook(isbn);
 		Statement instruction = connection.createStatement();
@@ -75,7 +78,9 @@ public class DaoBook {
 
 		
 		instruction.executeUpdate(query);
-		
+		if(instruction.executeUpdate(query)==0) { //Preguntar si DaoBookException es necesaria o vale con SQLException
+			throw new DaoBookException("Ya existe un libro con el ISBN introducido.");
+		}
 	}
 	
 	
