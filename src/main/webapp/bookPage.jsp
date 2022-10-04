@@ -66,7 +66,7 @@
 				<td><%=bookDetails.getPrice()%></td>
 				<td><%=stock%></td>
 				<td><a href="deleteBook.jsp"><img src="images/delete.png" id="<%=bookDetails.getIsbn()%>" width="30px"></a></td>
-				<td><a href="updateBook.jsp"><img src="images/update.png" id="<%=bookDetails.getIsbn()%>" width="30px"></a></td>
+				<td><a href="updateBook.jsp"><img src="images/update.png" name="update" value="<%=bookDetails.getIsbn()%>" width="30px"></a></td>
 			</tr>
 			<%
 		}
