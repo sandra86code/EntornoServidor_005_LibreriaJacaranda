@@ -53,10 +53,7 @@
 		while(iterator.hasNext()) { // iterate through all the data until the last record
 			
 			Book bookDetails = iterator.next(); 
-			char stock = 'N';
-			if(bookDetails.getStock()==1) {
-				stock = 'S';
-			}
+			String isbn = bookDetails.getIsbn();
 			%>
 			<tr>
 				<td><%=bookDetails.getIsbn()%></td>
@@ -65,9 +62,10 @@
 				<td><%=bookDetails.getPublishedDate()%></td>
 				<td><%=bookDetails.getQuantity()%></td>
 				<td><%=bookDetails.getPrice()%></td>
-				<td><%=stock%></td>
-				<td><a href="deleteBook.jsp"><img src="images/delete.png" id="<%=bookDetails.getIsbn()%>" width="30px"></a></td>
-				<td><a href="updateBook.jsp"><img src="images/update.png" id="<%=bookDetails.getIsbn()%>" width="30px"></a></td>
+				<td><%=bookDetails.getStockYN()%></td>
+				
+				<td><a href="deleteBook.jsp?value=<%=bookDetails.getIsbn()%>"><img src="images/delete.png" width="30px"></a></td>
+				<td><a href="updateBook.jsp?value=<%=bookDetails.getIsbn()%>"><img src="images/update.png" width="30px"></a></td>
 			</tr>
 			<%
 		}
