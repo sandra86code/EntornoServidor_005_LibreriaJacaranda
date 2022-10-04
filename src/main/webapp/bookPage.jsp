@@ -16,17 +16,18 @@
 		<div id="tableBox">
 			
 	<% 
-	/* HttpSession se = request.getSession();
+	HttpSession se = request.getSession();
 	String isSession = (String) session.getAttribute("login");
 	String userSession = (String) session.getAttribute("user");
-	if(isSession != null && userSession !=null && isSession.equals("True")){ */
+	if(isSession != null && userSession!=null && isSession.equals("True")){
 		DaoBook daob = new DaoBook();
-	ArrayList<Book> bookList = null;
-	try {
-		bookList = daob.getBooks();
-	} catch (Exception e) {
-		
-	}%>
+		ArrayList<Book> bookList = null;
+		try {
+			bookList = daob.getBooks();
+		} catch (Exception e) {
+			String message = e.getMessage();
+			%><jsp:forward page="error.jsp?msg='<%=message%>'"></jsp:forward><%
+		}%>
 			
 		<a href="login.jsp" class="closeSession">Cerrar sesión</a>
 		
@@ -76,6 +77,9 @@
 		</div>
 		</div>
 	</div>
-
+	<%} else {
+		%><jsp:forward page="error.jsp?msg='No te has logueado.'"></jsp:forward><%
+	}%>
+	
 </body>
 </html>
