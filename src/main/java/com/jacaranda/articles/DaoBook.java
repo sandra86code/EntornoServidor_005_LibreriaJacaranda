@@ -31,6 +31,7 @@ public class DaoBook {
 		this.connection = openConnectionDdbb();
 		Statement instruction = connection.createStatement();
 		this.query = "DELETE FROM articles WHERE isbn='" + isbn +"';";
+		instruction.executeUpdate(query);
 	}
 	
 	
