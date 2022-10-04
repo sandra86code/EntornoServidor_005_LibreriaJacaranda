@@ -103,7 +103,14 @@ public class Book {
 		return result;
 	}
 
-
+	public char getStockYN() {
+		char stockLetter = 'N';
+		if(this.stock) {
+			stockLetter = 'S';
+		}
+		return stockLetter;
+	}
+	
 	private void setIsbn(String isbn) throws BookException {
 		String expression = "\'[1-9\']\'[0-9\']{9}";
 		if(isbn.matches(expression)) {
