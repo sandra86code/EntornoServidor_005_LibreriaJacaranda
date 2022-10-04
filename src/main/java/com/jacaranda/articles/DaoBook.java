@@ -37,16 +37,18 @@ public class DaoBook {
 	
 	public void addBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException {
 		this.connection = openConnectionDdbb();
-		Book book = new Book(isbn, title, author, publishedDate, quantity, price);
-		Statement instruction = connection.createStatement();
-		this.query = "INSERT INTO articles VALUES ('" + book.getIsbn() + "','" + book.getTitle() + "','" + book.getAuthor() 
-			+ "','" + book.getPublishedDate() + "','" + book.getQuantity() + "','" + book.getStock() + "';";
-		instruction.executeUpdate(query);
+		Book existingBook = getBook(isbn);
+		
+		if(existingBook == null) {
+			Book book = new Book(isbn, title, author, publishedDate, quantity, price);
+			Statement instruction = connection.createStatement();
+			this.query = "INSERT INTO articles VALUES ('" + book.getIsbn() + "','" + book.getTitle() + "','" + book.getAuthor() + "','" + book.getPublishedDate() + "'," + book.getQuantity() + ", " + book.getPrice()+ ", " + book.getStock() + ");";
+			instruction.executeUpdate(query);
+		} else {
+			throw new BookException("El libro ya existe en la base de datos.");
+		}
 	}
 
-
-	
-	
 	
 	public Book getBook(String isbn) throws SQLException {
 		this.connection = openConnectionDdbb();

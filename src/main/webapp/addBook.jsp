@@ -1,3 +1,5 @@
+<%@page import="java.sql.SQLException"%>
+<%@page import="com.jacaranda.articles.BookException"%>
 <%@page import="com.jacaranda.articles.DaoBook"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
@@ -7,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Formulario para añadir libro</title>
 <link href="css/addBook.css" rel="stylesheet" id="bootstrap-css">
 </head>
 <body>
@@ -20,30 +22,30 @@
 
 	<section class="get-in-touch">
 		<h1 class="title">Añadir libro</h1>
-		<form class="contact-form row" action="addBook.jsp" method="post">
+		<form class="contact-form row" action="addBookPersist.jsp" method="post">
 			<div class="form-field col-lg-6">
-				<input id="isbn" class="input-text js-input" type="text" required>
+				<input id="isbn" class="input-text js-input" type="text"  name ="isbn" required>
 				<label class="label" for="isbn">ISBN</label>
 			</div>
 			<div class="form-field col-lg-6 ">
-				<input id="title" class="input-text js-input" type="text" required>
+				<input id="title" class="input-text js-input" type="text" name="title" required>
 				<label class="label" for="title">Título</label>
 			</div>
 			<div class="form-field col-lg-6 ">
-				<input id="author" class="input-text js-input" type="text" required>
+				<input id="author" class="input-text js-input" type="text" name="author" required>
 				<label class="label" for="author">Autor</label>
 			</div>
 			<div class="form-field col-lg-6">
-				<input id="quantity" class="input-text js-input" type="number"
-					required> <label class="label" for="quantity">Cantidad</label>
+				<input id="quantity" class="input-text js-input" type="number" name="quantity" required> 
+				<label class="label" for="quantity">Cantidad</label>
 			</div>
 			<div class="form-field col-lg-6 ">
-				<input id="price" class="input-text js-input" type="number" required>
+				<input id="price" class="input-text js-input" name="price" type="number" step="any" required>
 				<label class="label" for="price">Precio</label>
 			</div>
 			<div class="form-field col-lg-6 ">
-				<input id="published_date" class="input-text js-input" type="text"
-					required> <label class="label" for="published_date">Fecha
+				<input id="published_date" class="input-text js-input" name="published_date" type="text" required> 
+				<label class="label" for="published_date">Fecha
 					de publicación (dd/mm/aaaa)</label>
 			</div>
 			<div class="form-field col-lg-12">
@@ -56,40 +58,7 @@
 		</form>
 	</section>
 
-
-	<%
-//recuperar parametros del formulario y llamar al daobook para hacer el insert 
-//controlar cualquier errores
-
-		String empty = "";
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-									
-		String newIsbn = request.getParameter("isbn");
-		String newTitle = request.getParameter("title");
-		String newAuthor = request.getParameter("author");
-		String newPublished_date = request.getParameter("published_date");
-		int newQuantity = Integer.parseInt(request.getParameter("quantity"));
-		double newPrice = Double.parseDouble(request.getParameter("price"));
-		
-		
-		if(newIsbn == null || empty.equals(newIsbn) || newTitle == null || empty.equals(newTitle) || newAuthor == null || empty.equals(newAuthor) ||
-		newPublished_date == null || empty.equals(newPublished_date) || newQuantity < 0 || newPrice < 0){%>
-			<jsp:forward
-				page="error.jsp?msg='Los campos no son correctos.'"></jsp:forward>
-		<% } else {
-			LocalDate date = LocalDate.parse(newPublished_date, formatter);
-			
-			DaoBook newDaoBook = new DaoBook();
-			
-		/* 	try {
-				newDaoBook.addBook(newIsbn, newTitle, newAuthor, date, newQuantity, newPrice);
-			} catch (DaoBookException e){
-				
-			} */
-			
-		}%>
-
-<%}else {%>
+	<%}else {%>
 	<jsp:forward
 		page="error.jsp?msg='Debes iniciar sesión para realizar cualquier cambio.'"></jsp:forward>
 <%}%>

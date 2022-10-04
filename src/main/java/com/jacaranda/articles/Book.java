@@ -112,7 +112,7 @@ public class Book {
 	}
 	
 	private void setIsbn(String isbn) throws BookException {
-		String expression = "\'[1-9\']\'[0-9\']{9}";
+		String expression = "[0-9]{10}";
 		if(isbn.matches(expression)) {
 			this.isbn = isbn;
 		}else {
