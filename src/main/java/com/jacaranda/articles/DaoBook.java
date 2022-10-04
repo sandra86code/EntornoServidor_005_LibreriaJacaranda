@@ -7,10 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class DaoBook {
 	
 	private Connection connection;
+	private String query = "";
 
 	public DaoBook() {
 		this.connection = null;
@@ -29,7 +31,7 @@ public class DaoBook {
 	public void deleteBook(String isbn) throws SQLException, DaoBookException {
 		this.connection = openConnectionDdbb();
 		Statement instruction = connection.createStatement();
-		String query = "DELETE FROM articles WHERE isbn='" + isbn +"';";
+		this.query = "DELETE FROM articles WHERE isbn='" + isbn +"';";
 	}
 	
 	
@@ -37,7 +39,7 @@ public class DaoBook {
 		this.connection = openConnectionDdbb();
 		Book book = new Book(isbn, title, author, publishedDate, quantity, price);
 		Statement instruction = connection.createStatement();
-		String query = "INSERT INTO articles VALUES ('" + book.getIsbn() + "','" + book.getTitle() + "','" + book.getAuthor() 
+		this.query = "INSERT INTO articles VALUES ('" + book.getIsbn() + "','" + book.getTitle() + "','" + book.getAuthor() 
 			+ "','" + book.getPublishedDate() + "','" + book.getQuantity() + "','" + book.getStock() + "';";
 		instruction.executeUpdate(query);
 		if(instruction.executeUpdate(query)==0) { //Preguntar si DaoBookException es necesaria o vale con SQLException
@@ -62,18 +64,17 @@ public class DaoBook {
 		return bookItem;
 	}
 	
-	
+
 	//PREGUNTAR
 	public void updateBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException, DaoBookException {
 		this.connection = openConnectionDdbb();
 		Book book = getBook(isbn);
 		Statement instruction = connection.createStatement();
-		String query = "";
 		if(!book.getTitle().equals(title) && !title.equals("")) {
-			query = "UPDATE articles SET title = '" + book.getTitle() + "' WHERE isbn ='" + isbn + "';";
+			this.query = "UPDATE articles SET title = '" + book.getTitle() + "' WHERE isbn ='" + isbn + "';";
 		}
 		if(!book.getAuthor().equals(author) && !author.equals("")) {
-			query = "UPDATE articles SET author = '" + book.getAuthor() + "' WHERE isbn ='" + isbn + "';";
+			this.query = "UPDATE articles SET author = '" + book.getAuthor() + "' WHERE isbn ='" + isbn + "';";
 		}
 
 		
@@ -98,5 +99,6 @@ public class DaoBook {
 		}
 		return bookList;
 	}
+	
 	
 }

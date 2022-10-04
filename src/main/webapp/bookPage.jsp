@@ -9,27 +9,31 @@
 <head>
 <meta charset="UTF-8">
 <title>Book database</title>
-<link rel="stylesheet" type="text/css" href="bookPage.css">
+<link rel="stylesheet" type="text/css" href="css/bookPage.css">
 </head>
 <body>
+	<div id="container">
+		<div id="tableBox">
+			
 	<% 
 	/* HttpSession se = request.getSession();
 	String isSession = (String) session.getAttribute("login");
 	String userSession = (String) session.getAttribute("user");
 	if(isSession != null && userSession !=null && isSession.equals("True")){ */
 		DaoBook daob = new DaoBook();
-		ArrayList<Book> bookList = null;
-		try {
-			bookList = daob.getBooks();
-		} catch (Exception e) {
+	ArrayList<Book> bookList = null;
+	try {
+		bookList = daob.getBooks();
+	} catch (Exception e) {
+		
+	}%>
 			
-		}
+		<a href="login.jsp" class="closeSession">Cerrar sesión</a>
 		
-		%>
-		<a href="login.jsp">Cerrar sesión</a>
-		<h1>Listado de libros de la Librería JACARANDÁ</h1>
+		<div id="content">
+		<h1>LISTADO DE LIBROS DE LA LIBRERIA JACARANDÁ</h1>
 		
-		<a href="addBook.jsp"><img src="images/add.png" width="30px"></a>
+		<a href="addBook.jsp" class="addBook">Añadir libro</a>
 		
 		<table cellspacing="2" cellpadding="2">
 
@@ -41,14 +45,9 @@
 			<th>Cantidad</th>
 			<th>Precio</th>
 			<th>Stock</th>
-			<th></th>
-			<th></th>
-		</tr>
-		
-		<%
-		// Iterating through subjectList
-
-		Iterator<Book> iterator = bookList.iterator();  // Iterator interface
+			
+		<% 
+		Iterator<Book> iterator = bookList.iterator();  
 			
 		while(iterator.hasNext()) { // iterate through all the data until the last record
 			
@@ -74,13 +73,9 @@
 		
 		%>
 		</table>
-		<%-- %>
-		
-	<%}else{%>
-		<jsp:forward page="error.jsp?msg='No has iniciado sesión'"></jsp:forward>
-		<!-- Añadir botón para redireccionar a iniciar sesión -->
-	<%}
-	%> --%>
+		</div>
+		</div>
+	</div>
 
 </body>
 </html>

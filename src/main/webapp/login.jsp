@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Login - Librería Jacaranda</title>
-<link rel="stylesheet" type="text/css" href="login.css">
+<link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
 <body>
 <% session.invalidate(); %>
