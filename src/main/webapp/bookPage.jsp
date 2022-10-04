@@ -16,17 +16,18 @@
 		<div id="tableBox">
 			
 	<% 
-	/* HttpSession se = request.getSession();
+	HttpSession se = request.getSession();
 	String isSession = (String) session.getAttribute("login");
 	String userSession = (String) session.getAttribute("user");
-	if(isSession != null && userSession !=null && isSession.equals("True")){ */
+	if(isSession != null && userSession!=null && isSession.equals("True")){
 		DaoBook daob = new DaoBook();
-	ArrayList<Book> bookList = null;
-	try {
-		bookList = daob.getBooks();
-	} catch (Exception e) {
-		
-	}%>
+		ArrayList<Book> bookList = null;
+		try {
+			bookList = daob.getBooks();
+		} catch (Exception e) {
+			String message = e.getMessage();
+			%><jsp:forward page="error.jsp?msg='<%=message%>'"></jsp:forward><%
+		}%>
 			
 		<a href="login.jsp" class="closeSession">Cerrar sesión</a>
 		
@@ -52,10 +53,7 @@
 		while(iterator.hasNext()) { // iterate through all the data until the last record
 			
 			Book bookDetails = iterator.next(); 
-			char stock = 'N';
-			if(bookDetails.getStock()==1) {
-				stock = 'S';
-			}
+			String isbn = bookDetails.getIsbn();
 			%>
 			<tr>
 				<td><%=bookDetails.getIsbn()%></td>
@@ -64,9 +62,10 @@
 				<td><%=bookDetails.getPublishedDate()%></td>
 				<td><%=bookDetails.getQuantity()%></td>
 				<td><%=bookDetails.getPrice()%></td>
-				<td><%=stock%></td>
-				<td><a href="deleteBook.jsp"><img src="images/delete.png" id="<%=bookDetails.getIsbn()%>" width="30px"></a></td>
-				<td><a href="updateBook.jsp"><img src="images/update.png" id="<%=bookDetails.getIsbn()%>" width="30px"></a></td>
+				<td><%=bookDetails.getStockYN()%></td>
+				
+				<td><a href="deleteBook.jsp?value=<%=bookDetails.getIsbn()%>"><img src="images/delete.png" width="30px"></a></td>
+				<td><a href="updateBook.jsp?value=<%=bookDetails.getIsbn()%>"><img src="images/update.png" width="30px"></a></td>
 			</tr>
 			<%
 		}
@@ -76,6 +75,9 @@
 		</div>
 		</div>
 	</div>
-
+	<%} else {
+		%><jsp:forward page="error.jsp?msg='No te has logueado.'"></jsp:forward><%
+	}%>
+	
 </body>
 </html>
