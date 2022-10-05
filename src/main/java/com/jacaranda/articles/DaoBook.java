@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class DaoBook {
 	
@@ -28,23 +27,21 @@ public class DaoBook {
 		return connection;
 	}
 	
-	public void deleteBook(String isbn) throws SQLException, DaoBookException {
+	public void deleteBook(String isbn) throws SQLException {
 		this.connection = openConnectionDdbb();
 		Statement instruction = connection.createStatement();
 		this.query = "DELETE FROM articles WHERE isbn='" + isbn +"';";
+		instruction.executeUpdate(query);
 	}
 	
 	
-	public void addBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException, DaoBookException {
+	public void addBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException {
 		this.connection = openConnectionDdbb();
 		Book book = new Book(isbn, title, author, publishedDate, quantity, price);
 		Statement instruction = connection.createStatement();
 		this.query = "INSERT INTO articles VALUES ('" + book.getIsbn() + "','" + book.getTitle() + "','" + book.getAuthor() 
 			+ "','" + book.getPublishedDate() + "','" + book.getQuantity() + "','" + book.getStock() + "';";
 		instruction.executeUpdate(query);
-		if(instruction.executeUpdate(query)==0) { //Preguntar si DaoBookException es necesaria o vale con SQLException
-			throw new DaoBookException("Ya existe un libro con el ISBN introducido.");
-		}
 	}
 
 
@@ -66,7 +63,7 @@ public class DaoBook {
 	
 
 	//PREGUNTAR
-	public void updateBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException, DaoBookException {
+	public void updateBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException {
 		this.connection = openConnectionDdbb();
 		Book book = getBook(isbn);
 		Statement instruction = connection.createStatement();
@@ -77,11 +74,8 @@ public class DaoBook {
 			this.query = "UPDATE articles SET author = '" + book.getAuthor() + "' WHERE isbn ='" + isbn + "';";
 		}
 
-		
 		instruction.executeUpdate(query);
-		if(instruction.executeUpdate(query)==0) { //Preguntar si DaoBookException es necesaria o vale con SQLException
-			throw new DaoBookException("Ya existe un libro con el ISBN introducido.");
-		}
+		
 	}
 	
 	
