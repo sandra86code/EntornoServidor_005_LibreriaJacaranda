@@ -3,7 +3,9 @@
 <%@ page import = "com.jacaranda.articles.DaoBook" %>
 <%@ page import = "com.jacaranda.articles.Book" %>
 <%@ page import="java.util.ArrayList"%>
-<%@page import="java.util.Iterator"%> 
+<%@page import="java.util.Map"%> 
+<%@page import="java.time.LocalDate"%> 
+<%@page import="java.time.format.DateTimeFormatter" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,61 +16,72 @@
 <title>LJ - Actualizar libro</title>
 </head>
 <body>
-	<% 
+	<% //check session
 	HttpSession se = request.getSession();
 	String isSession = (String) session.getAttribute("login");
 	String userSession = (String) session.getAttribute("user");
 	if(isSession != null && userSession !=null && isSession.equals("True")){ 
-		DaoBook daob = new DaoBook();
-		String isbn = request.getParameter("update");
-		try{
-			daob.getBook(isbn);
-		}catch(Exception e){
+   		Map params = request.getParameterMap();
+   		DaoBook daob = new DaoBook();
+   		String isbn = request.getParameter("value");
+   		//if the form has been submited
+		if(params.size()>1){
+			/* String isbn, String title, String author, LocalDate publishedDate, int quantity, double price */
+			String title = request.getParameter("title");
+			String author = request.getParameter("author");
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+			String date = request.getParameter("published_date");
+			LocalDate publishedDate = LocalDate.parse(date, formatter);
+			int quantity = Integer.parseInt(request.getParameter("quantity"));
+			double price = Double.parseDouble(request.getParameter("price"));
+			Book modified = new Book(isbn, title, author, publishedDate, quantity, price);
+			daob.updateBook(isbn, modified); %>
+			<jsp:forward page="confirmUpdate.jsp"></jsp:forward>
+		<%}else{
 			
-		}
+			Book book = null;
+			try{
+				book = daob.getBook(isbn);
+			}catch(Exception e){
+				
+			}
+		
 		%>
 	<section class="get-in-touch">
 		<h1 class="title">Actualizar un libro</h1>
 		<form class="contact-form row" action="updateBook.jsp">
 			<div class="form-field col-lg-6">
-				<!-- Que no se pueda modificar -->
-				<input id="isbn" class="input-text js-input" type="text" value="<%= isbn %>" readonly>
+				<!-- Can't be modified -->
+				<input id="isbn" class="input-text js-input" type="text" name="isbn" value="<%= isbn %>" readonly>
 				<label class="label" for="isbn">ISBN</label>
 			</div>
 			<div class="form-field col-lg-6">
-				<input id="title" class="input-text js-input" type="text" required>
+				<input id="title" class="input-text js-input" type="text" name="title" value="<%= book.getTitle() %>" required>
 				<label class="label" for="title">Título</label>
 			</div>
 			<div class="form-field col-lg-6">
-				<input id="author" class="input-text js-input" type="text" required>
+				<input id="author" class="input-text js-input" type="text" name="author" value="<%= book.getAuthor() %>" required>
 				<label class="label" for="author">Autor</label>
 			</div>
 			<div class="form-field col-lg-6 ">
-				<input id="date" class="input-text js-input" type="date" required>
+				<input id="date" class="input-text js-input" type="date" name="published_date" value="<%= book.getPublishedDate() %>" required>
 				<label class="label" for="date">Fecha de publicación</label>
 			</div>
 			<div class="form-field col-lg-6 ">
-				<input id="price" class="input-text js-input" type="text" required>
+				<input id="price" class="input-text js-input" type="text" name="price" value="<%= book.getPrice() %>" required>
 				<label class="label" for="price">Precio</label>
 			</div>
 			<div class="form-field col-lg-6">
-				<input id="quantity" class="input-text js-input" type="number" required>
+				<input id="quantity" class="input-text js-input" type="number" name="quantity" value="<%= book.getQuantity() %>" required>
 				<label class="label" for="quantity">Cantidad</label>
 			</div>
 			<div class="form-field col-lg-12">
-				<input class="submit-btn" type="submit" value="Submit">
+				<input class="submit-btn" type="submit" value="Actualizar">
 			</div>
 		</form>
 	</section>
-	<%try {
-		//llamarse a si mismo y actualizar datos
-		/* 
-		String isbn, String title, String author, LocalDate publishedDate, int quantity, double price */
-		daob.updateBook(isbn);
-	} catch (Exception e) {
-
-	}
-	}else{%>
+	<%}
+   	}else{%>
 		<jsp:forward page="error.jsp?msg='No estás logueado'"></jsp:forward>
 	<%}%>
 

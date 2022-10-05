@@ -63,17 +63,27 @@ public class DaoBook {
 	
 
 	//PREGUNTAR
-	public void updateBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException {
+	public void updateBook(String isbn, Book modifiedBook) throws BookException, SQLException {
 		this.connection = openConnectionDdbb();
-		Book book = getBook(isbn);
+		Book oldBook = getBook(isbn);
 		Statement instruction = connection.createStatement();
-		if(!book.getTitle().equals(title) && !title.equals("")) {
-			this.query = "UPDATE articles SET title = '" + book.getTitle() + "' WHERE isbn ='" + isbn + "';";
+		
+		if(!oldBook.getTitle().equals(modifiedBook.getTitle())) {
+			this.query = "UPDATE articles SET title = '" + modifiedBook.getTitle() + "' WHERE isbn ='" + isbn + "';";
 		}
-		if(!book.getAuthor().equals(author) && !author.equals("")) {
-			this.query = "UPDATE articles SET author = '" + book.getAuthor() + "' WHERE isbn ='" + isbn + "';";
+		if(!oldBook.getAuthor().equals(modifiedBook.getAuthor())) {
+			this.query = "UPDATE articles SET author = '" + modifiedBook.getAuthor() + "' WHERE isbn ='" + isbn + "';";
 		}
-
+		if(!oldBook.getPublishedDate().equals(modifiedBook.getPublishedDate())) {
+			this.query = "UPDATE articles SET published_date = '" + modifiedBook.getPublishedDate() + "' WHERE isbn ='" + isbn + "';";
+		}
+		if(oldBook.getQuantity()!=(modifiedBook.getQuantity())) {
+			this.query = "UPDATE articles SET quantity = '" + modifiedBook.getQuantity() + "' WHERE isbn ='" + isbn + "';";
+		}
+		if(oldBook.getPrice()!=(modifiedBook.getPrice())) {
+			this.query = "UPDATE articles SET price = '" + modifiedBook.getPrice() + "' WHERE isbn ='" + isbn + "';";
+		}
+		//falta stock
 		instruction.executeUpdate(query);
 		
 	}
