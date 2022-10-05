@@ -43,10 +43,9 @@
 				<jsp:forward
 				page="bookPage.jsp"></jsp:forward>
 				
-			<%} catch (BookException | SQLException e){
-				String message = e.getMessage(); %>
+			<%} catch (Exception e){%>
 				<jsp:forward
-				page="error.jsp?msg='<%=message %>.'"></jsp:forward>
+				page="error.jsp?msg='No se ha podido añadir el libro.'"></jsp:forward>
 			<%}
 			
 		}

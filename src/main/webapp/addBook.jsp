@@ -24,7 +24,18 @@ function TDate() {
     return true;
 }
 
+function onSubmit(){
+    return false;
+}
+function confirmAdd() {
+   	if (confirm("¿Estás seguro/a de querer añadir el libro?")) {
+    	document.getElementById("addBookForm").submit();
+    } else {
+    	window.location='bookPage.jsp'
+    }
+}
 </script>
+
 
 </head>
 <body>
@@ -37,7 +48,7 @@ function TDate() {
 
 	<section class="get-in-touch">
 		<h1 class="title">Añadir libro</h1>
-		<form class="contact-form row" action="addBookPersist.jsp" method="post">
+		<form class="contact-form row" id="addBookForm" action="addBookPersist.jsp" method="post" onSubmit="return onSubmit();">
 			<div class="form-field col-lg-6">
 				<input id="isbn" class="input-text js-input" type="text" name="isbn" maxlength="10" minlength="10" required>
 				<label class="label" for="isbn">ISBN</label>
@@ -52,7 +63,7 @@ function TDate() {
 			</div>
 			<div class="form-field col-lg-6 ">
 				<input id="published_date" class="input-text js-input" name="published_date" type="date" onclick="TDate()" required> 
-				<label class="label" for="published_date">Fecha de publicación (dd/mm/aaaa)</label>
+				<label class="label" for="published_date">Fecha de publicación</label>
 			</div>
 			<div class="form-field col-lg-6">
 				<input id="quantity" class="input-text js-input" type="number" name="quantity" step="1" min="0" required> 
@@ -63,12 +74,12 @@ function TDate() {
 				<label class="label" for="price">Precio</label>
 			</div>
 			<div class="form-field col-lg-12">
-				<input class="submit-btn" type="submit" value="Añadir">
+				<button class="submit-btn" type="submit"  name="addBook" onclick="confirmAdd()">Añadir</button>
 			</div>
 			<div class="form-field col-lg-12">
-				<input class="back-btn" type="submit" onclick="history.back()"
-					value="Cancelar">
+				<button id="returnButton" class="back-btn" type="submit"  onclick="javascript:window.location='bookPage.jsp';" >Cancelar</button>
 			</div>
+			
 		</form>
 	</section>
 
