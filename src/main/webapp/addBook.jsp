@@ -11,6 +11,21 @@
 <meta charset="UTF-8">
 <title>Formulario para añadir libro</title>
 <link href="css/addBook.css" rel="stylesheet" id="bootstrap-css">
+<script>
+
+function TDate() {
+    var UserDate = document.getElementById("published_date").value;
+    var ToDate = new Date();
+
+    if (new Date(UserDate).getTime() > ToDate.getTime()) {
+          alert("La fecha de publicación ha de ser menor o igual a la fecha actual.");
+          return false;
+     }
+    return true;
+}
+
+</script>
+
 </head>
 <body>
 
@@ -24,29 +39,28 @@
 		<h1 class="title">Añadir libro</h1>
 		<form class="contact-form row" action="addBookPersist.jsp" method="post">
 			<div class="form-field col-lg-6">
-				<input id="isbn" class="input-text js-input" type="text"  name ="isbn" required>
+				<input id="isbn" class="input-text js-input" type="text" name="isbn" maxlength="10" minlength="10" required>
 				<label class="label" for="isbn">ISBN</label>
 			</div>
 			<div class="form-field col-lg-6 ">
-				<input id="title" class="input-text js-input" type="text" name="title" required>
+				<input id="title" class="input-text js-input" type="text" name="title" maxlength="50" minlength="1" required>
 				<label class="label" for="title">Título</label>
 			</div>
 			<div class="form-field col-lg-6 ">
-				<input id="author" class="input-text js-input" type="text" name="author" required>
+				<input id="author" class="input-text js-input" type="text" name="author"  maxlength="50" minlength="1" required>
 				<label class="label" for="author">Autor</label>
 			</div>
+			<div class="form-field col-lg-6 ">
+				<input id="published_date" class="input-text js-input" name="published_date" type="date" onclick="TDate()" required> 
+				<label class="label" for="published_date">Fecha de publicación (dd/mm/aaaa)</label>
+			</div>
 			<div class="form-field col-lg-6">
-				<input id="quantity" class="input-text js-input" type="number" name="quantity" required> 
+				<input id="quantity" class="input-text js-input" type="number" name="quantity" step="1" min="0" required> 
 				<label class="label" for="quantity">Cantidad</label>
 			</div>
 			<div class="form-field col-lg-6 ">
-				<input id="price" class="input-text js-input" name="price" type="number" step="any" required>
+				<input id="price" class="input-text js-input" name="price" type="number" step="0.01" required>
 				<label class="label" for="price">Precio</label>
-			</div>
-			<div class="form-field col-lg-6 ">
-				<input id="published_date" class="input-text js-input" name="published_date" type="text" required> 
-				<label class="label" for="published_date">Fecha
-					de publicación (dd/mm/aaaa)</label>
 			</div>
 			<div class="form-field col-lg-12">
 				<input class="submit-btn" type="submit" value="Añadir">

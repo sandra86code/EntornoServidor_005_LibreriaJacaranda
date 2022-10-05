@@ -20,7 +20,6 @@
 	if(isSession != null && userSession !=null && isSession.equals("True")){
 	
 		String empty = "";
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 									
 		String newIsbn = request.getParameter("isbn");
 		String newTitle = request.getParameter("title");
@@ -35,7 +34,7 @@
 			<jsp:forward
 				page="error.jsp?msg='Los campos no son correctos.'"></jsp:forward>
 		<% } else {
-			LocalDate date = LocalDate.parse(newPublished_date, formatter);
+			LocalDate date = LocalDate.parse(newPublished_date);
 			
 			DaoBook newDaoBook = new DaoBook();
 			
@@ -44,9 +43,10 @@
 				<jsp:forward
 				page="bookPage.jsp"></jsp:forward>
 				
-			<%} catch (BookException | SQLException e){%>
+			<%} catch (BookException | SQLException e){
+				String message = e.getMessage(); %>
 				<jsp:forward
-				page="error.jsp?msg='No se ha podido agregar el libro.'"></jsp:forward>
+				page="error.jsp?msg='<%=message %>.'"></jsp:forward>
 			<%}
 			
 		}
