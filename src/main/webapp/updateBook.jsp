@@ -23,23 +23,22 @@
 	if(isSession != null && userSession !=null && isSession.equals("True")){ 
    		Map params = request.getParameterMap();
    		DaoBook daob = new DaoBook();
-   		String isbn = request.getParameter("isbn");
+   		
    		//if the form has been submited
 		if(params.size()>1){
-			/* String isbn, String title, String author, LocalDate publishedDate, int quantity, double price */
+			//save the values
+			String isbn = request.getParameter("isbn");
 			String title = request.getParameter("title");
 			String author = request.getParameter("author");
-			//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-			String date = request.getParameter("published_date");
 			LocalDate publishedDate = LocalDate.parse(request.getParameter("published_date"));
 			int quantity = Integer.parseInt(request.getParameter("quantity"));
 			double price = Double.parseDouble(request.getParameter("price"));
-			//isbn repetido, cambiar
-			Book modified = new Book(isbn, title, author, publishedDate, quantity, price);
+			//create a book without isbn and use the java update function
+			Book modified = new Book(title, author, publishedDate, quantity, price);
 			daob.updateBook(isbn, modified); %>
-			<jsp:forward page="confirmUpdate.jsp"></jsp:forward>
+			<jsp:forward page="confirmUpdate.jsp"><jsp:param name="isbn" value="<%= isbn %>"/></jsp:forward>
 		<%}else{
-			
+			String isbn = request.getParameter("value");
 			Book book = null;
 			try{
 				book = daob.getBook(isbn);
