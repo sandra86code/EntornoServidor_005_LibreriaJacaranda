@@ -49,9 +49,6 @@ public class DaoBook {
 		}
 	}
 
-
-	
-	
 	
 	public Book getBook(String isbn) throws SQLException {
 		this.connection = openConnectionDdbb();
