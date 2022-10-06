@@ -10,7 +10,7 @@
 <body>
 	<%String user = request.getParameter("user");
 	String password = request.getParameter("password");
-	//DaoUser data = new DaoUser();
+	
 	if(DaoUser.userIsValid(user, password)){
 		HttpSession sesion = request.getSession();
 		session.setAttribute("login", "True");

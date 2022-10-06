@@ -29,7 +29,7 @@
 				<h1>Oops!</h1>
 				<h2><%= request.getParameter("msg") %></h2>
 			</div>
-			<a href="login.jsp">volver</a>
+			<a href="bookPage.jsp">volver</a>
 		</div>
 	</div>
 

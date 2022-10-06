@@ -75,15 +75,16 @@ body {
   color: #fff;
   text-transform: uppercase;
   padding: 13px 23px;
-  background: #ff6300;
-  font-size: 18px;
+  background-color: #000;
+  background-image: linear-gradient(125deg,#a72879,#064497);
+  font-size: 28px;
   -webkit-transition: 0.2s all;
   transition: 0.2s all;
 }
 
 .notfound a:hover {
-  color: #ff6300;
-  background: #211b19;
+  color:#a72879;
+  background:#064497;
 }
 
 @media only screen and (max-width: 767px) {

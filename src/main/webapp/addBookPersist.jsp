@@ -32,7 +32,7 @@
 		if(newIsbn == null || empty.equals(newIsbn.trim()) || newTitle == null || empty.equals(newTitle.trim()) || newAuthor == null || empty.equals(newAuthor.trim()) ||
 		newPublished_date == null || empty.equals(newPublished_date) || newQuantity < 0 || newPrice < 0){%>
 			<jsp:forward
-				page="error.jsp?msg='Los campos no son correctos.'"></jsp:forward>
+				page="errorAddBook.jsp?msg='Los campos no son correctos.'"></jsp:forward>
 		<% } else {
 			LocalDate date = LocalDate.parse(newPublished_date);
 			
@@ -45,7 +45,7 @@
 				
 			<%} catch (Exception e){%>
 				<jsp:forward
-				page="error.jsp?msg='No se ha podido añadir el libro.'"></jsp:forward>
+				page="errorAddBook.jsp?msg='No se ha podido añadir el libro.'"></jsp:forward>
 			<%}
 			
 		}
