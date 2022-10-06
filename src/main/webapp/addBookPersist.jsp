@@ -4,7 +4,7 @@
 <%@page import="com.jacaranda.articles.BookException"%>
 <%@page import="com.jacaranda.articles.DaoBook"%>
 <%@page import="java.time.LocalDate"%>
-<%@page import="java.time.format.DateTimeFormatter"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +29,7 @@
 		double newPrice = Double.parseDouble(request.getParameter("price"));
 		
 		
-		if(newIsbn == null || empty.equals(newIsbn) || newTitle == null || empty.equals(newTitle) || newAuthor == null || empty.equals(newAuthor) ||
+		if(newIsbn == null || empty.equals(newIsbn.trim()) || newTitle == null || empty.equals(newTitle.trim()) || newAuthor == null || empty.equals(newAuthor.trim()) ||
 		newPublished_date == null || empty.equals(newPublished_date) || newQuantity < 0 || newPrice < 0){%>
 			<jsp:forward
 				page="error.jsp?msg='Los campos no son correctos.'"></jsp:forward>

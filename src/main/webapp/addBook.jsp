@@ -2,7 +2,6 @@
 <%@page import="com.jacaranda.articles.BookException"%>
 <%@page import="com.jacaranda.articles.DaoBook"%>
 <%@page import="java.time.LocalDate"%>
-<%@page import="java.time.format.DateTimeFormatter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,18 +11,15 @@
 <title>Formulario para añadir libro</title>
 <link href="css/addBook.css" rel="stylesheet" id="bootstrap-css">
 <script>
-
 function TDate() {
     var UserDate = document.getElementById("published_date").value;
     var ToDate = new Date();
-
     if (new Date(UserDate).getTime() > ToDate.getTime()) {
           alert("La fecha de publicación ha de ser menor o igual a la fecha actual.");
           return false;
      }
     return true;
 }
-
 function onSubmit(){
     return false;
 }
@@ -75,10 +71,9 @@ function confirmAdd() {
 			</div>
 			<div class="form-field col-lg-12">
 				<button class="submit-btn" type="submit"  name="addBook" onclick="confirmAdd()">Añadir</button>
-			</div>
-			<div class="form-field col-lg-12">
 				<button id="returnButton" class="back-btn" type="submit"  onclick="javascript:window.location='bookPage.jsp';" >Cancelar</button>
 			</div>
+		
 			
 		</form>
 	</section>
