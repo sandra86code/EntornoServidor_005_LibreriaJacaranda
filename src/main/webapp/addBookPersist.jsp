@@ -43,9 +43,9 @@
 				<jsp:forward
 				page="bookPage.jsp"></jsp:forward>
 				
-			<%} catch (Exception e){%>
-				<jsp:forward
-				page="errorAddBook.jsp?msg='No se ha podido añadir el libro.'"></jsp:forward>
+			<%} catch (Exception e){
+					String message = e.getMessage();%>
+				<jsp:forward page="errorAddBook.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward>
 			<%}
 			
 		}

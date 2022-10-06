@@ -27,7 +27,7 @@
 		<div class="notfound">
 			<div class="notfound-404">
 				<h1>Oops!</h1>
-				<h2><%= request.getParameter("msg") %></h2>
+				<h2><%= request.getParameter("error") %></h2>
 			</div>
 			<a href="bookPage.jsp">volver</a>
 		</div>

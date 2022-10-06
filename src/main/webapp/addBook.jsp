@@ -28,27 +28,6 @@ today = yyyy + '-' + mm + '-' + dd;
 document.getElementById("published_date").setAttribute("max", today);
 }
 
-/* function TDate() {
-    var UserDate = document.getElementById("published_date").value;
-    var ToDate = new Date();
-    if (new Date(UserDate).getTime() > ToDate.getTime()) {
-          alert("La fecha de publicación ha de ser menor o igual a la fecha actual.");
-          return false;
-     }
-    return true;
-} */
-/* function onSubmit(){
-    return false;
-}
-function confirmAdd() {
-   	if (confirm("¿Estás seguro/a de querer añadir el libro?")) {
-    	document.getElementById("addBookForm").submit();
-    } else {
-    	window.location='bookPage.jsp'
-    }
-   	
-   	onclick="confirmAdd()"
-} */
 </script>
 </head>
 
@@ -93,7 +72,6 @@ function confirmAdd() {
 				<button id="returnButton" class="back-btn" type="submit"  onclick="javascript:window.location='bookPage.jsp';" >Cancelar</button>
 			</div>
 		
-			
 		</form>
 	</section>
 

@@ -17,7 +17,7 @@
 		session.setAttribute("user", user);%>
 		<jsp:forward page="bookPage.jsp"></jsp:forward>
 	<%}else{%>
-		<jsp:forward page="error.jsp?msg='El usuario o la contraseña no son correctos'"></jsp:forward>
+		<jsp:forward page="error.jsp?msg='El usuario o la clave no son correctos'"></jsp:forward>
 	<%}%>
 </body>
 </html>
