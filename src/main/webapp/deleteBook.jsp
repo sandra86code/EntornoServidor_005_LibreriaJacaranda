@@ -69,8 +69,8 @@ function confirmDelete() {
 				<td><%=bookDetails.getStockYN()%></td>
 			</tr>
 		</table>
-		<button type="submit" name="deleteBook" value="deleteBook" onclick="confirmDelete()">Borrar libro</button>
-		<button id="returnButton" class="returnButton" role="link" onclick="javascript:window.location='bookPage.jsp';">Volver</button>
+		<button type="submit" name="deleteBook" value="deleteBook" onclick="confirmDelete()">Borrar</button>
+		<button id="returnButton" class="returnButton" role="link" onclick="javascript:window.location='bookPage.jsp';">Cancelar</button>
 		</form>
 	<%} else {
 		%><jsp:forward page="error.jsp?msg='No te has logueado.'"></jsp:forward><%

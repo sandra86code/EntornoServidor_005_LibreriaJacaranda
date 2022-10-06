@@ -59,7 +59,7 @@ public class DaoUser {
 		
 		Connection conexion = accessDDBB();
 		Statement instruccion = conexion.createStatement();
-		ResultSet users = instruccion.executeQuery("Select * from users where userCod like '" + code + "' and pasword like '"+ key + "';");
+		ResultSet users = instruccion.executeQuery("Select * from users where userCod like BINARY '" + code + "' and pasword like BINARY '"+ key + "';");
 		
 		if(users.next()) {
 			result = true;
