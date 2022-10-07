@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Book database</title>
+<title>LJ - Listado de libros</title>
 <link rel="stylesheet" type="text/css" href="css/bookPage.css">
 </head>
 <body>
