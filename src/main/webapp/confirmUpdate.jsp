@@ -26,7 +26,7 @@
 		}%>
 		<section class="get-in-touch">
 		<h1 class="title">Datos actualizados</h1>
-		<form class="contact-form row">
+		<form class="contact-form row" method="post">
 		<table>
 			<tr class="form-field col-md-6">
 				<td class="labelTable">ISBN</td>
