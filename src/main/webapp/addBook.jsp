@@ -77,7 +77,7 @@ document.getElementById("published_date").setAttribute("max", today);
 
 	<%}else {%>
 	<jsp:forward
-		page="error.jsp?msg='Debes iniciar sesión para realizar cualquier cambio.'"></jsp:forward>
+		page="error.jsp?msg='No te has logueado.'"></jsp:forward>
 <%}%>
 <script
 	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
