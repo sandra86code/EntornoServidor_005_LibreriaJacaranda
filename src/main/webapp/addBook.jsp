@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>LJ - Añadir libro</title>
-<link href="css/addBook.css" rel="stylesheet" id="bootstrap-css">
+<link href="css/forms.css" rel="stylesheet" id="bootstrap-css">
 <script>
 
 function TDate() {
