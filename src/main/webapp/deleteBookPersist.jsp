@@ -15,9 +15,16 @@
 	if(isSession != null && userSession!=null && isSession.equals("True")){
 		String isbn = request.getParameter("isbn"); 
 		DaoBook daob = new DaoBook();
-		daob.deleteBook(isbn);%>
-		<jsp:forward page="bookPage.jsp"></jsp:forward>
-	<%} else {
+		try {
+			daob.deleteBook(isbn);
+			%>
+			<jsp:forward page="bookPage.jsp"></jsp:forward>
+		<%
+		}catch (Exception e) {
+			String message = e.getMessage();
+			%><jsp:forward page="error.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward><%
+		}
+	} else {
 		%><jsp:forward page="error.jsp?msg='No te has logueado.'"></jsp:forward><%
 	}%>
 	
