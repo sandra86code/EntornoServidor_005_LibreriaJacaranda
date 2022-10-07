@@ -27,7 +27,12 @@
 		<div class="notfound">
 			<div class="notfound-404">
 				<h1>Oops!</h1>
-				<h2><%= request.getParameter("msg") %></h2>
+				<%String message = request.getParameter("msg");
+				if (message==null) {
+					message = "";
+				}
+				%>
+				<h2><%= message %></h2>
 			</div>
 			<a href="login.jsp">volver</a>
 		</div>

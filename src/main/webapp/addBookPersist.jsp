@@ -45,14 +45,14 @@
 				
 			<%} catch (Exception e){
 					String message = e.getMessage();%>
-				<jsp:forward page="errorAddBook.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward>
+				<jsp:forward page="errorPersistBook.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward>
 			<%}
 			
 		}
 
 	} else {%>
 	<jsp:forward
-		page="error.jsp?msg='Debes iniciar sesión para realizar cualquier cambio.'"></jsp:forward>
+		page="error.jsp?msg='No te has autenticado.'"></jsp:forward>
 	<%}%>
 
 
