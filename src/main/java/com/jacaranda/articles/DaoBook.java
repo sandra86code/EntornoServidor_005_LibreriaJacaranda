@@ -138,7 +138,12 @@ public class DaoBook {
 		if(oldBook.getPrice()!=(modifiedBook.getPrice())) {
 			this.query = "UPDATE articles SET price = '" + modifiedBook.getPrice() + "' WHERE isbn ='" + isbn + "';";
 		}
-		instruction.executeUpdate(query);
+		if(query!="") {
+			instruction.executeUpdate(query);
+		}else {
+			throw new SQLException("No se han realizado modificaciones.");
+		}
+		
 		
 	}
 	
