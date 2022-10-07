@@ -27,8 +27,15 @@ public class Book {
 	public Book() {
 		
 	}
-
-
+	//Constructor without ISBN for the update validation
+	public Book(String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException {
+		this.setTitle(title);
+		this.setAuthor(author);
+		this.setPublishedDate(publishedDate);
+		this.setQuantity(quantity);
+		this.setPrice(price);
+		this.setStock(quantity);
+	}
 	public Book(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException {
 		super();
 		this.setIsbn(isbn);
@@ -112,7 +119,7 @@ public class Book {
 	}
 	
 	private void setIsbn(String isbn) throws BookException {
-		String expression = "\'[1-9\']\'[0-9\']{9}";
+		String expression = "[0-9]{10}";
 		if(isbn.matches(expression)) {
 			this.isbn = isbn;
 		}else {

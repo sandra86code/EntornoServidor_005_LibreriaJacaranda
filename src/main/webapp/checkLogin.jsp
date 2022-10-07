@@ -10,14 +10,14 @@
 <body>
 	<%String user = request.getParameter("user");
 	String password = request.getParameter("password");
-	//DaoUser data = new DaoUser();
+	
 	if(DaoUser.userIsValid(user, password)){
 		HttpSession sesion = request.getSession();
 		session.setAttribute("login", "True");
 		session.setAttribute("user", user);%>
 		<jsp:forward page="bookPage.jsp"></jsp:forward>
 	<%}else{%>
-		<jsp:forward page="error.jsp?msg='El usuario o la contraseña no son correctos'"></jsp:forward>
+		<jsp:forward page="error.jsp?msg='El usuario o la clave no son correctos'"></jsp:forward>
 	<%}%>
 </body>
 </html>

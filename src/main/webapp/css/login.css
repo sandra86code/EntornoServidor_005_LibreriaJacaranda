@@ -12,23 +12,28 @@ body, html {
 }
 
 #container{
-	background-image:url("../images/bg-01.jpg");
-	width: 100%;
-	height: 100%;
-	justify-content:center;
-	align-items:center;
-	padding: 15px;
+	position: relative;
+	background-image: url(../images/bg-01.jpg);
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
 }
 
 #loginBox{
-	position: relative;
-	float: left;
+	position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
 	background: #fff;
 	width:80%;
 	height: 80%;
 	border-radius: 10px;
-	margin-left:10%;
-	margin-top:15px;
+	
 }
 
 #loginForm{
@@ -84,19 +89,20 @@ button:hover {
 }
 
 #loginButton{
-	position:relative;
-	font-family: Poppins-Medium;
- 	font-size: 16px;
- 	color: #fff;
- 	border-color: #fff;
- 	line-height: 1.2;
- 	text-transform: uppercase;
- 	justify-content: center;
- 	align-items: center;
-  	width: 80%;
-  	height: 50px;
-  	background-image:url("../images/bg-01.jpg");
-  	border-radius: 10px;
-  	margin-top:20px;
-  	margin-left:10%;
-}
+	position: relative;
+    font-family: Poppins-Medium;
+    font-size: 28px;
+    color: #fff;
+    border-color: #fff;
+    line-height: 1.2;
+    text-transform: uppercase;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 50px;
+    background-image: url(../images/bg-01.jpg);
+    background-size: 100%;
+    border-radius: 10px;
+    margin-top: 3%;
+    margin-left: 10%;
+    }
