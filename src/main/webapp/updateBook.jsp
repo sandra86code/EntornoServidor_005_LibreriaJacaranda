@@ -35,7 +35,6 @@
 			double price = Double.parseDouble(request.getParameter("price"));
 			//create a book without isbn and use the java update function
 			Book modified = new Book(title, author, publishedDate, quantity, price);
-<<<<<<< HEAD
 			try {
 				daob.updateBook(isbn, modified); 
 				%><jsp:forward page="confirmUpdate.jsp"><jsp:param name="isbn" value="<%= isbn %>"/></jsp:forward><%
@@ -44,16 +43,6 @@
 				%><jsp:forward page="errorPersistBook.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward><%
 			}
 		}else{
-=======
-			try{
-				daob.updateBook(isbn, modified);
-			}catch(Exception e){
-				%><jsp:forward page="errorBackToTable.jsp"><jsp:param name="error" value="No se ha modificado ninguno de los campos"/></jsp:forward><%
-			}
-			%>
-			<jsp:forward page="confirmUpdate.jsp"><jsp:param name="isbn" value="<%= isbn %>"/></jsp:forward>
-		<%}else{
->>>>>>> de17e89b04546e91415f1c5b23dba37dbea41a4e
 			String isbn = request.getParameter("value");
 			Book book = null;
 			try{
