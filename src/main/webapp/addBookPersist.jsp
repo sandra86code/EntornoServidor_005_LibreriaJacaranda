@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Añadir Libro</title>
+<title>LJ - Añadir libro</title>
 </head>
 <body>
 

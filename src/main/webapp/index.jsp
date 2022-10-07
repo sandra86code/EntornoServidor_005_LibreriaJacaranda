@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Login - Librería Jacaranda</title>
+<title>LJ - Login</title>
 <link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
 <body>

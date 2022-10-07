@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Formulario para eliminar libro</title>
+<title>LJ - Eliminar libro</title>
 <link href="css/addBook.css" rel="stylesheet" id="bootstrap-css">
 <script>
 function onSubmit(){

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Borrado</title>
+<title>LJ - Libro borrado</title>
 </head>
 <body>
 	<%

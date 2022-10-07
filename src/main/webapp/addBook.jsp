@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Formulario para añadir libro</title>
+<title>LJ - Añadir libro</title>
 <link href="css/addBook.css" rel="stylesheet" id="bootstrap-css">
 <script>
 
