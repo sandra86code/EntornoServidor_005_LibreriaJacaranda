@@ -67,7 +67,7 @@ public class DaoBook {
 	}
 	
 
-	//PREGUNTAR
+	//can be done with hashmap
 	public void updateBook(String isbn, Book modifiedBook) throws BookException, SQLException {
 		this.connection = openConnectionDdbb();
 		Book oldBook = getBook(isbn);

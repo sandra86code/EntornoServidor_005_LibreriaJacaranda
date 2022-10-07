@@ -38,7 +38,7 @@ public class User {
 		this.password = password;
 	}
 	
-	//Dos usuarios serán iguales si tienen el mismo código de usuario
+	//Two users will be equals if they have the same userCod
 	@Override
 	public int hashCode() {
 		return Objects.hash(userCod);

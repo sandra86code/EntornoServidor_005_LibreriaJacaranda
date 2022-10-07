@@ -37,12 +37,19 @@
 }
 .contact-form .input-text:focus {
   outline: none;
-}
-.contact-form .input-text:focus + .label,
-.contact-form .input-text.not-empty + .label {
+} 
+
+.contact-form .input-text + .label,
+.contact-form .input-text.not-empty + .label { /*maybe omit this line for the add form*/
   -webkit-transform: translateY(-24px);
           transform: translateY(-24px);
 }
+/* original form
+.contact-form .input-text:focus + .label,
+.contact-form .input-text.not-empty + .label {
+  -webkit-transform: translateY(-24px);
+          transform: translateY(-24px); 
+} */
 .contact-form .label {
   position: absolute;
   left: 20px;
@@ -55,7 +62,7 @@
   transition: -webkit-transform .2s ease-in-out;
   transition: transform .2s ease-in-out;
   transition: transform .2s ease-in-out, 
-  -webkit-transform .2s ease-in-out;
+  -webkit-transform .2s ease-in-out; 
 }
 .contact-form .submit-btn {
   display: inline-block;
