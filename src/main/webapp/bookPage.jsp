@@ -79,7 +79,7 @@
 	</div>
 	</div>
 	<%} else {
-		%><jsp:forward page="error.jsp?msg='No te has logueado.'"></jsp:forward><%
+		%><jsp:forward page="error.jsp?msg='No te has autenticado.'"></jsp:forward><%
 	}%>
 	
 </body>
