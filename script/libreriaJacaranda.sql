@@ -6,7 +6,7 @@
 CREATE TABLE users
 (
 userCod VARCHAR(20),
-pasword	VARCHAR(10),
+password	VARCHAR(10),
 
 CONSTRAINT pk_users PRIMARY KEY (userCod)
 );

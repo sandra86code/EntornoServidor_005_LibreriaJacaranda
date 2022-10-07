@@ -32,7 +32,7 @@
 		if(newIsbn == null || empty.equals(newIsbn.trim()) || newTitle == null || empty.equals(newTitle.trim()) || newAuthor == null || empty.equals(newAuthor.trim()) ||
 		newPublished_date == null || empty.equals(newPublished_date) || newQuantity < 0 || newPrice < 0){%>
 			<jsp:forward
-				page="errorAddBook.jsp?msg='Los campos no son correctos.'"></jsp:forward>
+				page="errorAddBook.jsp?msg='Los campos no son correctos'"></jsp:forward>
 		<% } else {
 			LocalDate date = LocalDate.parse(newPublished_date);
 			
@@ -45,14 +45,14 @@
 				
 			<%} catch (Exception e){
 					String message = e.getMessage();%>
-				<jsp:forward page="errorPersistBook.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward>
+				<jsp:forward page="errorBackToTable.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward>
 			<%}
 			
 		}
 
 	} else {%>
 	<jsp:forward
-		page="error.jsp?msg='No te has autenticado.'"></jsp:forward>
+		page="error.jsp?msg='No te has autenticado'"></jsp:forward>
 	<%}%>
 
 

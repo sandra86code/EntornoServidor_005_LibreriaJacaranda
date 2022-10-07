@@ -26,7 +26,7 @@
 			bookList = daob.getBooks();
 		} catch (Exception e) {
 			String message = e.getMessage();
-			%><jsp:forward page="error.jsp?msg='<%=message%>'"></jsp:forward><%
+			%><jsp:forward page="error.jsp"><jsp:param name="msg" value="<%= message %>"/></jsp:forward><%
 		}%>
 			
 			<div id="headingTitle">
@@ -79,7 +79,7 @@
 	</div>
 	</div>
 	<%} else {
-		%><jsp:forward page="error.jsp?msg='No te has autenticado.'"></jsp:forward><%
+		%><jsp:forward page="error.jsp?msg='No te has autenticado'"></jsp:forward><%
 	}%>
 	
 </body>
