@@ -66,7 +66,7 @@ public class DaoUser {
 		Statement instruccion = connection.createStatement();
 		ResultSet usersSet = instruccion.executeQuery("Select * from users;");
 		while(usersSet.next()) {
-			User u = new User(usersSet.getString("userCod"), usersSet.getString("pasword"));
+			User u = new User(usersSet.getString("userCod"), usersSet.getString("password"));
 			result.add(u);
 		}
 		return result;
@@ -84,7 +84,7 @@ public class DaoUser {
 		ResultSet userSet = instruccion.executeQuery("Select * from users where userCod like '" + userCod + "';");
 		
 		while(userSet.next()) {
-			result = new User(userSet.getString("userCod"), userSet.getString("pasword"));		
+			result = new User(userSet.getString("userCod"), userSet.getString("password"));		
 		}
 		return result;
 	}
@@ -99,7 +99,7 @@ public class DaoUser {
 	public static boolean userIsValid(String code, String key) throws SQLException {
 		boolean result = false;
 		Statement instruccion = connection.createStatement();
-		ResultSet userSet = instruccion.executeQuery("Select * from users where userCod like BINARY '" + code + "' and pasword like BINARY '"+ key + "';");
+		ResultSet userSet = instruccion.executeQuery("Select * from users where userCod like BINARY '" + code + "' and password like BINARY '"+ key + "';");
 		
 		if(userSet.next()) {
 			result = true;

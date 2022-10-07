@@ -157,7 +157,7 @@ public class Book {
 		if(isbn.matches(expression)) {
 			this.isbn = isbn;
 		}else {
-			throw new BookException("ISBN incorrecto.");
+			throw new BookException("ISBN incorrecto");
 		}
 	}
 
@@ -167,10 +167,10 @@ public class Book {
 	 * @throws BookException lanza la excepción cuando la fecha es posterior o igual a la fecha actual
 	 */
 	private void setPublishedDate(LocalDate publishedDate) throws BookException {
-		if(publishedDate.isBefore(LocalDate.now())) {
+		if(!publishedDate.isAfter(LocalDate.now())) {
 			this.publishedDate = publishedDate;
 		}else {
-			throw new BookException("Fecha incorrecta.");
+			throw new BookException("Fecha incorrecta");
 		}
 	}
 
@@ -183,7 +183,7 @@ public class Book {
 		if(quantity>=0) {
 			this.quantity = quantity;
 		}else {
-			throw new BookException("Cantidad incorrecta.");
+			throw new BookException("Cantidad incorrecta");
 		}
 	}
 
@@ -196,7 +196,7 @@ public class Book {
 		if(price>0.0) {
 			this.price = price;
 		}else {
-			throw new BookException("Precio incorrecto.");
+			throw new BookException("Precio incorrecto");
 		}
 	}
 	
@@ -207,7 +207,7 @@ public class Book {
 	 */
 	private void setTitle(String title) throws BookException {
 		if(title.isBlank() || title.isEmpty()) {
-			throw new BookException("El titulo no puede estar vacio."); //Sin tildes porque sino las entiende el jsp al saltar el error
+			throw new BookException("El titulo no puede estar vacio"); //Sin tildes porque sino las entiende el jsp al saltar el error
 		}else {
 			this.title = title;
 		}
@@ -220,7 +220,7 @@ public class Book {
 	 */
 	private void setAuthor(String author) throws BookException {
 		if(author.isBlank() || author.isEmpty()) {
-			throw new BookException("El autor no puede estar vacio."); //Sin tildes porque sino las entiende el jsp al saltar el error
+			throw new BookException("El autor no puede estar vacio"); //Sin tildes porque sino las entiende el jsp al saltar el error
 		}else {
 			this.author = author;
 		}
@@ -239,7 +239,7 @@ public class Book {
 		}else if(this.quantity==0){
 			this.stock = false;
 		}else {
-			throw new BookException("Cantidad incorrecta.");
+			throw new BookException("Cantidad incorrecta");
 		}
 	}
 

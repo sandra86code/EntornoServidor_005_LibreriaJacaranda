@@ -61,7 +61,7 @@ public class DaoBook {
 		this.query = "DELETE FROM articles WHERE isbn='" + isbn +"';";
 		int affectedRows = instruction.executeUpdate(query);
 		if(affectedRows == 0) {
-			throw new SQLException("No se ha podido eliminar el libro.");
+			throw new SQLException("No se ha podido eliminar el libro");
 		}
 	}
 	
@@ -86,7 +86,7 @@ public class DaoBook {
 			this.query = "INSERT INTO articles VALUES ('" + book.getIsbn() + "','" + book.getTitle() + "','" + book.getAuthor() + "','" + book.getPublishedDate() + "'," + book.getQuantity() + ", " + book.getPrice()+ ", " + book.getStock() + ");";
 			instruction.executeUpdate(query);
 		} else {
-			throw new BookException("El libro ya existe en la base de datos.");
+			throw new BookException("El libro ya existe en la base de datos");
 		}
 	}
 
@@ -141,7 +141,7 @@ public class DaoBook {
 		if(query!="") {
 			instruction.executeUpdate(query);
 		}else {
-			throw new SQLException("No se han realizado modificaciones.");
+			throw new SQLException("No se han realizado modificaciones");
 		}
 		
 		

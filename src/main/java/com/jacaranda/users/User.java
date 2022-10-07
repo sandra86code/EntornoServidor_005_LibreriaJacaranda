@@ -13,9 +13,9 @@ public class User {
 	
 	public User(String userCod, String password) throws UserException {
 		if(userCod.length()>20) {
-			throw new UserException("El código de usuario es demadiado largo");
+			throw new UserException("El usuario es demadiado largo");
 		}else if(password.length()>10){
-			throw new UserException("La contraseña es demasiado larga");
+			throw new UserException("La clave es demasiado larga");
 		}else {
 			this.userCod = userCod;
 			this.password = password;	
