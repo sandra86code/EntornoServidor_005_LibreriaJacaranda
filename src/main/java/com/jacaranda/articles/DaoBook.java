@@ -148,7 +148,7 @@ public class DaoBook {
 	}
 	
 	/**
-	 * Método que un ArrayList con todos los libros que existan en la base de datos
+	 * Método que crea un ArrayList con todos los libros que existan en la base de datos
 	 * @return el arraylist
 	 * @throws SQLException lanza la excepción cuando no se ejecute la sentencia con la base de datos
 	 * @throws NumberFormatException lanza la excepción cuando la fecha de publicación no sea correcta
