@@ -8,15 +8,27 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Clase que interactúa con la base de datos
+ * @author sandra
+ *
+ */
 public class DaoBook {
 	
 	private Connection connection;
 	private String query = "";
 
+	/**
+	 * Constructor vacío
+	 */
 	public DaoBook() {
-		this.connection = null;
+		super();
 	}
 	
+	/**
+	 * Método que abre la conexión a la base de datos
+	 * @return el objeto Connection
+	 */
 	private Connection openConnectionDdbb() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -27,6 +39,22 @@ public class DaoBook {
 		return connection;
 	}
 	
+	/**
+	 * Método que cierra la conexión con la base de datos
+	 */
+	public void closeConnectionDdbb() {
+		try {
+			this.connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Método que borra un libro en la base de datos a partir de su ISBN
+	 * @param isbn el ISBN del libro
+	 * @throws SQLException lanza excepción cuando no se haya podido eliminar el libro
+	 */
 	public void deleteBook(String isbn) throws SQLException {
 		this.connection = openConnectionDdbb();
 		Statement instruction = connection.createStatement();
@@ -37,7 +65,17 @@ public class DaoBook {
 		}
 	}
 	
-	
+	/**
+	 * Método que añade un libro a la base de datos
+	 * @param isbn el ISBN del libro
+	 * @param title el título del libro
+	 * @param author el autor del libro
+	 * @param publishedDate la fecha de publicación del libro
+	 * @param quantity la cantidad de unidades del libro
+	 * @param price el precio del libro
+	 * @throws BookException lanza la excepción cuando alguno de los parámetros no cumplan los requisitos
+	 * @throws SQLException lanza la excepción cuando no se pueda añadir el libro en la base de datos
+	 */
 	public void addBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException {
 		this.connection = openConnectionDdbb();
 		Book existingBook = getBook(isbn);
@@ -52,7 +90,12 @@ public class DaoBook {
 		}
 	}
 
-	
+	/**
+	 * Método que obtiene un objeto Libro de la base de datos a partir de su ISBN
+	 * @param isbn el ISBN del libro
+	 * @return el objeto Libro
+	 * @throws SQLException lanza la excepción cuando no exista dicho libro en la base de datos
+	 */
 	public Book getBook(String isbn) throws SQLException {
 		this.connection = openConnectionDdbb();
 		Statement instruction = connection.createStatement();
@@ -67,7 +110,14 @@ public class DaoBook {
 	}
 	
 
-	//can be done with hashmap
+	/**
+	 * Método que actualiza un libro en la base de datos
+	 * @param isbn el ISBN del libro
+	 * @param modifiedBook un objeto libro sin el ISBN, que usa para comparar cada campo con el libro 
+	 * en la base de datos
+	 * @throws BookException lanza la excepción cuando alguno de los parámetros no cumplan los requerimientos
+	 * @throws SQLException lanza la excepción cuando no se puede ejecutar la actualización en la base de datos
+	 */
 	public void updateBook(String isbn, Book modifiedBook) throws BookException, SQLException {
 		this.connection = openConnectionDdbb();
 		Book oldBook = getBook(isbn);
@@ -92,7 +142,14 @@ public class DaoBook {
 		
 	}
 	
-	
+	/**
+	 * Método que un ArrayList con todos los libros que existan en la base de datos
+	 * @return el arraylist
+	 * @throws SQLException lanza la excepción cuando no se ejecute la sentencia con la base de datos
+	 * @throws NumberFormatException lanza la excepción cuando la fecha de publicación no sea correcta
+	 * @throws BookException lanza la excepción cuando algún parámetro al crear un objeto Libro no cumpla con
+	 * los requisitos de la clase Book
+	 */
 	public ArrayList<Book> getBooks() throws SQLException, NumberFormatException, BookException {
 		this.connection = openConnectionDdbb();
 		Statement instruction = connection.createStatement();
