@@ -39,12 +39,11 @@
   outline: none;
 } 
 
-.contact-form .input-text + .label,
-.contact-form .input-text.not-empty + .label { /*maybe omit this line for the add form*/
+.contact-form .input-text + .label { 
   -webkit-transform: translateY(-24px);
           transform: translateY(-24px);
 }
-/* original form
+/* original ↑
 .contact-form .input-text:focus + .label,
 .contact-form .input-text.not-empty + .label {
   -webkit-transform: translateY(-24px);

@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="css/update.css" rel="stylesheet" id="bootstrap-css">
+<link href="css/forms.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <title>LJ - Actualizar libro</title>
@@ -77,7 +77,7 @@
 			</div>
 			<div class="form-field col-lg-12">
 				<input class="submit-btn" type="submit" value="Actualizar">
-				<button id="returnButton" class="back-btn" type="submit"  onclick="javascript:window.location='bookPage.jsp';" >Cancelar</button>
+				<a href="bookPage.jsp" class="back-btn">Cancelar</a>
 			</div>
 		</form>
 	</section>
