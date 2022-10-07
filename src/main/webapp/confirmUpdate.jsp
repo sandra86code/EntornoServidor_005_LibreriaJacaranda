@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Libro actualizado</title>
+<link href="css/showData.css" rel="stylesheet" id="bootstrap-css">
 </head>
 <body>
 <% 
@@ -23,38 +24,42 @@
 			String message = e.getMessage();
 			%><jsp:forward page="error.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward><%
 		}%>
-		El libro se ha actualizado, estos son los datos actualizados: 
+		<section class="get-in-touch">
+		<h1 class="title">Datos actualizados</h1>
+		<form class="contact-form row">
 		<table>
-			<tr>
-				<td>ISBN</td>
-				<td><%=bookDetails.getIsbn()%></td>
+			<tr class="form-field col-md-6">
+				<td class="labelTable">ISBN</td>
+				<td class="table"><%=bookDetails.getIsbn()%></td>
 			</tr>
-			<tr>
-				<td>Título</td>
-				<td><%=bookDetails.getTitle()%></td>
+			<tr class="form-field col-md-6">
+				<td class="labelTable">Título</td>
+				<td class="table"><%=bookDetails.getTitle()%></td>
 			</tr>
-			<tr>
-				<td>Autor</td>
-				<td><%=bookDetails.getAuthor()%></td>
+			<tr class="form-field col-md-6">
+				<td class="labelTable">Autor</td>
+				<td class="table"><%=bookDetails.getAuthor()%></td>
 			</tr>
-			<tr>
-				<td>Fecha de publicación</td>
-				<td><%=bookDetails.getPublishedDate()%></td>
+			<tr class="form-field col-md-6">
+				<td class="labelTable">Fecha de publicación</td>
+				<td class="table"><%=bookDetails.getPublishedDate()%></td>
 			</tr>
-			<tr>
-				<td>Cantidad</td>
-				<td><%=bookDetails.getQuantity()%></td>
+			<tr class="form-field col-md-6">
+				<td class="labelTable">Cantidad</td>
+				<td class="table"><%=bookDetails.getQuantity()%></td>
 			</tr>
-			<tr>
-				<td>Precio</td>
-				<td><%=bookDetails.getPrice()%></td>
+			<tr class="form-field col-md-6">
+				<td class="labelTable">Precio</td>
+				<td class="table"><%=bookDetails.getPrice()%></td>
 			</tr>
-			<tr>
-				<td>Stock</td>
-				<td><%=bookDetails.getStockYN()%></td>
+			<tr class="form-field col-md-6">
+				<td class="labelTable">Stock</td>
+				<td class="table"><%=bookDetails.getStockYN()%></td>
 			</tr>
 		</table>
-		<a href="bookPage.jsp">Volver al listado</a>
+		<a href="bookPage.jsp" class="back-btn">Volver al listado</a>
+		</form>
+		</section>
 <%} else {
 		%><jsp:forward page="error.jsp?msg='No te has logueado.'"></jsp:forward><%
 	}%>

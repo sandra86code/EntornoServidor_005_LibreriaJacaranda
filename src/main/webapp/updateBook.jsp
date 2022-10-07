@@ -52,15 +52,15 @@
 		<form class="contact-form row" action="updateBook.jsp">
 			<div class="form-field col-lg-6">
 				<!-- Can't be modified -->
-				<input id="isbn" class="input-text js-input" type="text" name="isbn" value="<%= isbn %>" readonly>
+				<input id="isbn" class="input-text js-input" type="text" name="isbn" value="<%= isbn %>" placeholder="XXXXXXXXXX - Ejemplo: 0123456789" readonly>
 				<label class="label" for="isbn">ISBN</label>
 			</div>
 			<div class="form-field col-lg-6">
-				<input id="title" class="input-text js-input" type="text" name="title" value="<%= book.getTitle() %>" required>
+				<input id="title" class="input-text js-input" type="text" name="title" value="<%= book.getTitle() %>" placeholder="Nombre del libro" required>
 				<label class="label" for="title">Título</label>
 			</div>
 			<div class="form-field col-lg-6">
-				<input id="author" class="input-text js-input" type="text" name="author" value="<%= book.getAuthor() %>" required>
+				<input id="author" class="input-text js-input" type="text" name="author" value="<%= book.getAuthor() %>" placeholder="Nombre del autor" required>
 				<label class="label" for="author">Autor</label>
 			</div>
 			<div class="form-field col-lg-6 ">
@@ -68,15 +68,16 @@
 				<label class="label" for="date">Fecha de publicación</label>
 			</div>
 			<div class="form-field col-lg-6 ">
-				<input id="price" class="input-text js-input" type="text" name="price" value="<%= book.getPrice() %>" required>
+				<input id="price" class="input-text js-input" type="text" name="price" value="<%= book.getPrice() %>" placeholder="Ejemplo: 5" required>
 				<label class="label" for="price">Precio</label>
 			</div>
 			<div class="form-field col-lg-6">
-				<input id="quantity" class="input-text js-input" type="number" name="quantity" value="<%= book.getQuantity() %>" required>
+				<input id="quantity" class="input-text js-input" type="number" name="quantity" value="<%= book.getQuantity() %>" placeholder="Ejemplo: 1.99" required>
 				<label class="label" for="quantity">Cantidad</label>
 			</div>
 			<div class="form-field col-lg-12">
 				<input class="submit-btn" type="submit" value="Actualizar">
+				<button id="returnButton" class="back-btn" type="submit"  onclick="javascript:window.location='bookPage.jsp';" >Cancelar</button>
 			</div>
 		</form>
 	</section>
