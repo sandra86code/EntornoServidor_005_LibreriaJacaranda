@@ -6,7 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Delete Book</title>
+<title>Formulario para eliminar libro</title>
+<link href="css/addBook.css" rel="stylesheet" id="bootstrap-css">
 <script>
 function onSubmit(){
     return false;
@@ -36,44 +37,52 @@ function confirmDelete() {
 			bookDetails = daob.getBook(request.getParameter("value"));
 		} catch (Exception e) {
 			String message = e.getMessage();
-			%><jsp:forward page="error.jsp?msg='<%=message%>'"></jsp:forward><%
+			%><jsp:forward page="error.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward><%
 		}%>
-		<form action="deleteBookPersist.jsp" method="post" id="deleteForm" onSubmit="return onSubmit();">
-		<table>
-			<tr>
-				<td>ISBN</td>
-				<td><input type="hidden" name="isbn" value="<%=bookDetails.getIsbn()%>"><%=bookDetails.getIsbn()%></td>
-			</tr>
-			<tr>
-				<td>Título</td>
-				<td><%=bookDetails.getTitle()%></td>
-			</tr>
-			<tr>
-				<td>Autor</td>
-				<td><%=bookDetails.getAuthor()%></td>
-			</tr>
-			<tr>
-				<td>Fecha de publicación</td>
-				<td><%=bookDetails.getPublishedDate()%></td>
-			</tr>
-			<tr>
-				<td>Cantidad</td>
-				<td><%=bookDetails.getQuantity()%></td>
-			</tr>
-			<tr>
-				<td>Precio</td>
-				<td><%=bookDetails.getPrice()%></td>
-			</tr>
-			<tr>
-				<td>Stock</td>
-				<td><%=bookDetails.getStockYN()%></td>
-			</tr>
-		</table>
-		<button type="submit" name="deleteBook" value="deleteBook" onclick="confirmDelete()">Borrar</button>
-		<button id="returnButton" class="returnButton" role="link" onclick="javascript:window.location='bookPage.jsp';">Cancelar</button>
+		<section class="get-in-touch">
+		<h1 class="title">Borrar libro</h1>
+		
+		<form class="contact-form row" action="deleteBookPersist.jsp" method="post" id="deleteForm" onSubmit="return onSubmit();">
+				<table>
+					<tr class="form-field col-md-6">
+						<td class="labelTable">ISBN</td>
+						<td class="table"><input type="hidden" name="isbn" value="<%=bookDetails.getIsbn()%>"><%=bookDetails.getIsbn()%></td>
+					</tr>
+					<tr class="form-field col-md-6">
+						<td class="labelTable">Título</td>
+						<td class="table"><%=bookDetails.getTitle()%></td>
+					</tr>
+					<tr class="form-field col-md-6">
+						<td class="labelTable">Autor</td>
+						<td class="table"><%=bookDetails.getAuthor()%></td>
+					</tr>
+					<tr class="form-field col-md-6">
+						<td class="labelTable">Fecha de publicación</td>
+						<td class="table"><%=bookDetails.getPublishedDate()%></td>
+					</tr>
+					<tr class="form-field col-md-6">
+						<td class="labelTable">Cantidad</td>
+						<td class="table"><%=bookDetails.getQuantity()%></td>
+					</tr>
+					<tr class="form-field col-md-6">
+						<td class="labelTable">Precio</td>
+						<td class="table"><%=bookDetails.getPrice()%></td>
+					</tr>
+					<tr class="form-field col-md-6">
+						<td class="labelTable">Stock</td>
+						<td class="table"><%=bookDetails.getStockYN()%></td>
+					</tr>
+				</table>
+
+			<div class="form-field col-lg-12">
+				<button class="submit-btn" type="submit" name="deleteBook" value="deleteBook" onclick="confirmDelete()">Borrar</button>
+				<button class="back-btn" id="returnButton" class="returnButton" role="link" onclick="javascript:window.location='bookPage.jsp';">Cancelar</button>
+			</div>
 		</form>
+		</section>
 	<%} else {
 		%><jsp:forward page="error.jsp?msg='No te has logueado.'"></jsp:forward><%
 	}%>
+
 </body>
 </html>
