@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>LJ - Eliminar libro</title>
-<link href="css/forms.css" rel="stylesheet" id="bootstrap-css">
+<link href="css/showData.css" rel="stylesheet" id="bootstrap-css">
 <script>
 function onSubmit(){
     return false;
@@ -42,7 +42,7 @@ function confirmDelete() {
 		<section class="get-in-touch">
 		<h1 class="title">Borrar libro</h1>
 		
-		<form class="contact-form row" action="deleteBookPersist.jsp" method="post" id="deleteForm" onSubmit="return onSubmit();">
+		<form class="contact-form row" action="errorBackToTable.jsp" method="post" id="deleteForm" onSubmit="return onSubmit();">
 				<table>
 					<tr class="form-field col-md-6">
 						<td class="labelTable">ISBN</td>

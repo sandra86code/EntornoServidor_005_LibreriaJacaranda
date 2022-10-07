@@ -35,7 +35,12 @@
 			double price = Double.parseDouble(request.getParameter("price"));
 			//create a book without isbn and use the java update function
 			Book modified = new Book(title, author, publishedDate, quantity, price);
-			daob.updateBook(isbn, modified); %>
+			try{
+				daob.updateBook(isbn, modified);
+			}catch(Exception e){
+				%><jsp:forward page="errorBackToTable.jsp"><jsp:param name="error" value="No se ha modificado ninguno de los campos"/></jsp:forward><%
+			}
+			%>
 			<jsp:forward page="confirmUpdate.jsp"><jsp:param name="isbn" value="<%= isbn %>"/></jsp:forward>
 		<%}else{
 			String isbn = request.getParameter("value");
@@ -45,7 +50,6 @@
 			}catch(Exception e){
 				
 			}
-		
 		%>
 	<section class="get-in-touch">
 		<h1 class="title">Actualizar un libro</h1>
@@ -76,7 +80,7 @@
 				<label class="label" for="quantity">Cantidad</label>
 			</div>
 			<div class="form-field col-lg-12">
-				<input class="submit-btn" type="submit" value="Actualizar">
+				<button class="submit-btn" type="submit">Actualizar</button>
 				<a href="bookPage.jsp" class="back-btn">Cancelar</a>
 			</div>
 		</form>

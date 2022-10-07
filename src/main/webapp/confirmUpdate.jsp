@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Libro actualizado</title>
+<title>LJ - Libro actualizado</title>
 <link href="css/showData.css" rel="stylesheet" id="bootstrap-css">
 </head>
 <body>
@@ -22,7 +22,7 @@
 			bookDetails = daob.getBook(isbn);
 		} catch (Exception e) {
 			String message = e.getMessage();
-			%><jsp:forward page="error.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward><%
+			%><jsp:forward page="error.jsp"><jsp:param name="msg" value="<%= message %>"/></jsp:forward><%
 		}%>
 		<section class="get-in-touch">
 		<h1 class="title">Datos actualizados</h1>
