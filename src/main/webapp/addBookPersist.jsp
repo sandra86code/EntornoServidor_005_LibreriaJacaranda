@@ -45,7 +45,7 @@
 				
 			<%} catch (Exception e){
 					String message = e.getMessage();%>
-				<jsp:forward page="errorPersistBook.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward>
+				<jsp:forward page="errorBackToTable.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward>
 			<%}
 			
 		}
