@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%> 
 <%@ page import = "com.jacaranda.articles.DaoBook" %>
 <%@ page import = "com.jacaranda.articles.Book" %>
 <%@ page import="java.util.ArrayList"%>
@@ -46,46 +46,48 @@
 			String isbn = request.getParameter("value");
 			Book book = null;
 			try{
-				book = daob.getBook(isbn);
+				book = daob.getBook(isbn);%>
+			
+				<section class="get-in-touch">
+					<h1 class="title">Actualizar un libro</h1>
+					<form class="contact-form row" action="updateBook.jsp">
+						<div class="form-field col-lg-6">
+							<!-- Can't be modified -->
+							<input id="isbn" class="input-text js-input" type="text" name="isbn" value="<%= isbn %>" placeholder="XXXXXXXXXX - Ejemplo: 0123456789" readonly>
+							<label class="label" for="isbn">ISBN</label>
+						</div>
+						<div class="form-field col-lg-6">
+							<input id="title" class="input-text js-input" type="text" name="title" value="<%= book.getTitle() %>" placeholder="Nombre del libro" required>
+							<label class="label" for="title">Título</label>
+						</div>
+						<div class="form-field col-lg-6">
+							<input id="author" class="input-text js-input" type="text" name="author" value="<%= book.getAuthor() %>" placeholder="Nombre del autor" required>
+							<label class="label" for="author">Autor</label>
+						</div>
+						<div class="form-field col-lg-6 ">
+							<input id="date" class="input-text js-input" type="date" name="published_date" value="<%= book.getPublishedDate() %>" required>
+							<label class="label" for="date">Fecha de publicación</label>
+						</div>
+						<div class="form-field col-lg-6 ">
+							<input id="price" class="input-text js-input" type="text" name="price" value="<%= book.getPrice() %>" placeholder="Ejemplo: 5" required>
+							<label class="label" for="price">Precio</label>
+						</div>
+						<div class="form-field col-lg-6">
+							<input id="quantity" class="input-text js-input" type="number" name="quantity" value="<%= book.getQuantity() %>" placeholder="Ejemplo: 1.99" required>
+							<label class="label" for="quantity">Cantidad</label>
+						</div>
+						<div class="form-field col-lg-12">
+							<button class="submit-btn" type="submit">Actualizar</button>
+							<a href="bookPage.jsp" class="back-btn">Cancelar</a>
+						</div>
+					</form>
+				</section>
+			<%
 			}catch(Exception e){
-				
+				String message = e.getMessage();%>
+				<jsp:forward page="errorBackToTable.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward><%
 			}
-		%>
-	<section class="get-in-touch">
-		<h1 class="title">Actualizar un libro</h1>
-		<form class="contact-form row" action="updateBook.jsp">
-			<div class="form-field col-lg-6">
-				<!-- Can't be modified -->
-				<input id="isbn" class="input-text js-input" type="text" name="isbn" value="<%= isbn %>" placeholder="XXXXXXXXXX - Ejemplo: 0123456789" readonly>
-				<label class="label" for="isbn">ISBN</label>
-			</div>
-			<div class="form-field col-lg-6">
-				<input id="title" class="input-text js-input" type="text" name="title" value="<%= book.getTitle() %>" placeholder="Nombre del libro" required>
-				<label class="label" for="title">Título</label>
-			</div>
-			<div class="form-field col-lg-6">
-				<input id="author" class="input-text js-input" type="text" name="author" value="<%= book.getAuthor() %>" placeholder="Nombre del autor" required>
-				<label class="label" for="author">Autor</label>
-			</div>
-			<div class="form-field col-lg-6 ">
-				<input id="date" class="input-text js-input" type="date" name="published_date" value="<%= book.getPublishedDate() %>" required>
-				<label class="label" for="date">Fecha de publicación</label>
-			</div>
-			<div class="form-field col-lg-6 ">
-				<input id="price" class="input-text js-input" type="text" name="price" value="<%= book.getPrice() %>" placeholder="Ejemplo: 5" required>
-				<label class="label" for="price">Precio</label>
-			</div>
-			<div class="form-field col-lg-6">
-				<input id="quantity" class="input-text js-input" type="number" name="quantity" value="<%= book.getQuantity() %>" placeholder="Ejemplo: 1.99" required>
-				<label class="label" for="quantity">Cantidad</label>
-			</div>
-			<div class="form-field col-lg-12">
-				<button class="submit-btn" type="submit">Actualizar</button>
-				<a href="bookPage.jsp" class="back-btn">Cancelar</a>
-			</div>
-		</form>
-	</section>
-	<%}
+		}
    	}else{%>
 		<jsp:forward page="error.jsp?msg='No te has autenticado'"></jsp:forward>
 	<%}%>
