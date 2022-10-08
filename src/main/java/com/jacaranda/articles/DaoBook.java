@@ -28,25 +28,28 @@ public class DaoBook {
 	/**
 	 * Método que abre la conexión a la base de datos
 	 * @return el objeto Connection
+	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
 	 */
-	private Connection openConnectionDdbb() {
+	private Connection openConnectionDdbb() throws DaoException {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/libreriaJacaranda?useSSL=false","librera","librera");
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			throw new DaoException("Error en la base de datos, contacte con el administrador.");
 		}
 		return connection;
 	}
 	
 	/**
 	 * Método que cierra la conexión con la base de datos
+	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
 	 */
-	public void closeConnectionDdbb() {
+	public void closeConnectionDdbb() throws DaoException {
 		try {
+			this.connection = openConnectionDdbb();
 			this.connection.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DaoException("Error en la base de datos, contacte con el administrador.");
 		}
 	}
 	
@@ -54,8 +57,9 @@ public class DaoBook {
 	 * Método que borra un libro en la base de datos a partir de su ISBN
 	 * @param isbn el ISBN del libro
 	 * @throws SQLException lanza excepción cuando no se haya podido eliminar el libro
+	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
 	 */
-	public void deleteBook(String isbn) throws SQLException {
+	public void deleteBook(String isbn) throws SQLException, DaoException {
 		this.connection = openConnectionDdbb();
 		Statement instruction = connection.createStatement();
 		this.query = "DELETE FROM articles WHERE isbn='" + isbn +"';";
@@ -75,8 +79,9 @@ public class DaoBook {
 	 * @param price el precio del libro
 	 * @throws BookException lanza la excepción cuando alguno de los parámetros no cumplan los requisitos
 	 * @throws SQLException lanza la excepción cuando no se pueda añadir el libro en la base de datos
+	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
 	 */
-	public void addBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException {
+	public void addBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException, DaoException {
 		this.connection = openConnectionDdbb();
 		Book existingBook = getBook(isbn);
 		
@@ -95,8 +100,9 @@ public class DaoBook {
 	 * @param isbn el ISBN del libro
 	 * @return el objeto Libro
 	 * @throws SQLException lanza la excepción cuando no exista dicho libro en la base de datos
+	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
 	 */
-	public Book getBook(String isbn) throws SQLException {
+	public Book getBook(String isbn) throws SQLException, DaoException {
 		this.connection = openConnectionDdbb();
 		Statement instruction = connection.createStatement();
 		ResultSet bookSet = instruction.executeQuery("Select * from articles WHERE isbn ='" + isbn + "';");
@@ -117,8 +123,9 @@ public class DaoBook {
 	 * en la base de datos
 	 * @throws BookException lanza la excepción cuando alguno de los parámetros no cumplan los requerimientos
 	 * @throws SQLException lanza la excepción cuando no se puede ejecutar la actualización en la base de datos
+	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
 	 */
-	public void updateBook(String isbn, Book modifiedBook) throws BookException, SQLException {
+	public void updateBook(String isbn, Book modifiedBook) throws BookException, SQLException, DaoException {
 		this.connection = openConnectionDdbb();
 		Book oldBook = getBook(isbn);
 		Statement instruction = connection.createStatement();
@@ -160,8 +167,9 @@ public class DaoBook {
 	 * @throws NumberFormatException lanza la excepción cuando la fecha de publicación no sea correcta
 	 * @throws BookException lanza la excepción cuando algún parámetro al crear un objeto Libro no cumpla con
 	 * los requisitos de la clase Book
+	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
 	 */
-	public ArrayList<Book> getBooks() throws SQLException, NumberFormatException, BookException {
+	public ArrayList<Book> getBooks() throws SQLException, NumberFormatException, BookException, DaoException {
 		this.connection = openConnectionDdbb();
 		Statement instruction = connection.createStatement();
 		ResultSet bookSet = instruction.executeQuery("Select * from articles;");
