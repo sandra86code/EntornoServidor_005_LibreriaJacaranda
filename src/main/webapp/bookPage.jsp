@@ -34,7 +34,7 @@
 			</div>
 			
 			<div id="buttons">
-				<a href="index.jsp" class="closeSession">Cerrar sesión</a>
+				<a href="closeSession.jsp" class="closeSession">Cerrar sesión</a>
 				<a href="addBook.jsp" class="addBook">Añadir libro</a>
 			</div>
 		
