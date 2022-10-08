@@ -123,27 +123,33 @@ public class DaoBook {
 		Book oldBook = getBook(isbn);
 		Statement instruction = connection.createStatement();
 		
+		String updateQuery = "UPDATE articles SET ";
+		String changesQuery = "";
+		String whereQuery = " WHERE isbn = '" + isbn + "';";
+		String totalQuery = null;
+		
 		if(!oldBook.getTitle().equals(modifiedBook.getTitle())) {
-			this.query = "UPDATE articles SET title = '" + modifiedBook.getTitle() + "' WHERE isbn ='" + isbn + "';";
+			changesQuery += "title = '" + modifiedBook.getTitle() + "', ";
 		}
 		if(!oldBook.getAuthor().equals(modifiedBook.getAuthor())) {
-			this.query = "UPDATE articles SET author = '" + modifiedBook.getAuthor() + "' WHERE isbn ='" + isbn + "';";
+			changesQuery += "author = '" + modifiedBook.getAuthor() + "', ";
 		}
 		if(!oldBook.getPublishedDate().equals(modifiedBook.getPublishedDate())) {
-			this.query = "UPDATE articles SET published_date = '" + modifiedBook.getPublishedDate() + "' WHERE isbn ='" + isbn + "';";
+			changesQuery += "published_date = '" + modifiedBook.getPublishedDate() + "', ";
 		}
 		if(oldBook.getQuantity()!=(modifiedBook.getQuantity())) {
-			this.query = "UPDATE articles SET quantity = '" + modifiedBook.getQuantity() + "', stock= '" + modifiedBook.getStock() + "' WHERE isbn ='" + isbn + "';";
+			changesQuery += "quantity = " + modifiedBook.getQuantity() + ", stock= " + modifiedBook.getStock() +  ", ";
 		}
 		if(oldBook.getPrice()!=(modifiedBook.getPrice())) {
-			this.query = "UPDATE articles SET price = '" + modifiedBook.getPrice() + "' WHERE isbn ='" + isbn + "';";
+			changesQuery += "price = " + modifiedBook.getPrice() + ", ";
 		}
-		if(query!="") {
-			instruction.executeUpdate(query);
-		}else {
+		if(changesQuery.equals("")) {
 			throw new SQLException("No se han realizado modificaciones");
-		}
-		
+		}else {
+			changesQuery = changesQuery.substring(0, changesQuery.length() -2);
+			totalQuery = updateQuery + changesQuery + whereQuery;
+			instruction.executeUpdate(totalQuery);
+		}		
 		
 	}
 	
