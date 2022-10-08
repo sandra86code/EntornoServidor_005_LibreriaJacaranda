@@ -206,7 +206,7 @@ public class Book {
 	 * @throws BookException lanza la excepción cuando el título está vacío o solo contiene espacios en blanco
 	 */
 	private void setTitle(String title) throws BookException {
-		if(title.isBlank() || title.isEmpty()) {
+		if(title == null || title.isBlank()) {
 			throw new BookException("El titulo no puede estar vacio"); //Sin tildes porque sino las entiende el jsp al saltar el error
 		}else {
 			this.title = title;
@@ -219,7 +219,7 @@ public class Book {
 	 * @throws BookException lanza la excepción cuando el autor está vacío o solo contiene espacios en blanco
 	 */
 	private void setAuthor(String author) throws BookException {
-		if(author.isBlank() || author.isEmpty()) {
+		if(author == null || author.isBlank()) {
 			throw new BookException("El autor no puede estar vacio"); //Sin tildes porque sino las entiende el jsp al saltar el error
 		}else {
 			this.author = author;
