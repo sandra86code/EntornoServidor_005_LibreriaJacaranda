@@ -1,10 +1,14 @@
 package com.jacaranda.users;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+
 /**
  * @author Nadia
  * Esta clase crea un usuario
+ * Mapear solo clases de java (no DAO) y verificar nombres de tablas
  */
+@Entity
 public class User {
 	
 	private String userCod;
