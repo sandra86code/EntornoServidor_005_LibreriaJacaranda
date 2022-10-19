@@ -22,3 +22,9 @@
 hs_err_pid*
 /build/
 /target/
+
+#Classpath
+.classpath
+
+#Settings
+.settings/org.eclipse.wst.common.project.facet.core.xml
