@@ -3,12 +3,20 @@ package com.jacaranda.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 /**
  * @author sandra
  * Esta clase crea un libro
  */
+@Entity
+@Table(name="BOOK")
 public class Book {
-	
+	@Id
 	private String isbn;
 	private String title;
 	private String author;
@@ -16,6 +24,10 @@ public class Book {
 	private int quantity;
 	private double price;
 	private boolean stock;
+	@ManyToOne
+	@JoinColumn(name="genre")
+	private Genre genre;
+	
 	
 	
 	/**

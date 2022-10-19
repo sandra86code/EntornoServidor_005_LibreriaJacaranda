@@ -1,4 +1,4 @@
-package com.jacaranda.users;
+package com.jacaranda.model;
 import java.util.Objects;
 
 import javax.persistence.Entity;
