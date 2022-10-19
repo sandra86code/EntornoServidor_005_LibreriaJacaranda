@@ -2,6 +2,8 @@ package com.jacaranda.model;
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @author Nadia
@@ -9,8 +11,9 @@ import javax.persistence.Entity;
  * Mapear solo clases de java (no DAO) y verificar nombres de tablas
  */
 @Entity
+@Table(name = "user")
 public class User {
-	
+	@Id
 	private String userCod;
 	private String password;
 	

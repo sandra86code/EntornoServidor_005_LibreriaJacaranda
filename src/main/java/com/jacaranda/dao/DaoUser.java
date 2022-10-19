@@ -8,53 +8,46 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+
 import com.jacaranda.model.User;
 import com.jacaranda.model.UserException;
+import com.jacaranda.prueba.Prueba;
 
-/*
+/**
  * Clase que interactúa con la base de datos
  * @author chisela
  */
 
 public class DaoUser {
 	
-	/*
-	 * Atributo estático para la conexión con la bbdd, inicializado aquí porque la clase no se va a instanciar
+	/**
+	 * Atributos para la conexión con la bbdd
 	 */
 	
-	private static Connection connection = openConnectionDdbb();
+	private Session session;
+	private SessionFactory sf;
 	
 	/**
-	 * Constructor vacío
+	 * Constructor que crea y abre la sesión
 	 */
 	
 	public DaoUser() {
-		
+		StandardServiceRegistry sr = new StandardServiceRegistryBuilder().configure().build();
+		sf = new MetadataSources(sr).buildMetadata().buildSessionFactory();
+		session = sf.openSession();
 	}
 	
 	/**
-	 * Método que abre la conexión a la base de datos
-	 * @return el objeto Connection
+	 * Método que cierra la sesión
 	 */
-	private static Connection openConnectionDdbb() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/libreriaJacaranda?useSSL=false","librera","librera");
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
-		return connection;
-	}
-	
-	/**
-	 * Método que cierra la conexión con la base de datos
-	 */
-	public void closeConnectionDdbb() {
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public void closeSession() {
+		session.close();
+		sf.close();
 	}
 	
 	/**
@@ -63,9 +56,11 @@ public class DaoUser {
 	 * @throws SQLException lanza la excepción cuando no se ejecute la sentencia de la base de datos
 	 * @throws UserException lanza la excepción cuando algún parámetro al crear un objeto Usuario no cumpla con
 	 * los requisitos de la clase User
+	 * MIRAR COMO CONSEGUIR LISTA
+	 * https://stackoverflow.com/questions/14423664/hibernate-get-list-from-database 
 	 */
 	public List<User> getUsers() throws SQLException, UserException {
-		List<User> result = new ArrayList<User>();
+		List<User> result = session.createCriteria(User.class).list();
 		Statement instruccion = connection.createStatement();
 		ResultSet usersSet = instruccion.executeQuery("Select * from users;");
 		while(usersSet.next()) {
@@ -82,13 +77,7 @@ public class DaoUser {
 	 * @throws SQLException lanza la excepción cuando no exista dicho usuario en la base de datos
 	 */
 	public User getUser(String userCod) throws UserException, SQLException {
-		User result = null;
-		Statement instruccion = connection.createStatement();
-		ResultSet userSet = instruccion.executeQuery("Select * from users where userCod like '" + userCod + "';");
-		
-		while(userSet.next()) {
-			result = new User(userSet.getString("userCod"), userSet.getString("password"));		
-		}
+		User result = session.get(User.class, userCod);
 		return result;
 	}
 	
