@@ -1,4 +1,4 @@
-package com.jacaranda.articles;
+package com.jacaranda.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import com.jacaranda.model.Book;
+import com.jacaranda.model.BookException;
 
 /**
  * Clase que interactúa con la base de datos

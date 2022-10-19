@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.sql.SQLException"%>
-<%@page import="com.jacaranda.articles.BookException"%>
-<%@page import="com.jacaranda.articles.DaoBook"%>
+<%@ page import="com.jacaranda.dao.DaoBook"%>
+<%@ page import="com.jacaranda.model.Book"%>
 <%@page import="java.time.LocalDate"%>
 
 <!DOCTYPE html>

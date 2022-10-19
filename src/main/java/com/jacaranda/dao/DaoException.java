@@ -1,4 +1,4 @@
-package com.jacaranda.articles;
+package com.jacaranda.dao;
 
 public class DaoException extends Exception {
 

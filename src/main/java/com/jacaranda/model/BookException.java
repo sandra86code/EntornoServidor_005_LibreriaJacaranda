@@ -1,4 +1,4 @@
-package com.jacaranda.articles;
+package com.jacaranda.model;
 
 public class BookException extends Exception {
 

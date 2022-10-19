@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.jacaranda.articles.DaoBook"%>
-<%@ page import="com.jacaranda.articles.Book"%>
+<%@ page import="com.jacaranda.dao.DaoBook"%>
+<%@ page import="com.jacaranda.model.Book"%>
 <!DOCTYPE html>
 <html>
 <head>
