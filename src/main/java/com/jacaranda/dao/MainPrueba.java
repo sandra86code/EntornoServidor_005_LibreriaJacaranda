@@ -7,7 +7,14 @@ public class MainPrueba {
 		String code = "ChiselaC";
 		String key = "adm1";
 		DaoUser du = new DaoUser();
-		System.out.println(du.userIsValid(code, key));
+		
+		try {
+			boolean b = du.userIsValid(code, key);
+			System.out.println(b);
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
 	}
 
 }
