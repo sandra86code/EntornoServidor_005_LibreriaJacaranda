@@ -85,7 +85,7 @@ INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) V
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('4802999232','Ellen DeGeneres: The Beginning','Garth Halpeine','2022-08-03',0,78.71,0,'Crime');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('4828271526','Postcards From the Edge','Frasquito Brendel','2021-11-19',28,76.71,1,'Crime');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('5072975552','Before Night Falls','Sergent Drayn','2021-02-02',0,68.54,0,'Crime');
-INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('5149872881','Adventures of Picasso, The (Picassos �ventyr)','Rosemaria Linturn','2021-12-05',0,61.46,0,'Mystery');
+INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('5149872881','Adventures of Picasso, The (Picassos äventyr)','Rosemaria Linturn','2021-12-05',0,61.46,0,'Mystery');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('5314148587','Karate Kid, Part II, The','Joete Didsbury','2022-02-01',0,26.90,0,'Mystery');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('5408917231','Tie Xi Qu: West of the Tracks (Tiexi qu)','Pascal Dwyr','2021-03-08',22,25.70,1,'Mystery');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('5721654929','Hustle','Lillis Brithman','2022-06-29',41,36.07,1,'Mystery');
@@ -118,7 +118,7 @@ INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) V
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('1805349187','Ethan Mao','Bonni Lowcock','2020-12-07',78,89.68,1,'Action');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('1886620164','Great Escape: The Untold Story','Burk Keers','2020-11-29',0,64.31,0,'Action');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('2005488526','Callan','Connie Fairlamb','2020-12-05',6,78.97,1,'Action');
-INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('0152960937','Kings of Pastry (Les rois de la p�tisserie)','Lil Sink','2020-10-21',0,47.88,0,'Drama');
+INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('0152960937','Kings of Pastry (Les rois de la pâtisserie)','Lil Sink','2020-10-21',0,47.88,0,'Drama');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('0341854743','It''s a Wonderful Afterlife','Tabitha McFayden','2022-04-17',40,12.28,1,'Drama');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('054865607X','Welcome, or No Trespassing','Roxana Menear','2022-06-06',97,13.40,1,'Drama');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('1604480653','China 9, Liberty 37 (Amore, piombo e furore)','Deidre Staneland','2021-05-14',0,38.56,0,'Drama');
