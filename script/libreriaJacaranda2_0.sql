@@ -1,6 +1,5 @@
 -- Base de Datos Librer�a Jacarand� 2.0
 
-
 CREATE TABLE USERS
 (
 userCod VARCHAR(20),
