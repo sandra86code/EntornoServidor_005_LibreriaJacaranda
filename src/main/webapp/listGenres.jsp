@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>   
-<%@ page import="com.jacaranda.dao.DaoBook"%>
-<%@ page import="com.jacaranda.model.Book"%>
+<%@ page import="com.jacaranda.dao.DaoGenre"%>
+<%@ page import="com.jacaranda.model.Genre"%>
 <%@ page import="java.util.ArrayList"%>
 <%@page import="java.util.Iterator"%> 
 <!DOCTYPE html>
@@ -21,17 +21,17 @@
 	String userSession = (String) session.getAttribute("user");
 	if(isSession != null && userSession!=null && isSession.equals("True")){
 		String user = userSession;
-		DaoBook daob = new DaoBook();
-		ArrayList<Book> bookList = null;
+		DaoGenre daog = new DaoGenre();
+		ArrayList<Genre> genreList = null;
 		try {
-			bookList = daob.getBooks();
+			genreList = daog.findAllGenres();
 		} catch (Exception e) {
 			String message = e.getMessage();
 			%><jsp:forward page="error.jsp"><jsp:param name="msg" value="<%= message %>"/></jsp:forward><%
 		}%>
 			
 			<div id="headingTitle">
-				<h1>LISTADO DE LIBROS DEL GÉNERO <%=genero%> LA LIBRERIA JACARANDÁ</h1>
+				<h1>LISTADO DE GÉNEROS DE LA LIBRERIA JACARANDÁ</h1>
 			</div>
 			<!-- adding userName on main page -->
 			<div id="activeUser">
@@ -39,40 +39,29 @@
 			</div>
 			<div id="buttons">
 				<a href="closeSession.jsp" class="closeSession">Cerrar sesión</a>
-				<a href="addBook.jsp" class="addBook">Añadir libro</a>
+				<a href="addGenre.jsp" class="addBook">Añadir Género</a>
 			</div>
 		
 			<div id="table">		
 				<table cellspacing="2" cellpadding="2">
 					<tr>
-						<th>ISBN</th>
-						<th>Título</th>
-						<th>Autor</th>
-						<th>Fecha de publicación</th>
-						<th>Cantidad</th>
-						<th>Precio</th>
-						<th>Stock</th>
+						<th>Nombre</th>
+						<th>Descripción</th>
 						<th colspan="2">Acciones</th>
 					</tr>
 		<% 
-		Iterator<Book> iterator = bookList.iterator();  
+		Iterator<Genre> iterator = genreList.iterator();  
 			
 		while(iterator.hasNext()) { // iterate through all the data until the last record
 			
-			Book bookDetails = iterator.next(); 
-			String isbn = bookDetails.getIsbn();
+			Genre genreDetails = iterator.next(); 
+			String name = genreDetails.getName();
 			%>
 				<tr>
-					<td><%=bookDetails.getIsbn()%></td>
-					<td><%=bookDetails.getTitle()%></td>
-					<td><%=bookDetails.getAuthor()%></td>
-					<td><%=bookDetails.getPublishedDate()%></td>
-					<td><%=bookDetails.getQuantity()%></td>
-					<td><%=bookDetails.getPrice()%></td>
-					<td><%=bookDetails.getStockYN()%></td>
-				
-					<td><a href="deleteBook.jsp?value=<%=bookDetails.getIsbn()%>"><img src="images/delete.png" width="30px"></a></td>
-					<td><a href="updateBook.jsp?value=<%=bookDetails.getIsbn()%>"><img src="images/update.png" width="30px"></a></td>
+					<td><%=name%></td>
+					<td><%=genreDetails.getDescription()%></td>
+					<td><a href="deleteGenre.jsp?value=<%=name%>"><img src="images/delete.png" width="30px"></a></td>
+					<td><a href="updateGenre.jsp?value=<%=name%>"><img src="images/update.png" width="30px"></a></td>
 				</tr>
 			<%
 		}

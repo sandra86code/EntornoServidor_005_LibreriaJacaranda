@@ -1,6 +1,6 @@
 package com.jacaranda.dao;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -30,8 +30,8 @@ public class DaoGenre {
 		return g;
 	}
 	
-	public List<Genre> findAllGenres() {
-	    return session.createQuery("SELECT name FROM GENRE", Genre.class).getResultList();      
+	public ArrayList<Genre> findAllGenres() {
+	    return (ArrayList) session.createQuery("SELECT name FROM GENRE", Genre.class).getResultList();      
 	}
 	
 	public boolean addGenre(String name, String description) throws DaoException, GenreException {
