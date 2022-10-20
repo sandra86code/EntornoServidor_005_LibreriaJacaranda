@@ -1,12 +1,10 @@
 package com.jacaranda.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Query;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -16,7 +14,6 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import com.jacaranda.model.User;
 import com.jacaranda.model.UserException;
-import com.jacaranda.prueba.Prueba;
 
 /**
  * Clase que interactúa con la base de datos
@@ -26,28 +23,21 @@ import com.jacaranda.prueba.Prueba;
 public class DaoUser {
 	
 	/**
-	 * Atributos para la conexión con la bbdd
+	 * Atributos estáticos para la conexión con la bbdd
 	 */
+	private static StandardServiceRegistry sr = new StandardServiceRegistryBuilder().configure().build();
+	private static SessionFactory sf = new MetadataSources(sr).buildMetadata().buildSessionFactory();
 	
+	/**
+	 * Atributo para la sesión
+	 */
 	private Session session;
-	private SessionFactory sf;
 	
 	/**
-	 * Constructor que crea y abre la sesión
+	 * Constructor vacío
 	 */
-	
 	public DaoUser() {
-		StandardServiceRegistry sr = new StandardServiceRegistryBuilder().configure().build();
-		sf = new MetadataSources(sr).buildMetadata().buildSessionFactory();
-		session = sf.openSession();
-	}
-	
-	/**
-	 * Método que cierra la sesión
-	 */
-	public void closeSession() {
-		session.close();
-		sf.close();
+		
 	}
 	
 	/**
@@ -56,18 +46,12 @@ public class DaoUser {
 	 * @throws SQLException lanza la excepción cuando no se ejecute la sentencia de la base de datos
 	 * @throws UserException lanza la excepción cuando algún parámetro al crear un objeto Usuario no cumpla con
 	 * los requisitos de la clase User
-	 * MIRAR COMO CONSEGUIR LISTA
-	 * https://stackoverflow.com/questions/14423664/hibernate-get-list-from-database 
 	 */
 	public List<User> getUsers() throws SQLException, UserException {
-		List<User> result = session.createCriteria(User.class).list();
-		Statement instruccion = connection.createStatement();
-		ResultSet usersSet = instruccion.executeQuery("Select * from users;");
-		while(usersSet.next()) {
-			User u = new User(usersSet.getString("userCod"), usersSet.getString("password"));
-			result.add(u);
-		}
-		return result;
+		session = DaoUser.sf.openSession();
+		List<User> users = session.createQuery("Select * from users", User.class).getResultList();
+		session.close();
+		return users;
 	}
 	
 	/**
@@ -77,7 +61,9 @@ public class DaoUser {
 	 * @throws SQLException lanza la excepción cuando no exista dicho usuario en la base de datos
 	 */
 	public User getUser(String userCod) throws UserException, SQLException {
+		session = DaoUser.sf.openSession();
 		User result = session.get(User.class, userCod);
+		session.close();
 		return result;
 	}
 	
@@ -88,14 +74,17 @@ public class DaoUser {
 	 * @return boolean true si coincide, false si no coincide
 	 * @throws SQLException maneja los errores que pueda dar la bbdd
 	 */
-	public static boolean userIsValid(String code, String key) throws SQLException {
+	public boolean userIsValid(String code, String key)  {
 		boolean result = false;
-		Statement instruccion = connection.createStatement();
-		ResultSet userSet = instruccion.executeQuery("Select * from users where userCod like BINARY '" + code + "' and password like BINARY '"+ key + "';");
-		
-		if(userSet.next()) {
+		session = DaoUser.sf.openSession();
+		Query query = session.createQuery("Select * from users where userCod like BINARY :code and password like BINARY :key");
+		query.setParameter("code", code);
+		query.setParameter("key", key);
+		User user = (User) query.getSingleResult();
+		if(user != null) {
 			result = true;
 		}
+		session.close();
 		return result;
 	}
 	
