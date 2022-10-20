@@ -1,5 +1,7 @@
 package com.jacaranda.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -20,12 +22,16 @@ public class DaoGenre {
 	}
 	
 	
-	public Genre readGenre(String name) throws DaoException {
+	public Genre findGenre(String name) throws DaoException {
 		Genre g = (Genre) session.get(Genre.class,name);
 		if(g==null) {
 			throw new DaoException("No existe un genero con ese nombre");
 		}
 		return g;
+	}
+	
+	public List<Genre> findAllGenres() {
+	    return session.createQuery("SELECT name FROM GENRE", Genre.class).getResultList();      
 	}
 	
 	public boolean addGenre(String name, String description) throws DaoException, GenreException {
@@ -46,7 +52,7 @@ public class DaoGenre {
 	
 	public boolean deleteGenre(String name) throws DaoException {
 		boolean result = false;
-		Genre g = readGenre(name);
+		Genre g = findGenre(name);
 		try {
 			this.session = DaoGenre.sf.openSession();
 			this.session.getTransaction().begin();
@@ -61,7 +67,7 @@ public class DaoGenre {
 
 	public boolean updateGenre(String name, String description) throws DaoException, GenreException {
 		boolean result = false;
-		Genre g = readGenre(name);
+		Genre g = findGenre(name);
 		if(!g.getDescription().equalsIgnoreCase(description)) {
 			g.setDescription(description);
 			try {
