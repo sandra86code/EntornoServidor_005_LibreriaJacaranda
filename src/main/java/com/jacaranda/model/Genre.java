@@ -30,7 +30,10 @@ public class Genre {
 		this.books = new ArrayList<>();
 	}
 
-	
+	public Genre(String name) throws GenreException {
+		super();
+		this.setName(name);
+	}
 	
 	public String getName() {
 		return name;
