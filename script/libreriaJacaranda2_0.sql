@@ -20,7 +20,7 @@ CONSTRAINT pk_genre PRIMARY KEY (name)
 
 CREATE TABLE BOOK 
 (
-id VARCHAR(10),
+isbn VARCHAR(10),
 title VARCHAR(50) NOT NULL,
 author VARCHAR(50) NOT NULL,
 published_date DATE NOT NULL,
