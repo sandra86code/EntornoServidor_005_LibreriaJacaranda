@@ -36,10 +36,10 @@ CONSTRAINT fk_book FOREIGN KEY (genre) REFERENCES GENRE (name) ON DELETE CASCADE
 
 -- Adding Users 
 
-INSERT INTO users  VALUES ('ChiselaC', 'adm1');
-INSERT INTO users  VALUES ('NadiaC', 'adm2');
-INSERT INTO users  VALUES ('SandraR', 'adm3');
-INSERT INTO users  VALUES ('User1', 'user1');
+INSERT INTO USERS  VALUES ('ChiselaC', 'adm1');
+INSERT INTO USERS  VALUES ('NadiaC', 'adm2');
+INSERT INTO USERS  VALUES ('SandraR', 'adm3');
+INSERT INTO USERS  VALUES ('User1', 'user1');
 
 -- Adding Genre
 
