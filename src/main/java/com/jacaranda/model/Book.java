@@ -87,9 +87,10 @@ public class Book {
 	 * @param quantity la cantidad de libros
 	 * @param price el precio del libro
 	 * @param stock si hay stock (1) es true, si no hay stock (0) es false
+	 * @throws BookException 
 	 */
 	public Book(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price,
-			int stock) {
+			int stock, Genre genre) throws BookException {
 		super();
 		this.isbn = isbn;
 		this.title = title;
@@ -101,6 +102,11 @@ public class Book {
 			this.stock = false;
 		}else {
 			this.stock = true;
+		}
+		if(genre!=null) {
+			this.genre = genre;
+		}else {
+			throw new BookException ("El genero no puede ser nulo");
 		}
 	}
 
