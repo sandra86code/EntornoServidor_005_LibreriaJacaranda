@@ -14,8 +14,7 @@
 	String userSession = (String) session.getAttribute("user");
 	if(isSession != null && userSession !=null && isSession.equals("True")){
 		DaoBook newDaoBook = new DaoBook();
-		try {
-			newDaoBook.closeConnectionDdbb();%>
+		try {%>
 			<jsp:forward page="index.jsp"></jsp:forward><%
 		}catch (Exception e){
 			String message = e.getMessage();%>
