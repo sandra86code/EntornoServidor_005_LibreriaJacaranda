@@ -8,8 +8,16 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
+
 import com.jacaranda.model.Book;
 import com.jacaranda.model.BookException;
+import com.jacaranda.model.Genre;
 
 /**
  * Clase que interactúa con la base de datos
@@ -18,8 +26,9 @@ import com.jacaranda.model.BookException;
  */
 public class DaoBook {
 	
-	private Connection connection;
-	private String query = "";
+	private static StandardServiceRegistry sr = new StandardServiceRegistryBuilder().configure().build();
+	private static SessionFactory sf = new MetadataSources(sr).buildMetadata().buildSessionFactory();
+	private Session session;
 
 	/**
 	 * Constructor vacío
@@ -28,32 +37,12 @@ public class DaoBook {
 		super();
 	}
 	
-	/**
-	 * Método que abre la conexión a la base de datos
-	 * @return el objeto Connection
-	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
-	 */
-	private Connection openConnectionDdbb() throws DaoException {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/libreriaJacaranda?useSSL=false","librera","librera");
-		} catch (ClassNotFoundException | SQLException e) {
-			throw new DaoException("Error en la base de datos, contacte con el administrador.");
-		}
-		return connection;
-	}
-	
-	/**
-	 * Método que cierra la conexión con la base de datos
-	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
-	 */
-	public void closeConnectionDdbb() throws DaoException {
-		try {
-			this.connection = openConnectionDdbb();
-			this.connection.close();
-		} catch (SQLException e) {
-			throw new DaoException("Error en la base de datos, contacte con el administrador.");
-		}
+	public ArrayList<Book> findBooksByGenre(String genre) {
+		this.session = DaoBook.sf.openSession();
+		String hql = "SELECT isbn, title, author, published_date, quantity, price, stock FROM BOOK b WHERE genre='" + genre + "';";
+		Query query = session.createNativeQuery(hql, Book.class);
+		ArrayList<Book> genreList = (ArrayList<Book>) query.getResultList();
+		return genreList;     
 	}
 	
 	/**
@@ -63,13 +52,7 @@ public class DaoBook {
 	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
 	 */
 	public void deleteBook(String isbn) throws SQLException, DaoException {
-		this.connection = openConnectionDdbb();
-		Statement instruction = connection.createStatement();
-		this.query = "DELETE FROM articles WHERE isbn='" + isbn +"';";
-		int affectedRows = instruction.executeUpdate(query);
-		if(affectedRows == 0) {
-			throw new SQLException("No se ha podido eliminar el libro");
-		}
+		
 	}
 	
 	/**
@@ -85,17 +68,7 @@ public class DaoBook {
 	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
 	 */
 	public void addBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException, DaoException {
-		this.connection = openConnectionDdbb();
-		Book existingBook = getBook(isbn);
 		
-		if(existingBook == null) {
-			Book book = new Book(isbn, title, author, publishedDate, quantity, price);
-			Statement instruction = connection.createStatement();
-			this.query = "INSERT INTO articles VALUES ('" + book.getIsbn() + "','" + book.getTitle() + "','" + book.getAuthor() + "','" + book.getPublishedDate() + "'," + book.getQuantity() + ", " + book.getPrice()+ ", " + book.getStock() + ");";
-			instruction.executeUpdate(query);
-		} else {
-			throw new BookException("El libro ya existe en la base de datos");
-		}
 	}
 
 	/**
@@ -106,15 +79,9 @@ public class DaoBook {
 	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
 	 */
 	public Book getBook(String isbn) throws SQLException, DaoException {
-		this.connection = openConnectionDdbb();
-		Statement instruction = connection.createStatement();
-		ResultSet bookSet = instruction.executeQuery("Select * from articles WHERE isbn ='" + isbn + "';");
+		
 		Book bookItem = null;
-		while(bookSet.next()) {
-			bookItem = new Book(bookSet.getString("isbn"), bookSet.getString("title"), bookSet.getString("author"), 
-					LocalDate.parse(bookSet.getString("published_date")), Integer.parseInt(bookSet.getString("quantity")), 
-					Double.parseDouble(bookSet.getString("price")), Integer.parseInt(bookSet.getString("stock")));
-		}
+		
 		return bookItem;
 	}
 	
@@ -129,9 +96,9 @@ public class DaoBook {
 	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
 	 */
 	public void updateBook(String isbn, Book modifiedBook) throws BookException, SQLException, DaoException {
-		this.connection = openConnectionDdbb();
+//		this.connection = openConnectionDdbb();
 		Book oldBook = getBook(isbn);
-		Statement instruction = connection.createStatement();
+//		Statement instruction = connection.createStatement();
 		
 		String updateQuery = "UPDATE articles SET ";
 		String changesQuery = "";
@@ -158,34 +125,12 @@ public class DaoBook {
 		}else {
 			changesQuery = changesQuery.substring(0, changesQuery.length() -2);
 			totalQuery = updateQuery + changesQuery + whereQuery;
-			instruction.executeUpdate(totalQuery);
+//			instruction.executeUpdate(totalQuery);
 		}		
 		
 	}
 	
-	/**
-	 * Método que crea un ArrayList con todos los libros que existan en la base de datos
-	 * @return el arraylist
-	 * @throws SQLException lanza la excepción cuando no se ejecute la sentencia con la base de datos
-	 * @throws NumberFormatException lanza la excepción cuando la fecha de publicación no sea correcta
-	 * @throws BookException lanza la excepción cuando algún parámetro al crear un objeto Libro no cumpla con
-	 * los requisitos de la clase Book
-	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
-	 */
-	public ArrayList<Book> getBooks() throws SQLException, NumberFormatException, BookException, DaoException {
-		this.connection = openConnectionDdbb();
-		Statement instruction = connection.createStatement();
-		ResultSet bookSet = instruction.executeQuery("Select * from articles;");
-		ArrayList<Book> bookList = new ArrayList<>();
-		while(bookSet.next()) {
-			Book bookItem = new Book(bookSet.getString("isbn"), bookSet.getString("title"), bookSet.getString("author"), 
-					LocalDate.parse(bookSet.getString("published_date")), Integer.parseInt(bookSet.getString("quantity")), 
-					Double.parseDouble(bookSet.getString("price")), Integer.parseInt(bookSet.getString("stock")));
-			
-			bookList.add(bookItem);
-		}
-		return bookList;
-	}
+
 	
 	
 }
