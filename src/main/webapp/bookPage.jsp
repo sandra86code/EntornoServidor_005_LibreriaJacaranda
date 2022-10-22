@@ -20,6 +20,7 @@
 	String isSession = (String) session.getAttribute("login");
 	String userSession = (String) session.getAttribute("user");
 	if(isSession != null && userSession!=null && isSession.equals("True")){
+		String genero = request.getParameter("value").toUpperCase();
 		String user = userSession;
 		DaoBook daob = new DaoBook();
 		ArrayList<Book> bookList = null;
