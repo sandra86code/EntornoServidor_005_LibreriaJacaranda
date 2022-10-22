@@ -2,6 +2,8 @@ package com.jacaranda.model;
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @author Nadia
@@ -9,8 +11,9 @@ import javax.persistence.Entity;
  * Mapear solo clases de java (no DAO) y verificar nombres de tablas
  */
 @Entity
+@Table(name="USERS")
 public class User {
-	
+	@Id
 	private String userCod;
 	private String password;
 	
@@ -47,7 +50,7 @@ public class User {
 		if(userCod == null || userCod.isBlank()) {
 			throw new UserException("El usuario no puede ser nulo");
 			} else if(userCod.length()>20) {
-			throw new UserException("El usuario es demadiado largo");
+			throw new UserException("El usuario es demasiado largo");
 			} else {
 				this.userCod = userCod;
 			}

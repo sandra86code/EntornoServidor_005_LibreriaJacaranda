@@ -2,11 +2,14 @@ package com.jacaranda.dao;
 
 import java.util.ArrayList;
 
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
+
 import com.jacaranda.model.Genre;
 import com.jacaranda.model.GenreException;
 
@@ -31,7 +34,11 @@ public class DaoGenre {
 	}
 	
 	public ArrayList<Genre> findAllGenres() {
-	    return (ArrayList) session.createQuery("SELECT name FROM GENRE", Genre.class).getResultList();      
+		this.session = DaoGenre.sf.openSession();
+		String hql = "SELECT name, description FROM GENRE g";
+		Query query = session.createNativeQuery(hql, Genre.class);
+		ArrayList<Genre> genreList = (ArrayList<Genre>) query.getResultList();
+		return genreList;     
 	}
 	
 	public boolean addGenre(String name, String description) throws DaoException, GenreException {
@@ -42,7 +49,7 @@ public class DaoGenre {
 			this.session.getTransaction().begin();
 			this.session.save(g);
 			this.session.getTransaction().commit();
-			this.session.close();
+			
 			result = true;
 		}catch(Exception e) {
 			throw new DaoException("Error en la insercion del genero");
