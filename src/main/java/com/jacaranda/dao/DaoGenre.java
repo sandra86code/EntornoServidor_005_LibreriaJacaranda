@@ -24,15 +24,18 @@ public class DaoGenre {
 		super();
 	}
 	
-	
+	//Funcionando
 	public Genre findGenre(String name) throws DaoException {
-		Genre g = (Genre) session.get(Genre.class,name);
+		this.session = DaoGenre.sf.openSession();
+		Genre g = (Genre) session.get(Genre.class, name);
+		System.out.println(g.toString());
 		if(g==null) {
 			throw new DaoException("No existe un genero con ese nombre");
 		}
 		return g;
 	}
 	
+	//Funcionando
 	public ArrayList<Genre> findAllGenres() {
 		this.session = DaoGenre.sf.openSession();
 		String hql = "SELECT name, description FROM GENRE g";
@@ -41,6 +44,7 @@ public class DaoGenre {
 		return genreList;     
 	}
 	
+	//Funcionando
 	public boolean addGenre(String name, String description) throws DaoException, GenreException {
 		boolean result = false;
 		Genre g = new Genre(name, description);
@@ -57,10 +61,11 @@ public class DaoGenre {
 		return result;
 	}
 	
-	public boolean deleteGenre(String name) throws DaoException {
+	//Funcionando
+	public boolean deleteGenre(String name, String description) throws DaoException {
 		boolean result = false;
-		Genre g = findGenre(name);
 		try {
+			Genre g = new Genre(name, description);
 			this.session = DaoGenre.sf.openSession();
 			this.session.getTransaction().begin();
 			session.delete(g);
