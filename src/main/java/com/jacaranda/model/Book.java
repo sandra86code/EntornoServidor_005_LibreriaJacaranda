@@ -25,6 +25,7 @@ public class Book {
 	private double price;
 	private boolean stock;
 	@ManyToOne
+	@JoinColumn(name="name")
 	private Genre genre;
 	
 	
