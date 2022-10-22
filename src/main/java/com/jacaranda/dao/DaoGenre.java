@@ -1,10 +1,15 @@
 package com.jacaranda.dao;
 
+import java.util.ArrayList;
+
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
+
 import com.jacaranda.model.Genre;
 import com.jacaranda.model.GenreException;
 
@@ -20,12 +25,20 @@ public class DaoGenre {
 	}
 	
 	
-	public Genre readGenre(String name) throws DaoException {
+	public Genre findGenre(String name) throws DaoException {
 		Genre g = (Genre) session.get(Genre.class,name);
 		if(g==null) {
 			throw new DaoException("No existe un genero con ese nombre");
 		}
 		return g;
+	}
+	
+	public ArrayList<Genre> findAllGenres() {
+		this.session = DaoGenre.sf.openSession();
+		String hql = "SELECT name, description FROM GENRE g";
+		Query query = session.createNativeQuery(hql, Genre.class);
+		ArrayList<Genre> genreList = (ArrayList<Genre>) query.getResultList();
+		return genreList;     
 	}
 	
 	public boolean addGenre(String name, String description) throws DaoException, GenreException {
@@ -36,7 +49,7 @@ public class DaoGenre {
 			this.session.getTransaction().begin();
 			this.session.save(g);
 			this.session.getTransaction().commit();
-			this.session.close();
+			
 			result = true;
 		}catch(Exception e) {
 			throw new DaoException("Error en la insercion del genero");
@@ -46,7 +59,7 @@ public class DaoGenre {
 	
 	public boolean deleteGenre(String name) throws DaoException {
 		boolean result = false;
-		Genre g = readGenre(name);
+		Genre g = findGenre(name);
 		try {
 			this.session = DaoGenre.sf.openSession();
 			this.session.getTransaction().begin();
@@ -61,7 +74,7 @@ public class DaoGenre {
 
 	public boolean updateGenre(String name, String description) throws DaoException, GenreException {
 		boolean result = false;
-		Genre g = readGenre(name);
+		Genre g = findGenre(name);
 		if(!g.getDescription().equalsIgnoreCase(description)) {
 			g.setDescription(description);
 			try {

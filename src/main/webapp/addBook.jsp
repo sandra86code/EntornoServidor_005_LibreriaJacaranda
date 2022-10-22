@@ -1,4 +1,6 @@
 <%@page import="java.sql.SQLException"%>
+<%@page import="com.jacaranda.model.BookException"%>
+<%@page import="com.jacaranda.dao.DaoBook"%>
 <%@page import="java.time.LocalDate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>

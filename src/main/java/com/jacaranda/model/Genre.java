@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -19,10 +20,16 @@ public class Genre {
 	@Id
 	private String name;
 	private String description;
-	@OneToMany(mappedBy = "genre")
+	@OneToMany(mappedBy ="genre", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Book> books;
 	
 	
+	
+	
+	public Genre() {
+		super();
+	}
+
 	public Genre(String name, String description) throws GenreException {
 		super();
 		this.setName(name);

@@ -102,7 +102,7 @@ public class DaoUser {
 	public static boolean userIsValid(String code, String key) throws SQLException {
 		boolean result = false;
 		Statement instruccion = connection.createStatement();
-		ResultSet userSet = instruccion.executeQuery("Select * from users where userCod like BINARY '" + code + "' and password like BINARY '"+ key + "';");
+		ResultSet userSet = instruccion.executeQuery("Select * from USERS where userCod like BINARY '" + code + "' and password like BINARY '"+ key + "';");
 		
 		if(userSet.next()) {
 			result = true;

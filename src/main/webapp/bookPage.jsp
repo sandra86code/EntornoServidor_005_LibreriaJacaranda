@@ -31,7 +31,7 @@
 		}%>
 			
 			<div id="headingTitle">
-				<h1>LISTADO DE LIBROS DE LA LIBRERIA JACARANDÁ</h1>
+				<h1>LISTADO DE LIBROS DEL GÉNERO <%=genero%> LA LIBRERIA JACARANDÁ</h1>
 			</div>
 			<!-- adding userName on main page -->
 			<div id="activeUser">
