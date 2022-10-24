@@ -40,7 +40,7 @@
 			</div>
 		
 			<div id="table">		
-				<table cellspacing="2" cellpadding="2">
+				<table cellspacing="2" cellpadding="2" class="listGenres">
 					<tr>
 						<th>Nombre</th>
 						<th>Descripción</th>
