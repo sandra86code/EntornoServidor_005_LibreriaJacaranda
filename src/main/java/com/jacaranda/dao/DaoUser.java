@@ -67,7 +67,7 @@ public class DaoUser {
 	public List<User> getUsers() throws SQLException, UserException {
 		List<User> result = new ArrayList<User>();
 		Statement instruccion = connection.createStatement();
-		ResultSet usersSet = instruccion.executeQuery("Select * from users;");
+		ResultSet usersSet = instruccion.executeQuery("Select * from USERS;");
 		while(usersSet.next()) {
 			User u = new User(usersSet.getString("userCod"), usersSet.getString("password"));
 			result.add(u);
@@ -84,7 +84,7 @@ public class DaoUser {
 	public User getUser(String userCod) throws UserException, SQLException {
 		User result = null;
 		Statement instruccion = connection.createStatement();
-		ResultSet userSet = instruccion.executeQuery("Select * from users where userCod like '" + userCod + "';");
+		ResultSet userSet = instruccion.executeQuery("Select * from USERS where userCod like '" + userCod + "';");
 		
 		while(userSet.next()) {
 			result = new User(userSet.getString("userCod"), userSet.getString("password"));		
