@@ -45,7 +45,7 @@ public class DaoBook {
 		Book book =(Book) session.get(Book.class, isbn);
 		
 		if(book==null) {
-			throw new DaoException("No existe un libro con ese nombre");
+			throw new DaoException("No existe un libro con ese isbn");
 		}
 		
 		return book;
@@ -62,9 +62,9 @@ public class DaoBook {
 		Session session = ConnectionDB.getSession();
 		
 		try {
-			Book b = getBook(isbn);
+			Book book = getBook(isbn);
 			session.getTransaction().begin();
-			session.delete(b);
+			session.delete(book);
 			session.getTransaction().commit();		
 		} catch (Exception e) {
 			throw new DaoException(e.getMessage());
@@ -89,7 +89,8 @@ public class DaoBook {
 		
 		boolean result = false;
 		Session session = ConnectionDB.getSession();
-		Book book = getBook(isbn);
+		Book book =(Book) session.get(Book.class, isbn); // no utilizo el getBook por que lanzaría una exception si es nulo y no podría crear un libro nuevo
+		
 		if(book == null) {
 			try {
 				Book newBook = new Book(isbn, title, author, publishedDate, quantity, price, quantity, genre);
@@ -100,6 +101,8 @@ public class DaoBook {
 			}catch(Exception e) {
 				throw new DaoException(e.getMessage());
 			}
+		} else {
+			throw new DaoException("Ya existe un libro con ese isbn");
 		}
 		return result;
 	}
@@ -117,9 +120,9 @@ public class DaoBook {
 	
 		boolean result = false;
 		Session session = ConnectionDB.getSession();
-		Book oldBook = getBook(isbn);
 		
 		try {
+			Book oldBook = getBook(isbn);
 		
 			if(!oldBook.getTitle().equals(modifiedBook.getTitle())) {
 				oldBook.setTitle(modifiedBook.getTitle());
