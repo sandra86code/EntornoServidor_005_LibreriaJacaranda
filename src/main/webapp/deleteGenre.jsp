@@ -34,7 +34,7 @@ function confirmDelete() {
 		Genre genreDetails = null;
 		String genero = request.getParameter("value");
 		try {
-			genreDetails = daog.findGenre(genero);
+			genreDetails = daog.getGenre(genero);
 		} catch (Exception e) {
 			String message = e.getMessage();
 			%><jsp:forward page="error.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward><%

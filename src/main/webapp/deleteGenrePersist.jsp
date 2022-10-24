@@ -15,9 +15,8 @@
 	if(isSession != null && userSession!=null && isSession.equals("True")){
 		DaoGenre daog = new DaoGenre();
 		String name = request.getParameter("name");
-		String description = request.getParameter("description");
 		try {
-			daog.deleteGenre(name, description);
+			daog.deleteGenre(name);
 			%>
 			<jsp:forward page="listGenres.jsp"></jsp:forward>
 		<%
