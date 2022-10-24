@@ -28,7 +28,6 @@ public class DaoGenre {
 	public Genre findGenre(String name) throws DaoException {
 		this.session = DaoGenre.sf.openSession();
 		Genre g = (Genre) session.get(Genre.class, name);
-		System.out.println(g.toString());
 		if(g==null) {
 			throw new DaoException("No existe un genero con ese nombre");
 		}
@@ -39,7 +38,7 @@ public class DaoGenre {
 	public ArrayList<Genre> findAllGenres() {
 		this.session = DaoGenre.sf.openSession();
 		String hql = "SELECT name, description FROM GENRE g";
-		Query query = session.createNativeQuery(hql, Genre.class);
+		Query<Genre> query = session.createNativeQuery(hql, Genre.class);
 		ArrayList<Genre> genreList = (ArrayList<Genre>) query.getResultList();
 		return genreList;     
 	}
