@@ -2,14 +2,7 @@ package com.jacaranda.dao;
 
 import java.util.List;
 
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import com.jacaranda.model.User;
 import com.jacaranda.model.UserException;
@@ -20,12 +13,6 @@ import com.jacaranda.model.UserException;
  */
 
 public class DaoUser {
-	
-	/**
-	 * Atributos estáticos para la conexión con la bbdd
-	 */
-	private static StandardServiceRegistry sr = new StandardServiceRegistryBuilder().configure().build();
-	private static SessionFactory sf = new MetadataSources(sr).buildMetadata().buildSessionFactory();
 	
 	/**
 	 * Atributo para la sesión
@@ -46,9 +33,9 @@ public class DaoUser {
 	 * los requisitos de la clase User
 	 */
 	public List<User> getUsers() throws UserException {
-		session = DaoUser.sf.openSession();
-		List<User> users = session.createQuery("from users", User.class).getResultList();
-		session.close();
+		session = ConnectionDB.getSession();
+		List<User> users = session.createQuery("from USERS", User.class).getResultList();
+		//session.close();
 		return users;
 	}
 	
@@ -59,9 +46,9 @@ public class DaoUser {
 	 * @throws DaoException lanza la excepción cuando no exista dicho usuario en la base de datos
 	 */
 	public User getUser(String userCod) throws UserException, DaoException {
-		session = DaoUser.sf.openSession();
+		session = ConnectionDB.getSession();
 		User result = session.get(User.class, userCod);
-		session.close();
+//		session.close();
 		if(result == null) {
 			throw new DaoException("No se ha encontrado el usuario en la base de datos");
 		}
@@ -73,16 +60,17 @@ public class DaoUser {
 	 * @param code código de usuario
 	 * @param key contraseña 
 	 * @return boolean true si coincide, exception si no 
-	 * @throws NoResultException si no se encuentran los datos en la bbdd
+	 * @throws DaoException 
+	 * @throws UserException 
 	 */
-	public boolean userIsValid(String code, String key) throws NoResultException {
+	public boolean userIsValid(String code, String key) throws UserException, DaoException {
 		boolean result = false;
-		session = DaoUser.sf.openSession();
-		Query query = session.createSQLQuery("Select * from users where userCod like BINARY '" + code + "' and password like BINARY '" + key + "' ;");
-		if(query.getSingleResult() != null) {
+		session = ConnectionDB.getSession();
+		User u = getUser(code);
+		if(u.getPassword().equals(key)) {
 			result = true;
 		}
-		session.close();
+		//session.close();
 		return result;
 	}
 	
