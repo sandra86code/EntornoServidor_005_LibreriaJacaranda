@@ -41,6 +41,7 @@ document.getElementById("date").setAttribute("max", today);
    		Map params = request.getParameterMap();
    		DaoBook daob = new DaoBook();
    		
+   		
    		//if the form has been submited
 		if(params.size()>1){
 			//save the values
@@ -50,6 +51,8 @@ document.getElementById("date").setAttribute("max", today);
 			LocalDate publishedDate = LocalDate.parse(request.getParameter("published_date"));
 			int quantity = Integer.parseInt(request.getParameter("quantity"));
 			double price = Double.parseDouble(request.getParameter("price"));
+			
+			
 			//create a book without isbn and use the java update function
 			Book modified = new Book(title, author, publishedDate, quantity, price);
 			try {
@@ -63,7 +66,8 @@ document.getElementById("date").setAttribute("max", today);
 			String isbn = request.getParameter("value");
 			Book book = null;
 			try{
-				book = daob.getBook(isbn);%>
+				book = daob.getBook(isbn);
+				String genre = book.getGenre().getName(); %>
 			
 				<section class="get-in-touch">
 					<h1 class="title">Actualizar un libro</h1>
@@ -95,7 +99,7 @@ document.getElementById("date").setAttribute("max", today);
 						</div>
 						<div class="form-field col-lg-12">
 							<button class="submit-btn" type="submit">Actualizar</button>
-							<a href="bookPage.jsp" class="back-btn">Cancelar</a>
+							<a href="bookList.jsp?value=<%= genre %>" class="back-btn">Cancelar</a>
 						</div>
 					</form>
 				</section>

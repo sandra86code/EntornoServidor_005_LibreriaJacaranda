@@ -17,7 +17,7 @@ function confirmDelete() {
    	if (confirm("¿Estás seguro/a de querer borrar el libro?")) {
     	document.getElementById("deleteForm").submit();
     } else {
-    	window.location='bookPage.jsp'
+    	history.back();
     }
 }
 
@@ -33,8 +33,10 @@ function confirmDelete() {
 		DaoBook daob = new DaoBook();
 		Book bookDetails = null;
 		String isbn = request.getParameter("value");
+		String genre = "";
 		try {
 			bookDetails = daob.getBook(request.getParameter("value"));
+			genre = bookDetails.getGenre().getName();
 		} catch (Exception e) {
 			String message = e.getMessage();
 			%><jsp:forward page="error.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward><%
@@ -76,7 +78,7 @@ function confirmDelete() {
 
 			<div class="form-field col-lg-12">
 				<button class="submit-btn" type="submit" name="deleteBook" value="deleteBook" onclick="confirmDelete()">Borrar</button>
-				<button class="back-btn" id="returnButton" class="returnButton" role="link" onclick="javascript:window.location='bookPage.jsp';">Cancelar</button>
+				<button class="back-btn" id="returnButton" class="returnButton" role="link" onclick="javascript:window.location='bookList.jsp?value=<%= genre %>';">Cancelar</button>
 			</div>
 		</form>
 		</section>
