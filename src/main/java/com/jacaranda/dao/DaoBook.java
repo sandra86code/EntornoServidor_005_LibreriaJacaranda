@@ -26,10 +26,6 @@ import com.jacaranda.model.Genre;
  */
 public class DaoBook {
 	
-	private static StandardServiceRegistry sr = new StandardServiceRegistryBuilder().configure().build();
-	private static SessionFactory sf = new MetadataSources(sr).buildMetadata().buildSessionFactory();
-	private Session session;
-
 	/**
 	 * Constructor vacío
 	 */
@@ -37,22 +33,44 @@ public class DaoBook {
 		super();
 	}
 	
-	public ArrayList<Book> findBooksByGenre(String genre) {
-		this.session = DaoBook.sf.openSession();
-		String hql = "SELECT isbn, title, author, published_date, quantity, price, stock FROM BOOK b WHERE genre='" + genre + "';";
-		Query query = session.createNativeQuery(hql, Book.class);
-		ArrayList<Book> genreList = (ArrayList<Book>) query.getResultList();
-		return genreList;     
+	/**
+	 * Método que obtiene un objeto Libro de la base de datos a partir de su ISBN
+	 * @param isbn el ISBN del libro
+	 * @return el objeto Libro
+	 * @throws DaoException lanza una excepción si el libro no existe en la base de datos
+	 */
+	public Book getBook(String isbn) throws DaoException {
+		
+		Session session = ConnectionDB.getSession();
+		Book book =(Book) session.get(Book.class, isbn);
+		
+		if(book==null) {
+			throw new DaoException("No existe un libro con ese nombre");
+		}
+		
+		return book;
 	}
 	
+
 	/**
 	 * Método que borra un libro en la base de datos a partir de su ISBN
 	 * @param isbn el ISBN del libro
-	 * @throws SQLException lanza excepción cuando no se haya podido eliminar el libro
 	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
 	 */
-	public void deleteBook(String isbn) throws SQLException, DaoException {
+	public boolean deleteBook(String isbn) throws DaoException {
+		boolean result = false; 
+		Session session = ConnectionDB.getSession();
 		
+		try {
+			Book b = getBook(isbn);
+			session.getTransaction().begin();
+			session.delete(b);
+			session.getTransaction().commit();		
+		} catch (Exception e) {
+			throw new DaoException(e.getMessage());
+		}
+		
+		return result;
 	}
 	
 	/**
@@ -67,25 +85,25 @@ public class DaoBook {
 	 * @throws SQLException lanza la excepción cuando no se pueda añadir el libro en la base de datos
 	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
 	 */
-	public void addBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException, SQLException, DaoException {
+	public boolean addBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price, Genre genre) throws DaoException {
 		
+		boolean result = false;
+		Session session = ConnectionDB.getSession();
+		Book book = getBook(isbn);
+		if(book == null) {
+			try {
+				Book newBook = new Book(isbn, title, author, publishedDate, quantity, price, quantity, genre);
+				session.getTransaction().begin();
+				session.save(newBook);
+				session.getTransaction().commit();
+				result = true;
+			}catch(Exception e) {
+				throw new DaoException(e.getMessage());
+			}
+		}
+		return result;
 	}
-
-	/**
-	 * Método que obtiene un objeto Libro de la base de datos a partir de su ISBN
-	 * @param isbn el ISBN del libro
-	 * @return el objeto Libro
-	 * @throws SQLException lanza la excepción cuando no exista dicho libro en la base de datos
-	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
-	 */
-	public Book getBook(String isbn) throws SQLException, DaoException {
 		
-		Book bookItem = null;
-		
-		return bookItem;
-	}
-	
-
 	/**
 	 * Método que actualiza un libro en la base de datos
 	 * @param isbn el ISBN del libro
@@ -95,42 +113,47 @@ public class DaoBook {
 	 * @throws SQLException lanza la excepción cuando no se puede ejecutar la actualización en la base de datos
 	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
 	 */
-	public void updateBook(String isbn, Book modifiedBook) throws BookException, SQLException, DaoException {
-//		this.connection = openConnectionDdbb();
-		Book oldBook = getBook(isbn);
-//		Statement instruction = connection.createStatement();
-		
-		String updateQuery = "UPDATE articles SET ";
-		String changesQuery = "";
-		String whereQuery = " WHERE isbn = '" + isbn + "';";
-		String totalQuery = null;
-		
-		if(!oldBook.getTitle().equals(modifiedBook.getTitle())) {
-			changesQuery += "title = '" + modifiedBook.getTitle() + "', ";
-		}
-		if(!oldBook.getAuthor().equals(modifiedBook.getAuthor())) {
-			changesQuery += "author = '" + modifiedBook.getAuthor() + "', ";
-		}
-		if(!oldBook.getPublishedDate().equals(modifiedBook.getPublishedDate())) {
-			changesQuery += "published_date = '" + modifiedBook.getPublishedDate() + "', ";
-		}
-		if(oldBook.getQuantity()!=(modifiedBook.getQuantity())) {
-			changesQuery += "quantity = " + modifiedBook.getQuantity() + ", stock= " + modifiedBook.getStock() +  ", ";
-		}
-		if(oldBook.getPrice()!=(modifiedBook.getPrice())) {
-			changesQuery += "price = " + modifiedBook.getPrice() + ", ";
-		}
-		if(changesQuery.equals("")) {
-			throw new SQLException("No se han realizado modificaciones");
-		}else {
-			changesQuery = changesQuery.substring(0, changesQuery.length() -2);
-			totalQuery = updateQuery + changesQuery + whereQuery;
-//			instruction.executeUpdate(totalQuery);
-		}		
-		
-	}
+	public boolean updateBook(String isbn, Book modifiedBook) throws DaoException {
 	
-
+		boolean result = false;
+		Session session = ConnectionDB.getSession();
+		Book oldBook = getBook(isbn);
+		
+		try {
+		
+			if(!oldBook.getTitle().equals(modifiedBook.getTitle())) {
+				oldBook.setTitle(modifiedBook.getTitle());
+			}
+			if(!oldBook.getAuthor().equals(modifiedBook.getAuthor())) {
+				oldBook.setAuthor(modifiedBook.getAuthor());
+			}
+			if(!oldBook.getPublishedDate().equals(modifiedBook.getPublishedDate())) {
+				oldBook.setPublishedDate(modifiedBook.getPublishedDate());
+			}
+			if(oldBook.getQuantity()!=(modifiedBook.getQuantity())) {
+				oldBook.setQuantity(modifiedBook.getQuantity());
+			}
+			if(oldBook.getPrice()!=(modifiedBook.getPrice())) {
+				oldBook.setPrice(modifiedBook.getPrice());
+			}
+		
+			session.getTransaction().begin();
+			session.update(oldBook);
+			session.getTransaction().commit();
+			}catch(Exception e) {
+				throw new DaoException(e.getMessage());
+			}
+		return result;
+		}
+	
+	
+	public ArrayList<Book> findBooksByGenre(String genre) {
+		Session session = ConnectionDB.getSession();
+		String hql = "SELECT isbn, title, author, published_date, quantity, price, stock FROM BOOK b WHERE genre='" + genre + "';";
+		Query query = session.createNativeQuery(hql, Book.class);
+		ArrayList<Book> genreList = (ArrayList<Book>) query.getResultList();
+		return genreList;     
+	}
 	
 	
 }

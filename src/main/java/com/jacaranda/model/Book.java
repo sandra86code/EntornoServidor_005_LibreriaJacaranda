@@ -184,7 +184,7 @@ public class Book {
 	 * @param publishedDate la fecha de publicación del libro
 	 * @throws BookException lanza la excepción cuando la fecha es posterior o igual a la fecha actual
 	 */
-	private void setPublishedDate(LocalDate publishedDate) throws BookException {
+	public void setPublishedDate(LocalDate publishedDate) throws BookException {
 		if(!publishedDate.isAfter(LocalDate.now())) {
 			this.publishedDate = publishedDate;
 		}else {
@@ -197,7 +197,7 @@ public class Book {
 	 * @param quantity la cantidad de libros
 	 * @throws BookException lanza la excepción cuando la cantidad es inferior a 0
 	 */
-	private void setQuantity(int quantity) throws BookException {
+	public void setQuantity(int quantity) throws BookException {
 		if(quantity>=0) {
 			this.quantity = quantity;
 		}else {
@@ -210,7 +210,7 @@ public class Book {
 	 * @param price el precio del libro
 	 * @throws BookException lanza la excepción cuando el precio es inferior o igual a 0.0
 	 */
-	private void setPrice(double price) throws BookException {
+	public void setPrice(double price) throws BookException {
 		if(price>0.0) {
 			this.price = price;
 		}else {
@@ -223,7 +223,7 @@ public class Book {
 	 * @param title el título del libro
 	 * @throws BookException lanza la excepción cuando el título está vacío o solo contiene espacios en blanco
 	 */
-	private void setTitle(String title) throws BookException {
+	public void setTitle(String title) throws BookException {
 		if(title == null || title.isBlank()) {
 			throw new BookException("El titulo no puede estar vacio"); //Sin tildes porque sino las entiende el jsp al saltar el error
 		}else {
@@ -236,7 +236,7 @@ public class Book {
 	 * @param author el autor del libro
 	 * @throws BookException lanza la excepción cuando el autor está vacío o solo contiene espacios en blanco
 	 */
-	private void setAuthor(String author) throws BookException {
+	public void setAuthor(String author) throws BookException {
 		if(author == null || author.isBlank()) {
 			throw new BookException("El autor no puede estar vacio"); //Sin tildes porque sino las entiende el jsp al saltar el error
 		}else {
