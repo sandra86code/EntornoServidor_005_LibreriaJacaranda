@@ -1,3 +1,5 @@
+<%@page import="com.jacaranda.model.Genre"%>
+<%@page import="com.jacaranda.dao.DaoGenre"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.sql.SQLException"%>
@@ -27,6 +29,7 @@
 		String newPublished_date = request.getParameter("published_date");
 		int newQuantity = Integer.parseInt(request.getParameter("quantity"));
 		double newPrice = Double.parseDouble(request.getParameter("price"));
+		String mainGenre = request.getParameter("genre");
 		
 		
 		if(newIsbn == null || empty.equals(newIsbn.trim()) || newTitle == null || empty.equals(newTitle.trim()) || newAuthor == null || empty.equals(newAuthor.trim()) ||
@@ -37,9 +40,11 @@
 			LocalDate date = LocalDate.parse(newPublished_date);
 			
 			DaoBook newDaoBook = new DaoBook();
+			DaoGenre newDaoGenre = new DaoGenre();
 			
 			try {
-				newDaoBook.addBook(newIsbn, newTitle, newAuthor, date, newQuantity, newPrice);%>
+				Genre newGenre = newDaoGenre.getGenre(mainGenre);
+				newDaoBook.addBook(newIsbn, newTitle, newAuthor, date, newQuantity, newPrice, newGenre);%>
 				<jsp:forward
 				page="bookPage.jsp"></jsp:forward>
 				
