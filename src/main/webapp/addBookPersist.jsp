@@ -45,8 +45,7 @@
 			try {
 				Genre newGenre = newDaoGenre.getGenre(mainGenre);
 				newDaoBook.addBook(newIsbn, newTitle, newAuthor, date, newQuantity, newPrice, newGenre);%>
-				<jsp:forward
-				page="bookPage.jsp"></jsp:forward>
+				<jsp:forward page="bookList.jsp"><jsp:param name="value" value="<%= mainGenre %>"/></jsp:forward>
 				
 			<%} catch (Exception e){
 					String message = e.getMessage();%>

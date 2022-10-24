@@ -3,6 +3,7 @@ package com.jacaranda.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -20,12 +21,13 @@ public class Book {
 	private String isbn;
 	private String title;
 	private String author;
+	@Column(name = "published_date")
 	private LocalDate publishedDate;
 	private int quantity;
 	private double price;
 	private boolean stock;
 	@ManyToOne
-	@JoinColumn(name="name")
+	@JoinColumn(name="genre")
 	private Genre genre;
 	
 	
@@ -259,6 +261,14 @@ public class Book {
 		}else {
 			throw new BookException("Cantidad incorrecta");
 		}
+	}
+
+	public Genre getGenre() {
+		return genre;
+	}
+
+	public void setGenre(Genre genre) {
+		this.genre = genre;
 	}
 
 	/**

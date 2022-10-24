@@ -152,8 +152,7 @@ public class DaoBook {
 	
 	public ArrayList<Book> findBooksByGenre(String genre) {
 		Session session = ConnectionDB.getSession();
-		String hql = "SELECT isbn, title, author, published_date, quantity, price, stock FROM BOOK b WHERE genre='" + genre + "';";
-		Query query = session.createNativeQuery(hql, Book.class);
+		Query<Book> query = session.createQuery("SELECT b FROM com.jacaranda.model.Book b");
 		ArrayList<Book> genreList = (ArrayList<Book>) query.getResultList();
 		return genreList;     
 	}

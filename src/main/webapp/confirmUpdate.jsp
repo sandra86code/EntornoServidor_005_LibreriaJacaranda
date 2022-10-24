@@ -18,8 +18,10 @@
 		DaoBook daob = new DaoBook();
 		Book bookDetails = null;
 		String isbn = request.getParameter("isbn");
+		String genre = "";
 		try {
 			bookDetails = daob.getBook(isbn);
+			genre = bookDetails.getGenre().getName();
 		} catch (Exception e) {
 			String message = e.getMessage();
 			%><jsp:forward page="error.jsp"><jsp:param name="msg" value="<%= message %>"/></jsp:forward><%
@@ -57,7 +59,7 @@
 				<td class="table"><%=bookDetails.getStockYN()%></td>
 			</tr>
 		</table>
-		<a href="bookPage.jsp" class="back-btn">Volver al listado</a>
+		<a href="bookList.jsp?value=<%= genre %>" class="back-btn">Volver al listado</a>
 		</form>
 		</section>
 <%} else {

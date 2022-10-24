@@ -1,3 +1,4 @@
+<%@page import="com.jacaranda.model.Book"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.jacaranda.dao.DaoBook"%>
@@ -16,9 +17,11 @@
 		String isbn = request.getParameter("isbn"); 
 		DaoBook daob = new DaoBook();
 		try {
+			Book book = daob.getBook(isbn);
+			String genre = book.getGenre().getName();
 			daob.deleteBook(isbn);
 			%>
-			<jsp:forward page="bookPage.jsp"></jsp:forward>
+			<jsp:forward page="bookList.jsp"><jsp:param value="<%= genre %>" name="value"/></jsp:forward>
 		<%
 		}catch (Exception e) {
 			String message = e.getMessage();
