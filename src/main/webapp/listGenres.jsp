@@ -24,7 +24,7 @@
 		DaoGenre daog = new DaoGenre();
 		ArrayList<Genre> genreList = null;
 		try {
-			genreList = daog.findAllGenres();
+			genreList = daog.getAllGenres();
 		%>
 			
 			<div id="headingTitle">
