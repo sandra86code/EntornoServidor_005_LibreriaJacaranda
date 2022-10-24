@@ -34,7 +34,7 @@ public class Genre {
 		super();
 		this.setName(name);
 		this.setDescription(description);
-		this.books = new ArrayList<>();
+		this.books = null;
 	}
 
 	public Genre(String name) throws GenreException {
