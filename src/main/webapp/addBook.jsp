@@ -37,7 +37,9 @@ document.getElementById("published_date").setAttribute("max", today);
 	HttpSession se = request.getSession();
 	String isSession = (String) session.getAttribute("login");
 	String userSession = (String) session.getAttribute("user");
-	if(isSession != null && userSession !=null && isSession.equals("True")){%>
+	if(isSession != null && userSession !=null && isSession.equals("True")){
+		String genre = request.getParameter("genre");
+	%>
 
 	<section class="get-in-touch">
 		<h1 class="title">Añadir libro</h1>
@@ -71,6 +73,7 @@ document.getElementById("published_date").setAttribute("max", today);
 				<button class="submit-btn" type="submit"  name="addBook">Añadir</button>
 				<button id="returnButton" class="back-btn" type="submit"  onclick="javascript:window.location='bookList.jsp';" >Cancelar</button>
 			</div>
+			<input type="hidden" value ="<%=genre%>" name="genre">
 		
 		</form>
 	</section>
