@@ -15,6 +15,7 @@
 	if(isSession != null && userSession!=null && isSession.equals("True")){
 		DaoGenre daog = new DaoGenre();
 		String name = request.getParameter("name");
+		System.out.println(name);
 		try {
 			daog.deleteGenre(name);
 			%>
@@ -23,7 +24,7 @@
 		}catch (Exception e) {
 			String message = e.getMessage();
 			%>
-			<jsp:forward page="errorBackToTable.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward>
+			<jsp:forward page="errorBackToGenreTable.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward>
 			<%
 		}
 	} else {

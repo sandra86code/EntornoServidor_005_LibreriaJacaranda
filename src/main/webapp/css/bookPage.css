@@ -120,3 +120,7 @@ th {
     text-align: right;
  
 }
+
+.listGenres th {
+	width: 200px;
+}
