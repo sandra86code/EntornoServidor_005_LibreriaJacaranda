@@ -29,31 +29,27 @@ public class DaoGenre {
 	//Funcionando
 	public ArrayList<Genre> getAllGenres() {
 		Session session = ConnectionDB.getSession();
-		String hql = "SELECT g FROM GENRE g";
+		String hql = "SELECT name, description FROM GENRE g";
 		Query<Genre> query = session.createNativeQuery(hql, Genre.class);
 		ArrayList<Genre> genreList = (ArrayList<Genre>) query.getResultList();
 		return genreList;     
 	}
 	
 	//Funcionando
-	public boolean addGenre(String name, String description) throws DaoException {
-		boolean result = false;
+	public void addGenre(String name, String description) throws DaoException {
 		Session session = ConnectionDB.getSession();
 		try {
 			Genre g = new Genre(name, description);
 			session.getTransaction().begin();
 			session.save(g);
 			session.getTransaction().commit();
-			result = true;
 		}catch(Exception e) {
-			throw new DaoException(e.getMessage());
+			throw new DaoException("Error en la insercion. Existe otro genero con el mismo nombre");
 		}
-		return result;
 	}
 	
 	//Funcionando
-	public boolean deleteGenre(String name) throws DaoException {
-		boolean result = false;
+	public void deleteGenre(String name) throws DaoException {
 		Session session = ConnectionDB.getSession();
 		try {
 			Genre g = getGenre(name);
@@ -61,9 +57,8 @@ public class DaoGenre {
 			session.delete(g);
 			session.getTransaction().commit();
 		}catch(Exception e) {
-			throw new DaoException(e.getMessage());
+			throw new DaoException("Error en la eliminacion. No existe ningun genero con ese nombre");
 		}
-		return result;
 	}
 
 	public boolean updateGenre(String name, String description) throws DaoException, GenreException {
@@ -79,6 +74,7 @@ public class DaoGenre {
 			}catch(Exception e) {
 				throw new DaoException(e.getMessage());
 			}
+			result = true;
 		}
 		return result;
 	}

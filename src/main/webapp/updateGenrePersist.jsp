@@ -17,14 +17,17 @@
 		String name = request.getParameter("name");
 		String description = request.getParameter("description");
 		try {
-			daog.updateGenre(name, description);
-			%>
-			<jsp:forward page="listGenres.jsp"></jsp:forward>
-		<%
+			boolean result = daog.updateGenre(name, description);
+			if(result){
+				%><jsp:forward page="listGenres.jsp"></jsp:forward><%
+			}else {
+				String message = "No se ha realizado ninguna modificacion.";%>
+				<jsp:forward page="errorBackToGenreTable.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward><%
+			}
 		}catch (Exception e) {
 			String message = e.getMessage();
 			%>
-			<jsp:forward page="errorBackToTable.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward>
+			<jsp:forward page="errorBackToGenreTable.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward>
 			<%
 		}
 	} else {
