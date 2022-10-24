@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import com.jacaranda.model.Genre;
 import com.jacaranda.model.User;
 import com.jacaranda.model.UserException;
 
@@ -14,10 +15,6 @@ import com.jacaranda.model.UserException;
 
 public class DaoUser {
 	
-	/**
-	 * Atributo para la sesión
-	 */
-	private Session session;
 	
 	/**
 	 * Constructor vacío
@@ -33,7 +30,7 @@ public class DaoUser {
 	 * los requisitos de la clase User
 	 */
 	public List<User> getUsers() throws UserException {
-		session = ConnectionDB.getSession();
+		Session session = ConnectionDB.getSession();
 		List<User> users = session.createQuery("from USERS", User.class).getResultList();
 		//session.close();
 		return users;
@@ -46,8 +43,8 @@ public class DaoUser {
 	 * @throws DaoException lanza la excepción cuando no exista dicho usuario en la base de datos
 	 */
 	public User getUser(String userCod) throws UserException, DaoException {
-		session = ConnectionDB.getSession();
-		User result = session.get(User.class, userCod);
+		Session session = ConnectionDB.getSession();
+		User result = (User)session.get(User.class, userCod);
 //		session.close();
 		if(result == null) {
 			throw new DaoException("No se ha encontrado el usuario en la base de datos");
@@ -65,7 +62,6 @@ public class DaoUser {
 	 */
 	public boolean userIsValid(String code, String key) throws UserException, DaoException {
 		boolean result = false;
-		session = ConnectionDB.getSession();
 		User u = getUser(code);
 		if(u.getPassword().equals(key)) {
 			result = true;
