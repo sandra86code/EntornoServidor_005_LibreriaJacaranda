@@ -20,19 +20,24 @@
 	String isSession = (String) session.getAttribute("login");
 	String userSession = (String) session.getAttribute("user");
 	if(isSession != null && userSession!=null && isSession.equals("True")){
+		String genre = request.getParameter("value");
+		String user = userSession;
 		DaoBook daob = new DaoBook();
 		ArrayList<Book> bookList = null;
 		try {
-			bookList = daob.getBooks();
+			bookList = daob.findBooksByGenre(genre);
 		} catch (Exception e) {
 			String message = e.getMessage();
 			%><jsp:forward page="error.jsp"><jsp:param name="msg" value="<%= message %>"/></jsp:forward><%
 		}%>
 			
 			<div id="headingTitle">
-				<h1>LISTADO DE LIBROS DE LA LIBRERIA JACARANDÁ</h1>
+				<h1>LISTADO DE LIBROS DEL GÉNERO <%=genre.toUpperCase()%> LA LIBRERIA JACARANDÁ</h1>
 			</div>
-			
+			<!-- adding userName on main page -->
+			<div id="activeUser">
+				<h3>Usuario: <%= user %></h3>
+			</div>
 			<div id="buttons">
 				<a href="closeSession.jsp" class="closeSession">Cerrar sesión</a>
 				<a href="addBook.jsp" class="addBook">Añadir libro</a>

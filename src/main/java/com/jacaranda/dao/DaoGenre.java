@@ -1,10 +1,15 @@
 package com.jacaranda.dao;
 
+import java.util.ArrayList;
+
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
+
 import com.jacaranda.model.Genre;
 import com.jacaranda.model.GenreException;
 
@@ -19,15 +24,26 @@ public class DaoGenre {
 		super();
 	}
 	
-	
-	public Genre readGenre(String name) throws DaoException {
-		Genre g = (Genre) session.get(Genre.class,name);
+	//Funcionando
+	public Genre findGenre(String name) throws DaoException {
+		this.session = DaoGenre.sf.openSession();
+		Genre g = (Genre) session.get(Genre.class, name);
 		if(g==null) {
 			throw new DaoException("No existe un genero con ese nombre");
 		}
 		return g;
 	}
 	
+	//Funcionando
+	public ArrayList<Genre> findAllGenres() {
+		this.session = DaoGenre.sf.openSession();
+		String hql = "SELECT name, description FROM GENRE g";
+		Query<Genre> query = session.createNativeQuery(hql, Genre.class);
+		ArrayList<Genre> genreList = (ArrayList<Genre>) query.getResultList();
+		return genreList;     
+	}
+	
+	//Funcionando
 	public boolean addGenre(String name, String description) throws DaoException, GenreException {
 		boolean result = false;
 		Genre g = new Genre(name, description);
@@ -36,7 +52,7 @@ public class DaoGenre {
 			this.session.getTransaction().begin();
 			this.session.save(g);
 			this.session.getTransaction().commit();
-			this.session.close();
+			
 			result = true;
 		}catch(Exception e) {
 			throw new DaoException("Error en la insercion del genero");
@@ -44,10 +60,11 @@ public class DaoGenre {
 		return result;
 	}
 	
-	public boolean deleteGenre(String name) throws DaoException {
+	//Funcionando
+	public boolean deleteGenre(String name, String description) throws DaoException {
 		boolean result = false;
-		Genre g = readGenre(name);
 		try {
+			Genre g = new Genre(name, description);
 			this.session = DaoGenre.sf.openSession();
 			this.session.getTransaction().begin();
 			session.delete(g);
@@ -61,7 +78,7 @@ public class DaoGenre {
 
 	public boolean updateGenre(String name, String description) throws DaoException, GenreException {
 		boolean result = false;
-		Genre g = readGenre(name);
+		Genre g = findGenre(name);
 		if(!g.getDescription().equalsIgnoreCase(description)) {
 			g.setDescription(description);
 			try {

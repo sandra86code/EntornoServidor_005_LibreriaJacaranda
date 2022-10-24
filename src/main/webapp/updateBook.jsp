@@ -14,6 +14,23 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <title>LJ - Actualizar libro</title>
+<script>
+function TDate() {
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth() + 1; //January is 0!
+var yyyy = today.getFullYear();
+if (dd < 10) {
+   dd = '0' + dd;
+}
+if (mm < 10) {
+   mm = '0' + mm;
+} 
+    
+today = yyyy + '-' + mm + '-' + dd;
+document.getElementById("date").setAttribute("max", today);
+}
+</script>
 </head>
 <body>
 	<% //check session
@@ -65,7 +82,7 @@
 							<label class="label" for="author">Autor</label>
 						</div>
 						<div class="form-field col-lg-6 ">
-							<input id="date" class="input-text js-input" type="date" name="published_date" value="<%= book.getPublishedDate() %>" required>
+							<input id="date" class="input-text js-input" type="date" name="published_date" value="<%= book.getPublishedDate() %>" min='1899-01-01' max='2000-13-13' onclick="TDate()" required>
 							<label class="label" for="date">Fecha de publicación</label>
 						</div>
 						<div class="form-field col-lg-6 ">

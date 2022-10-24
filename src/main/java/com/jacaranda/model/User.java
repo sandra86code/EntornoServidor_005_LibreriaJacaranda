@@ -11,7 +11,7 @@ import javax.persistence.Table;
  * Mapear solo clases de java (no DAO) y verificar nombres de tablas
  */
 @Entity
-@Table(name = "user")
+@Table(name="USERS")
 public class User {
 	@Id
 	private String userCod;
@@ -50,7 +50,7 @@ public class User {
 		if(userCod == null || userCod.isBlank()) {
 			throw new UserException("El usuario no puede ser nulo");
 			} else if(userCod.length()>20) {
-			throw new UserException("El usuario es demadiado largo");
+			throw new UserException("El usuario es demasiado largo");
 			} else {
 				this.userCod = userCod;
 			}
