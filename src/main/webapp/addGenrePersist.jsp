@@ -3,6 +3,7 @@
 <%@page import="java.sql.SQLException"%>
 <%@ page import="com.jacaranda.dao.DaoGenre"%>
 <%@ page import="com.jacaranda.model.Genre"%>
+<%@ page import="com.jacaranda.dao.DaoException"%>
 
 <!DOCTYPE html>
 <html>
@@ -33,9 +34,10 @@
 			try {
 				dg.addGenre(newName, newDescription);%>
 				<jsp:forward page="listGenres.jsp"></jsp:forward>
-			<%} catch (Exception e){
+				
+				<%} catch (DaoException e){
 					String message = e.getMessage();%>
-				<jsp:forward page="errorBackToTable.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward>
+				<jsp:forward page="errorBackToGenreTable.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward>
 			<%}
 			
 		}
