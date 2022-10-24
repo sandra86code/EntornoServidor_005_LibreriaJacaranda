@@ -38,10 +38,10 @@ function confirmUpdate() {
 		Genre genreDetails = null;
 		String genero = request.getParameter("value");
 		try {
-			genreDetails = daog.findGenre(genero);
+			genreDetails = daog.getGenre(genero);
 		} catch (Exception e) {
 			String message = e.getMessage();
-			%><jsp:forward page="error.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward><%
+			%><jsp:forward page="errorBackToTable.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward><%
 		}%>
 		<section class="get-in-touch">
 			<h1 class="title">Actualizar género "<%=genero%>"</h1>

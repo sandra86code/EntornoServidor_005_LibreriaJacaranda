@@ -4,10 +4,6 @@ import java.util.ArrayList;
 
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 
 import com.jacaranda.model.Genre;
@@ -15,18 +11,14 @@ import com.jacaranda.model.GenreException;
 
 public class DaoGenre {
 	
-	private static StandardServiceRegistry sr = new StandardServiceRegistryBuilder().configure().build();
-	private static SessionFactory sf = new MetadataSources(sr).buildMetadata().buildSessionFactory();
-	private Session session;
-	
 	
 	public DaoGenre() {
 		super();
 	}
 	
 	//Funcionando
-	public Genre findGenre(String name) throws DaoException {
-		this.session = DaoGenre.sf.openSession();
+	public Genre getGenre(String name) throws DaoException {
+		Session session = ConnectionDB.getSession();
 		Genre g = (Genre) session.get(Genre.class, name);
 		if(g==null) {
 			throw new DaoException("No existe un genero con ese nombre");
@@ -35,41 +27,39 @@ public class DaoGenre {
 	}
 	
 	//Funcionando
-	public ArrayList<Genre> findAllGenres() {
-		this.session = DaoGenre.sf.openSession();
-		String hql = "SELECT name, description FROM GENRE g";
+	public ArrayList<Genre> getAllGenres() {
+		Session session = ConnectionDB.getSession();
+		String hql = "SELECT g FROM GENRE g";
 		Query<Genre> query = session.createNativeQuery(hql, Genre.class);
 		ArrayList<Genre> genreList = (ArrayList<Genre>) query.getResultList();
 		return genreList;     
 	}
 	
 	//Funcionando
-	public boolean addGenre(String name, String description) throws DaoException, GenreException {
+	public boolean addGenre(String name, String description) throws DaoException {
 		boolean result = false;
-		Genre g = new Genre(name, description);
+		Session session = ConnectionDB.getSession();
 		try {
-			this.session = DaoGenre.sf.openSession();
-			this.session.getTransaction().begin();
-			this.session.save(g);
-			this.session.getTransaction().commit();
-			
+			Genre g = new Genre(name, description);
+			session.getTransaction().begin();
+			session.save(g);
+			session.getTransaction().commit();
 			result = true;
 		}catch(Exception e) {
-			throw new DaoException("Error en la insercion del genero");
+			throw new DaoException(e.getMessage());
 		}
 		return result;
 	}
 	
 	//Funcionando
-	public boolean deleteGenre(String name, String description) throws DaoException {
+	public boolean deleteGenre(String name) throws DaoException {
 		boolean result = false;
+		Session session = ConnectionDB.getSession();
 		try {
-			Genre g = new Genre(name, description);
-			this.session = DaoGenre.sf.openSession();
-			this.session.getTransaction().begin();
+			Genre g = getGenre(name);
+			session.getTransaction().begin();
 			session.delete(g);
-			this.session.getTransaction().commit();
-			this.session.close();
+			session.getTransaction().commit();
 		}catch(Exception e) {
 			throw new DaoException(e.getMessage());
 		}
@@ -78,17 +68,16 @@ public class DaoGenre {
 
 	public boolean updateGenre(String name, String description) throws DaoException, GenreException {
 		boolean result = false;
-		Genre g = findGenre(name);
+		Session session = ConnectionDB.getSession();
+		Genre g = getGenre(name);
 		if(!g.getDescription().equalsIgnoreCase(description)) {
 			g.setDescription(description);
 			try {
-				this.session = DaoGenre.sf.openSession();
-				this.session.getTransaction().begin();
+				session.getTransaction().begin();
 				session.update(g);
-				this.session.getTransaction().commit();
-				this.session.close();
+				session.getTransaction().commit();
 			}catch(Exception e) {
-				throw new DaoException("Error en la actualizacion del genero");
+				throw new DaoException(e.getMessage());
 			}
 		}
 		return result;
