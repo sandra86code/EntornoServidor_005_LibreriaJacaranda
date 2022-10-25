@@ -35,8 +35,8 @@
 				dg.addGenre(newName, newDescription);%>
 				<jsp:forward page="listGenres.jsp"></jsp:forward>
 				
-				<%} catch (DaoException e){
-					String message = e.getMessage();%>
+			<%} catch (DaoException e){
+				String message = e.getMessage();%>
 				<jsp:forward page="errorBackToGenreTable.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward>
 			<%}
 			

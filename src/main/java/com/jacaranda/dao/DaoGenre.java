@@ -36,14 +36,17 @@ public class DaoGenre {
 	}
 	
 	//Funcionando
-	public void addGenre(String name, String description) throws DaoException {
+	public void addGenre(String name, String description) throws DaoException  {
 		Session session = ConnectionDB.getSession();
+		Genre g;
 		try {
-			Genre g = new Genre(name, description);
+			g = new Genre(name, description);
 			session.getTransaction().begin();
 			session.save(g);
 			session.getTransaction().commit();
-		}catch(Exception e) {
+		} catch (GenreException e) {
+			throw new DaoException(e.getMessage());
+		} catch (Exception e) {
 			throw new DaoException("Error en la insercion. Existe otro genero con el mismo nombre");
 		}
 	}
@@ -51,27 +54,23 @@ public class DaoGenre {
 	//Funcionando
 	public void deleteGenre(String name) throws DaoException {
 		Session session = ConnectionDB.getSession();
-		try {
-			Genre g = getGenre(name);
-			session.getTransaction().begin();
-			session.delete(g);
-			session.getTransaction().commit();
-		}catch(Exception e) {
-			throw new DaoException("Error en la eliminacion. No existe ningun genero con ese nombre");
-		}
+		Genre g = getGenre(name); //Lanzaría excepción si no existiese ese género en la bbdd
+		session.getTransaction().begin();
+		session.delete(g);
+		session.getTransaction().commit();
 	}
 
 	public boolean updateGenre(String name, String description) throws DaoException, GenreException {
 		boolean result = false;
 		Session session = ConnectionDB.getSession();
-		Genre g = getGenre(name);
+		Genre g = getGenre(name); //Lanzaría excepción si no existiese ese género en la bbdd
 		if(!g.getDescription().equalsIgnoreCase(description)) {
-			g.setDescription(description);
 			try {
+				g.setDescription(description); //Lanza excepción si descripción no es correcta
 				session.getTransaction().begin();
 				session.update(g);
 				session.getTransaction().commit();
-			}catch(Exception e) {
+			}catch(GenreException e) {
 				throw new DaoException(e.getMessage());
 			}
 			result = true;
