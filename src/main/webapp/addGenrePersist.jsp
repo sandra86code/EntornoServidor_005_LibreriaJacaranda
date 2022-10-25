@@ -18,8 +18,6 @@
 	String isSession = (String) session.getAttribute("login");
 	String userSession = (String) session.getAttribute("user");
 	if(isSession != null && userSession !=null && isSession.equals("True")){
-	
-		String empty = "";
 									
 		String newName = request.getParameter("name");
 		String newDescription= request.getParameter("description");

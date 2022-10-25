@@ -105,6 +105,7 @@ th {
     margin-left: 20%;
 }
 
+
 .addBook {
 	float:right;
 	margin-right:10%;
@@ -121,6 +122,14 @@ th {
  
 }
 
-.listGenres th {
-	width: 200px;
+.listGenres tr th {
+	width: 400px;
+}
+.listGenres tr th#actions {
+	width: 1200px;
+}
+
+td a, td a:visited {
+	text-decoration: none;
+	color: #000;
 }

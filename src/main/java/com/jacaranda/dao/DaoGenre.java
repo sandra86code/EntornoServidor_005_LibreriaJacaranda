@@ -65,10 +65,8 @@ public class DaoGenre {
 			session.getTransaction().begin();
 			session.save(g);
 			session.getTransaction().commit();
-		} catch (GenreException e) {
-			throw new DaoException(e.getMessage());
-		} catch (Exception e) {
-			throw new DaoException("Error en la insercion. Existe otro genero con el mismo nombre");
+		} catch (Exception e1) {
+			throw new DaoException(e1.getMessage());
 		}
 	}
 	

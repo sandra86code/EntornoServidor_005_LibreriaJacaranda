@@ -40,6 +40,7 @@
 			</div>
 			<div id="buttons">
 				<a href="closeSession.jsp" class="closeSession">Cerrar sesión</a>
+				<a href="listGenres.jsp" class="closeSession">Volver a Géneros</a>
 				<a href="addBook.jsp?genre=<%=genre%>" class="addBook">Añadir libro</a>
 			</div>
 		
@@ -55,27 +56,28 @@
 						<th>Stock</th>
 						<th colspan="2">Acciones</th>
 					</tr>
-		<% 
-		Iterator<Book> iterator = bookList.iterator();  
-			
-		while(iterator.hasNext()) { // iterate through all the data until the last record
-			
-			Book bookDetails = iterator.next(); 
-			String isbn = bookDetails.getIsbn();
-			%>
-				<tr>
-					<td><%=bookDetails.getIsbn()%></td>
-					<td><%=bookDetails.getTitle()%></td>
-					<td><%=bookDetails.getAuthor()%></td>
-					<td><%=bookDetails.getPublishedDate()%></td>
-					<td><%=bookDetails.getQuantity()%></td>
-					<td><%=bookDetails.getPrice()%></td>
-					<td><%=bookDetails.getStockYN()%></td>
+		<%if(bookList!=null) {
+			Iterator<Book> iterator = bookList.iterator();  
 				
-					<td><a href="deleteBook.jsp?value=<%=bookDetails.getIsbn()%>"><img src="images/delete.png" width="30px"></a></td>
-					<td><a href="updateBook.jsp?value=<%=bookDetails.getIsbn()%>"><img src="images/update.png" width="30px"></a></td>
-				</tr>
-			<%
+			while(iterator.hasNext()) { // iterate through all the data until the last record
+				
+				Book bookDetails = iterator.next(); 
+				String isbn = bookDetails.getIsbn();
+				%>
+					<tr>
+						<td><%=bookDetails.getIsbn()%></td>
+						<td><%=bookDetails.getTitle()%></td>
+						<td><%=bookDetails.getAuthor()%></td>
+						<td><%=bookDetails.getPublishedDate()%></td>
+						<td><%=bookDetails.getQuantity()%></td>
+						<td><%=bookDetails.getPrice()%></td>
+						<td><%=bookDetails.getStockYN()%></td>
+					
+						<td><a href="deleteBook.jsp?value=<%=bookDetails.getIsbn()%>"><img src="images/delete.png" width="30px"></a></td>
+						<td><a href="updateBook.jsp?value=<%=bookDetails.getIsbn()%>"><img src="images/update.png" width="30px"></a></td>
+					</tr>
+				<%
+			}
 		}
 		
 		%>

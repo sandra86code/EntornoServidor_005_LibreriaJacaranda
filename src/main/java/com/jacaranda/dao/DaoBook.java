@@ -162,7 +162,7 @@ public class DaoBook {
 	
 	public ArrayList<Book> findBooksByGenre(String genre) {
 		Session session = ConnectionDB.getSession();
-		Query<Book> query = session.createQuery("SELECT b FROM com.jacaranda.model.Book b");
+		Query<Book> query = session.createQuery("SELECT b FROM com.jacaranda.model.Book b where genre='" + genre + "'");
 		ArrayList<Book> genreList = (ArrayList<Book>) query.getResultList();
 		return genreList;     
 	}

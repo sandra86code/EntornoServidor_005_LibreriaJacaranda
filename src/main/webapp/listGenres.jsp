@@ -44,7 +44,7 @@
 					<tr>
 						<th>Nombre</th>
 						<th>Descripción</th>
-						<th colspan="3">Acciones</th>
+						<th colspan="3" id="actions">Acciones</th>
 					</tr>
 			<%if(genreList!=null) {
 				Iterator<Genre> it = genreList.iterator();
