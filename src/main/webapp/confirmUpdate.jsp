@@ -24,7 +24,9 @@
 			genre = bookDetails.getGenre().getName();
 		} catch (Exception e) {
 			String message = e.getMessage();
-			%><jsp:forward page="error.jsp"><jsp:param name="msg" value="<%= message %>"/></jsp:forward><%
+			%><jsp:forward page="errorBackToTable.jsp"><jsp:param name="msg" value="<%= message %>"/>
+			<jsp:param name="genre" value="<%= genre %>"/>
+			</jsp:forward><%
 		}%>
 		<section class="get-in-touch">
 		<h1 class="title">Datos actualizados</h1>

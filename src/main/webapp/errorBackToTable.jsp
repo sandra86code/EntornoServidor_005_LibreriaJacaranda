@@ -28,13 +28,14 @@
 			<div class="notfound-404">
 				<h1>Oops!</h1>
 				<%String message = request.getParameter("error");
+				String genre = request.getParameter("genre");
 				if (message==null) {
 					message = "";
 				}
 				%>
 				<h2><%= message %></h2>
 			</div>
-			<a href="bookList.jsp">volver</a>
+			<a href="bookList.jsp?value=<%= genre %>">volver</a>
 		</div>
 	</div>
 

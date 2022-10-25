@@ -126,26 +126,36 @@ public class DaoBook {
 		
 			if(!oldBook.getTitle().equals(modifiedBook.getTitle())) {
 				oldBook.setTitle(modifiedBook.getTitle());
+				result = true;
 			}
 			if(!oldBook.getAuthor().equals(modifiedBook.getAuthor())) {
 				oldBook.setAuthor(modifiedBook.getAuthor());
+				result = true;
 			}
 			if(!oldBook.getPublishedDate().equals(modifiedBook.getPublishedDate())) {
 				oldBook.setPublishedDate(modifiedBook.getPublishedDate());
+				result = true;
 			}
 			if(oldBook.getQuantity()!=(modifiedBook.getQuantity())) {
 				oldBook.setQuantity(modifiedBook.getQuantity());
+				result = true;
 			}
 			if(oldBook.getPrice()!=(modifiedBook.getPrice())) {
 				oldBook.setPrice(modifiedBook.getPrice());
+				result = true;
 			}
-		
-			session.getTransaction().begin();
-			session.update(oldBook);
-			session.getTransaction().commit();
-			}catch(Exception e) {
-				throw new DaoException(e.getMessage());
+			
+			if(result) {
+				session.getTransaction().begin();
+				session.update(oldBook);
+				session.getTransaction().commit();
+			} else {
+				throw new DaoException("No se han realizado modificaciones");
 			}
+		}catch(Exception e) {
+			throw new DaoException(e.getMessage());
+		}
+			
 		return result;
 		}
 	
