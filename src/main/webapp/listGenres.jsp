@@ -44,11 +44,12 @@
 					<tr>
 						<th>Nombre</th>
 						<th>Descripción</th>
-						<th colspan="3">Acciones</th>
+						<th colspan="3" id="actions">Acciones</th>
 					</tr>
-			<%Iterator<Genre> it = genreList.iterator();
-			while(it.hasNext()){
-			    Genre g = it.next();%>
+			<%if(genreList!=null) {
+				Iterator<Genre> it = genreList.iterator();
+				while(it.hasNext()){
+			    	Genre g = it.next();%>
 					<tr>
 						<td><%=g.getName()%></td>
 						<td><%=g.getDescription()%></td>
@@ -56,7 +57,8 @@
 						<td><a href="deleteGenre.jsp?value=<%=g.getName()%>"><img src="images/delete.png" width="30px"></a></td>
 						<td><a href="updateGenre.jsp?value=<%=g.getName()%>"><img src="images/update.png" width="30px"></a></td>
 					</tr>
-			<%}
+			<%	}
+			}
 		
 		%>
 		</table>

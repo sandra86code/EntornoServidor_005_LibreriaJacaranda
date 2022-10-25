@@ -18,8 +18,6 @@
 	String isSession = (String) session.getAttribute("login");
 	String userSession = (String) session.getAttribute("user");
 	if(isSession != null && userSession !=null && isSession.equals("True")){
-	
-		String empty = "";
 									
 		String newName = request.getParameter("name");
 		String newDescription= request.getParameter("description");
@@ -35,8 +33,8 @@
 				dg.addGenre(newName, newDescription);%>
 				<jsp:forward page="listGenres.jsp"></jsp:forward>
 				
-				<%} catch (DaoException e){
-					String message = e.getMessage();%>
+			<%} catch (DaoException e){
+				String message = e.getMessage();%>
 				<jsp:forward page="errorBackToGenreTable.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward>
 			<%}
 			
