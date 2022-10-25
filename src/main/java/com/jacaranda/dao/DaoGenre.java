@@ -9,14 +9,26 @@ import org.hibernate.query.Query;
 import com.jacaranda.model.Genre;
 import com.jacaranda.model.GenreException;
 
+/**
+ * Clase que gestiona la conexión con la tabla género de la base de datos
+ * @author sandra
+ *
+ */
 public class DaoGenre {
 	
-	
+	/**
+	 * Constructor vacío
+	 */
 	public DaoGenre() {
 		super();
 	}
 	
-	//Funcionando
+	/**
+	 * Método que devuelve un objeto género a partir de su PK en la base de datos
+	 * @param name nombre del género
+	 * @return un objeto género
+	 * @throws DaoException lanza excepción si no existe un genero con ese nombre
+	 */
 	public Genre getGenre(String name) throws DaoException {
 		Session session = ConnectionDB.getSession();
 		Genre g = (Genre) session.get(Genre.class, name);
@@ -26,7 +38,10 @@ public class DaoGenre {
 		return g;
 	}
 	
-	//Funcionando
+	/**
+	 * Método que devuelve la lista de objetos genero de la base de datos
+	 * @return la lista de géneros
+	 */
 	public ArrayList<Genre> getAllGenres() {
 		Session session = ConnectionDB.getSession();
 		String hql = "SELECT name, description FROM GENRE g";
@@ -35,43 +50,60 @@ public class DaoGenre {
 		return genreList;     
 	}
 	
-	//Funcionando
-	public void addGenre(String name, String description) throws DaoException {
+	/**
+	 * Método que añade un género a la base de datos
+	 * @param name nombre del género
+	 * @param description descripción del género
+	 * @throws DaoException lanza excepción cuando nombre y/o descripción no sean correctos o
+	 * cuando el nombre del género ya exista en la base de datos (es su PK)
+	 */
+	public void addGenre(String name, String description) throws DaoException  {
 		Session session = ConnectionDB.getSession();
+		Genre g;
 		try {
-			Genre g = new Genre(name, description);
+			g = new Genre(name, description);
 			session.getTransaction().begin();
 			session.save(g);
 			session.getTransaction().commit();
-		}catch(Exception e) {
+		} catch (GenreException e) {
+			throw new DaoException(e.getMessage());
+		} catch (Exception e) {
 			throw new DaoException("Error en la insercion. Existe otro genero con el mismo nombre");
 		}
 	}
 	
-	//Funcionando
+	/**
+	 * Método que elimina un género y todos sus libros asociados en la base de datos
+	 * @param name nombre del género
+	 * @throws DaoException propaga excepción del getGenre
+	 */
 	public void deleteGenre(String name) throws DaoException {
 		Session session = ConnectionDB.getSession();
-		try {
-			Genre g = getGenre(name);
-			session.getTransaction().begin();
-			session.delete(g);
-			session.getTransaction().commit();
-		}catch(Exception e) {
-			throw new DaoException("Error en la eliminacion. No existe ningun genero con ese nombre");
-		}
+		Genre g = getGenre(name); //Lanzaría excepción si no existiese ese género en la bbdd
+		session.getTransaction().begin();
+		session.delete(g);
+		session.getTransaction().commit();
 	}
-
-	public boolean updateGenre(String name, String description) throws DaoException, GenreException {
+	
+	/**
+	 * Método que actualiza la descripción del género en la base de datos
+	 * @param name nombre del género
+	 * @param description descripción del género
+	 * @return true si se ha modificado la descripción del género, false si no (porque es igual a la que ya hay en la bbdd)
+	 * @throws DaoException propaga la excepción del getGenre
+	 * @throws GenreException recoge la excepción cuando la descripción no es correcta y lanza la DaoException con el mensaje de la anterior
+	 */
+	public boolean updateGenre(String name, String description) throws DaoException {
 		boolean result = false;
 		Session session = ConnectionDB.getSession();
-		Genre g = getGenre(name);
+		Genre g = getGenre(name); //Lanzaría excepción si no existiese ese género en la bbdd
 		if(!g.getDescription().equalsIgnoreCase(description)) {
-			g.setDescription(description);
 			try {
+				g.setDescription(description); //Lanza excepción si descripción no es correcta
 				session.getTransaction().begin();
 				session.update(g);
 				session.getTransaction().commit();
-			}catch(Exception e) {
+			}catch(GenreException e) {
 				throw new DaoException(e.getMessage());
 			}
 			result = true;

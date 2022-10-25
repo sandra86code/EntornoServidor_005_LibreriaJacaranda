@@ -262,14 +262,15 @@ public class Book {
 			throw new BookException("Cantidad incorrecta");
 		}
 	}
-
+	
+	/**
+	 * Método que obtiene un objeto género de un libro
+	 * @return el objeto género
+	 */
 	public Genre getGenre() {
 		return genre;
 	}
 
-	public void setGenre(Genre genre) {
-		this.genre = genre;
-	}
 
 	/**
 	 * Método hashCode, según el ISBN
