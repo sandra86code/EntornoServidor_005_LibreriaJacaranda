@@ -45,17 +45,38 @@ body, html {
   	line-height: 1.2;  	
 }
 
+#pageName{
+	width: 100%;
+	position:relative;
+	margin-top:2%;
+	align-content: center;
+	
+}
+
+#pageName p{
+	font-family: Poppins-Bold;
+  	font-size: 42px;
+  	color: #333333;
+  	text-align: center;
+}
+
 #loginIcon{
 	align-items: center;
 	position:relative;
-	margin-top:43px;
+	margin-top:10px;
 	margin-left:45%;
 }
 
 #loginIcon img{
-	width:120px;
-	height: 120px;
+	width:100px;
+	height: 100px;
 }
+
+#form{
+	width:100%;
+	position:relative;
+}
+
 
 input {
 	padding-left:5px;
