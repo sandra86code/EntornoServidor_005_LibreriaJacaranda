@@ -17,7 +17,7 @@ function confirmDelete(genre) {
    	if (confirm("¿Estás seguro/a de querer borrar el libro?")) {
     	document.getElementById("deleteForm").submit();
     } else {
-    	window.location='bookList.jsp?value=' + genre;
+    	window.location='bookList.jsp?genre=' + genre;
     }
 }
 
@@ -28,6 +28,7 @@ function confirmDelete(genre) {
 
 <jsp:useBean id="daoBook" class="com.jacaranda.dao.DaoBook" scope="session" />
 <jsp:useBean id="book" class="com.jacaranda.model.Book" scope="session" />
+<jsp:useBean id="genre" class="com.jacaranda.model.Genre" scope="session" />
 
 	<% 
 	HttpSession se = request.getSession();
@@ -35,15 +36,28 @@ function confirmDelete(genre) {
 	String userSession = (String) session.getAttribute("user");
 	if(isSession != null && userSession!=null && isSession.equals("True")){ 
 		String isbn = request.getParameter("value");
-		String genre = "";
+	
 		try {
-			book = daoBook.getBook(isbn);
-			genre = book.getGenre().getName();
+			
+			Book bookDetails = daoBook.getBook(isbn);
+			book.setIsbn(bookDetails.getIsbn());
+			book.setTitle(bookDetails.getTitle());
+			book.setAuthor(bookDetails.getAuthor());
+			book.setQuantity(bookDetails.getQuantity());
+			book.setPrice(bookDetails.getPrice());
+			book.setStock(bookDetails.getQuantity());
+			book.setPublishedDate(bookDetails.getPublishedDate());
+			
+			genre.setName(bookDetails.getGenre().getName());
+			
 		} catch (Exception e) {
 			String message = e.getMessage();
 			%>
-			<jsp:forward page="error.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward><%
-		} %>
+			
+			<jsp:forward page="error.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward>
+			
+			
+	<% } %>
 		
 		
 		<section class="get-in-touch">
@@ -82,8 +96,8 @@ function confirmDelete(genre) {
 				</table>
 
 			<div class="form-field col-lg-12">
-				<button class="submit-btn" type="submit" name="deleteBook" value="deleteBook" onclick="confirmDelete('<%= genre %>')">Borrar</button>
-				<button class="back-btn" id="returnButton" class="returnButton" role="link" onclick="javascript:window.location='bookList.jsp?value=<%= genre %>';">Cancelar</button>
+				<button class="submit-btn" type="submit" name="deleteBook" value="deleteBook" onclick="confirmDelete('<%= genre.getName() %>')">Borrar</button>
+				<button class="back-btn" id="returnButton" class="returnButton" role="link" onclick="javascript:window.location='bookList.jsp?genre=<%= genre.getName() %>';">Cancelar</button>
 			</div>
 		</form>
 		</section>

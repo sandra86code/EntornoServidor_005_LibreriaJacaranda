@@ -16,12 +16,12 @@
 	if(isSession != null && userSession!=null && isSession.equals("True")){%>
 		<jsp:useBean id="daoBook" class="com.jacaranda.dao.DaoBook" scope="session" />
 		<jsp:useBean id="book" class="com.jacaranda.model.Book" scope="session" />
+		<jsp:useBean id="genre" class="com.jacaranda.model.Genre" scope="session" />
 		
 		<% try {
-			String genre = book.getGenre().getName();
 			daoBook.deleteBook(book.getIsbn());
 			%>
-			<jsp:forward page="bookList.jsp"><jsp:param value="<%= genre %>" name="value"/></jsp:forward>
+			<jsp:forward page="bookList.jsp"><jsp:param value="<%= genre.getName() %>" name="genre"/></jsp:forward>
 		<%
 		}catch (Exception e) {
 			String message = e.getMessage();
