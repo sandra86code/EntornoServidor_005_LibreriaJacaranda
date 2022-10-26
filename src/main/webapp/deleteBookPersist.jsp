@@ -13,13 +13,13 @@
 	HttpSession se = request.getSession();
 	String isSession = (String) session.getAttribute("login");
 	String userSession = (String) session.getAttribute("user");
-	if(isSession != null && userSession!=null && isSession.equals("True")){
-		String isbn = request.getParameter("isbn"); 
-		DaoBook daob = new DaoBook();
-		try {
-			Book book = daob.getBook(isbn);
+	if(isSession != null && userSession!=null && isSession.equals("True")){%>
+		<jsp:useBean id="daoBook" class="com.jacaranda.dao.DaoBook" scope="session" />
+		<jsp:useBean id="book" class="com.jacaranda.model.Book" scope="session" />
+		
+		<% try {
 			String genre = book.getGenre().getName();
-			daob.deleteBook(isbn);
+			daoBook.deleteBook(book.getIsbn());
 			%>
 			<jsp:forward page="bookList.jsp"><jsp:param value="<%= genre %>" name="value"/></jsp:forward>
 		<%
