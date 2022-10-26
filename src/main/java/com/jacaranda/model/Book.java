@@ -68,7 +68,7 @@ public class Book {
 	 * @param price el precio del libro
 	 * @throws BookException se lanza si los campos no cumplen los requerimientos de los setters
 	 */
-	public Book(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException {
+	public Book(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price, Genre genre) throws BookException {
 		super();
 		this.setIsbn(isbn);
 		this.setTitle(title);
@@ -77,6 +77,7 @@ public class Book {
 		this.setQuantity(quantity);
 		this.setPrice(price);
 		this.setStock(quantity);
+		this.genre = genre;
 	}
 	
 	
@@ -172,7 +173,7 @@ public class Book {
 	 * @param isbn el ISBN del libro
 	 * @throws BookException cuando el ISBN no cumple la expresión regular.
 	 */
-	private void setIsbn(String isbn) throws BookException {
+	public void setIsbn(String isbn) throws BookException {
 		String expression = "[0-9]{10}";
 		if(isbn.matches(expression)) {
 			this.isbn = isbn;
@@ -271,6 +272,19 @@ public class Book {
 		return genre;
 	}
 
+	/**
+	 * Método que comprueba que el género del libro no esté vacío 
+	 * @param genre el género del libro, objeto de la clase Genre
+	 * @throws BookException lanza la excepción cuando el género está vacío 
+	 */
+	public void setGenre(Genre genre) throws BookException {
+		if(genre == null) {
+			throw new BookException("El genero no puede ser nulo"); //Sin tildes porque sino las entiende el jsp al saltar el error
+		}else {
+			this.genre = genre;
+		}
+		
+	}
 
 	/**
 	 * Método hashCode, según el ISBN

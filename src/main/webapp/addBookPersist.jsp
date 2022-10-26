@@ -14,38 +14,31 @@
 <title>LJ - Añadir libro</title>
 </head>
 <body>
-
+	<jsp:useBean id="newBook" class="com.jacaranda.model.Book"/>
 <% 
 	HttpSession se = request.getSession();
 	String isSession = (String) session.getAttribute("login");
 	String userSession = (String) session.getAttribute("user");
-	if(isSession != null && userSession !=null && isSession.equals("True")){
+	if(isSession != null && userSession !=null && isSession.equals("True")){ %>
 	
-		String empty = "";
-									
-		String newIsbn = request.getParameter("isbn");
-		String newTitle = request.getParameter("title");
-		String newAuthor = request.getParameter("author");
-		String newPublished_date = request.getParameter("published_date");
-		int newQuantity = Integer.parseInt(request.getParameter("quantity"));
-		double newPrice = Double.parseDouble(request.getParameter("price"));
-		String mainGenre = request.getParameter("genre");
-		
-		
-		if(newIsbn == null || empty.equals(newIsbn.trim()) || newTitle == null || empty.equals(newTitle.trim()) || newAuthor == null || empty.equals(newAuthor.trim()) ||
-		newPublished_date == null || empty.equals(newPublished_date) || newQuantity < 0 || newPrice < 0){%>
-			<jsp:forward
-				page="errorAddBook.jsp?msg='Los campos no son correctos'"></jsp:forward>
+		<jsp:setProperty name="newBook" property="isbn" param="isbn"/>
+		<jsp:setProperty name="newBook" property="title" param="title"/>
+		<jsp:setProperty name="newBook" property="author" param="author"/>
+		<jsp:setProperty name="newBook" property="publishedDate" param="published_date"/>
+		<jsp:setProperty name="newBook" property="quantity" param="quantity"/>
+		<jsp:setProperty name="newBook" property="price" param="price"/>
+		<jsp:setProperty name="newBook" property="genre" param="genre"/>
+	
+	<%	if(newBook.getIsbn() == null || newBook.getIsbn().isEmpty() || newBook.getTitle() == null || newBook.getTitle().isEmpty() || newBook.getAuthor() == null || newBook.getAuthor().isEmpty() ||
+		newBook.getPublishedDate() == null || newBook.getPublishedDate().toString().isEmpty() || newBook.getQuantity() < 0 || newBook.getPrice() < 0 ||
+		 newBook.getGenre() == null){%>
+			<jsp:forward page="error.jsp?msg='Los campos no son correctos'"></jsp:forward>
 		<% } else {
-			LocalDate date = LocalDate.parse(newPublished_date);
-			
-			DaoBook newDaoBook = new DaoBook();
-			DaoGenre newDaoGenre = new DaoGenre();
+			DaoBook daob = new DaoBook();
 			
 			try {
-				Genre newGenre = newDaoGenre.getGenre(mainGenre);
-				newDaoBook.addBook(newIsbn, newTitle, newAuthor, date, newQuantity, newPrice, newGenre);%>
-				<jsp:forward page="bookList.jsp"><jsp:param name="value" value="<%= mainGenre %>"/></jsp:forward>
+				daob.addBook(newBook);%>
+				<jsp:forward page="bookList.jsp"><jsp:param name="value" value="<%= newBook.getGenre() %>"/></jsp:forward>
 				
 			<%} catch (Exception e){
 					String message = e.getMessage();%>
