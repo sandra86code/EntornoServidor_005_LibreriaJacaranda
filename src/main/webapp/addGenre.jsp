@@ -6,7 +6,21 @@
 <meta charset="UTF-8">
 <title>Añadir Género</title>
 <link href="css/forms.css" rel="stylesheet" id="bootstrap-css">
+<script>
+function onSubmit(){
+    return false;
+}
+
+function confirmUpdate() {
+   	if (confirm("¿Estás seguro/a de querer añadir este género?")) {
+    	document.getElementById("addGenreForm").submit();
+    } else {
+    	window.location='listGenres.jsp';
+    }
+}
+</script>
 </head>
+
 <body>
 
 <% HttpSession se = request.getSession();
@@ -26,10 +40,10 @@
 				<label class="label" for="description">Descripción</label>
 			</div>
 			<div class="form-field col-lg-12">
-				<button class="submit-btn" type="submit" name="addGenre">Añadir</button>
+				<button class="submit-btn" type="submit" name="addGenre" onclick="confirmUpdate()">Añadir</button>
 				<button class="back-btn" id="returnButton" class="returnButton" role="link" onclick="javascript:window.location='listGenres.jsp';">Cancelar</button>
 			</div>
-			
+		</form>	
 	</section>
 	
 <%}else {%>
