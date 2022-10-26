@@ -20,7 +20,7 @@
 	String isSession = (String) session.getAttribute("login");
 	String userSession = (String) session.getAttribute("user");
 	if(isSession != null && userSession!=null && isSession.equals("True")){
-		String genre = request.getParameter("value");
+		String genre = request.getParameter("genre");
 		String user = userSession;
 		DaoBook daob = new DaoBook();
 		ArrayList<Book> bookList = null;
@@ -73,8 +73,8 @@
 						<td><%=bookDetails.getPrice()%></td>
 						<td><%=bookDetails.getStockYN()%></td>
 					
-						<td><a href="deleteBook.jsp?value=<%=bookDetails.getIsbn()%>"><img src="images/delete.png" width="30px"></a></td>
-						<td><a href="updateBook.jsp?value=<%=bookDetails.getIsbn()%>"><img src="images/update.png" width="30px"></a></td>
+						<td><a href="deleteBook.jsp?value=<%=bookDetails.getIsbn()%>&genre=<%=genre%>"><img src="images/delete.png" width="30px"></a></td>
+						<td><a href="updateBook.jsp?value=<%=bookDetails.getIsbn()%>&genre=<%=genre%>"><img src="images/update.png" width="30px"></a></td>
 					</tr>
 				<%
 			}

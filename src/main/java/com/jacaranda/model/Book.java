@@ -141,18 +141,12 @@ public class Book {
 	public double getPrice() {
 		return price;
 	}
+	
+	
+	
 
-	/**
-	 * Método que se usa para que si el stock del objeto Libro es true, lo devuelva como un int 1
-	 * y si es false, lo devuelva como un int 0. Esto es necesario por el uso de mysql de los booleanos
-	 * @return result el resultado
-	 */
-	public int getStock() {
-		int result = 0;
-		if(this.stock) {
-			result = 1;
-		}
-		return result;
+	public boolean isStock() {
+		return stock;
 	}
 
 	/**
@@ -172,7 +166,7 @@ public class Book {
 	 * @param isbn el ISBN del libro
 	 * @throws BookException cuando el ISBN no cumple la expresión regular.
 	 */
-	private void setIsbn(String isbn) throws BookException {
+	public void setIsbn(String isbn) throws BookException {
 		String expression = "[0-9]{10}";
 		if(isbn.matches(expression)) {
 			this.isbn = isbn;
@@ -200,8 +194,12 @@ public class Book {
 	 * @throws BookException lanza la excepción cuando la cantidad es inferior a 0
 	 */
 	public void setQuantity(int quantity) throws BookException {
-		if(quantity>=0) {
+		if(quantity>0) {
 			this.quantity = quantity;
+			this.stock = true;
+		}else if(quantity==0){
+			this.quantity = quantity;
+			this.stock = false;
 		}else {
 			throw new BookException("Cantidad incorrecta");
 		}

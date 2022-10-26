@@ -24,7 +24,7 @@
 		
 		if(newName == null || newDescription == null){%>
 			<jsp:forward
-				page="errorBackToTable.jsp?msg='Los campos no son correctos'"></jsp:forward>
+				page="errorBackToGenreTable.jsp?msg='Los campos no son correctos'"></jsp:forward>
 		<% } else {
 			
 			DaoGenre dg = new DaoGenre();
@@ -33,7 +33,7 @@
 				dg.addGenre(newName, newDescription);%>
 				<jsp:forward page="listGenres.jsp"></jsp:forward>
 				
-			<%} catch (DaoException e){
+			<%} catch (Exception e){
 				String message = e.getMessage();%>
 				<jsp:forward page="errorBackToGenreTable.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward>
 			<%}

@@ -32,12 +32,12 @@ function confirmDelete() {
 	if(isSession != null && userSession!=null && isSession.equals("True")){
 		DaoGenre daog = new DaoGenre();
 		Genre genreDetails = null;
-		String genero = request.getParameter("value");
+		String genero = request.getParameter("genre");
 		try {
 			genreDetails = daog.getGenre(genero);
 		} catch (Exception e) {
 			String message = e.getMessage();
-			%><jsp:forward page="error.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward><%
+			%><jsp:forward page="errorBackToGenreTable.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward><%
 		}%>
 		<section class="get-in-touch">
 		<h1 class="title">Borrar género "<%=genero%>"</h1>

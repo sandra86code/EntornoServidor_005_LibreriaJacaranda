@@ -53,9 +53,9 @@
 					<tr>
 						<td><%=g.getName()%></td>
 						<td><%=g.getDescription()%></td>
-						<td><a href="bookList.jsp?value=<%=g.getName()%>">Ver libros</a></td>
-						<td><a href="deleteGenre.jsp?value=<%=g.getName()%>"><img src="images/delete.png" width="30px"></a></td>
-						<td><a href="updateGenre.jsp?value=<%=g.getName()%>"><img src="images/update.png" width="30px"></a></td>
+						<td><a href="bookList.jsp?genre=<%=g.getName()%>">Ver libros</a></td>
+						<td><a href="deleteGenre.jsp?genre=<%=g.getName()%>"><img src="images/delete.png" width="30px"></a></td>
+						<td><a href="updateGenre.jsp?genre=<%=g.getName()%>"><img src="images/update.png" width="30px"></a></td>
 					</tr>
 			<%	}
 			}
