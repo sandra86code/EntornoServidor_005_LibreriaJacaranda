@@ -35,7 +35,7 @@
 				%>
 				<h2><%= message %></h2>
 			</div>
-			<a href="bookList.jsp?value=<%= genre %>">volver</a>
+			<a href="bookList.jsp?genre=<%= genre %>">volver</a>
 		</div>
 	</div>
 
