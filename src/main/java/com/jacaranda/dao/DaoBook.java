@@ -116,7 +116,7 @@ public class DaoBook {
 	 * @throws SQLException lanza la excepción cuando no se puede ejecutar la actualización en la base de datos
 	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
 	 */
-	public boolean updateBook(String isbn, Book modifiedBook) throws DaoException {
+	public boolean updateBook(String isbn, Book modifiedBook, LocalDate date) throws DaoException {
 	
 		boolean result = false;
 		Session session = ConnectionDB.getSession();
@@ -132,8 +132,8 @@ public class DaoBook {
 				oldBook.setAuthor(modifiedBook.getAuthor());
 				result = true;
 			}
-			if(!oldBook.getPublishedDate().equals(modifiedBook.getPublishedDate())) {
-				oldBook.setPublishedDate(modifiedBook.getPublishedDate());
+			if(!oldBook.getPublishedDate().equals(date)) {
+				oldBook.setPublishedDate(date);
 				result = true;
 			}
 			if(oldBook.getQuantity()!=(modifiedBook.getQuantity())) {
@@ -149,9 +149,7 @@ public class DaoBook {
 				session.getTransaction().begin();
 				session.update(oldBook);
 				session.getTransaction().commit();
-			} else {
-				throw new DaoException("No se han realizado modificaciones");
-			}
+			} 
 		}catch(Exception e) {
 			throw new DaoException(e.getMessage());
 		}
