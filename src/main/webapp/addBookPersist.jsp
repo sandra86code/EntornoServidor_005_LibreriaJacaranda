@@ -24,7 +24,7 @@
 		<jsp:setProperty name="newBook" property="isbn" param="isbn"/>
 		<jsp:setProperty name="newBook" property="title" param="title"/>
 		<jsp:setProperty name="newBook" property="author" param="author"/>
-		<jsp:setProperty name="newBook" property="publishedDate" param="published_date"/>
+		<jsp:setProperty name="newBook" property="publishedDate" param="${LocalDate.parse(request.getParameter('published_date')"/>
 		<jsp:setProperty name="newBook" property="quantity" param="quantity"/>
 		<jsp:setProperty name="newBook" property="price" param="price"/>
 		<jsp:setProperty name="newBook" property="genre" param="genre"/>
