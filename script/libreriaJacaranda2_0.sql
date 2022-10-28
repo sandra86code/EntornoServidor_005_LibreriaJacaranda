@@ -1,5 +1,10 @@
 -- Base de Datos Librer�a Jacarand� 2.0
 
+-- Creacion usuario --
+CREATE USER 'librera'@'%' IDENTIFIED BY 'librera';
+GRANT ALL PRIVILEGES ON libreriaJacaranda TO 'librera'@'%';
+
+-- Creacion tablas --
 CREATE TABLE USERS
 (
 userCod VARCHAR(20),

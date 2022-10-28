@@ -59,14 +59,15 @@ public class DaoGenre {
 	 */
 	public void addGenre(String name, String description) throws DaoException  {
 		Session session = ConnectionDB.getSession();
-		Genre g;
 		try {
-			g = new Genre(name, description);
+			Genre g = new Genre(name, description);
 			session.getTransaction().begin();
 			session.save(g);
 			session.getTransaction().commit();
-		} catch (Exception e1) {
+		} catch (GenreException e1) {
 			throw new DaoException(e1.getMessage());
+		} catch (Exception e) {
+			throw new DaoException("Ya existe un genero con ese nombre");
 		}
 	}
 	
