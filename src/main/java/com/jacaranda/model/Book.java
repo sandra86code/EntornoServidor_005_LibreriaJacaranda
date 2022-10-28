@@ -68,7 +68,7 @@ public class Book {
 	 * @param price el precio del libro
 	 * @throws BookException se lanza si los campos no cumplen los requerimientos de los setters
 	 */
-	public Book(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price, Genre genre) throws BookException {
+	public Book(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price) throws BookException {
 		super();
 		this.setIsbn(isbn);
 		this.setTitle(title);
@@ -77,7 +77,6 @@ public class Book {
 		this.setQuantity(quantity);
 		this.setPrice(price);
 		this.setStock(quantity);
-		this.genre = genre;
 	}
 	
 	

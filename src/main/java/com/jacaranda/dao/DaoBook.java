@@ -78,7 +78,8 @@ public class DaoBook {
 	 * @throws SQLException lanza la excepción cuando no se pueda añadir el libro en la base de datos
 	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
 	 */
-	public boolean addBook(Book newBook) throws DaoException {
+	public boolean addBook(Book newBook, Genre genre) throws DaoException, BookException {
+		newBook.setGenre(genre);
 		boolean result = false;
 		Session session = ConnectionDB.getSession();
 
