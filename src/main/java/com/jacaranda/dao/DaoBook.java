@@ -1,18 +1,11 @@
 package com.jacaranda.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 
 import com.jacaranda.model.Book;
@@ -85,25 +78,20 @@ public class DaoBook {
 	 * @throws SQLException lanza la excepción cuando no se pueda añadir el libro en la base de datos
 	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
 	 */
-	public boolean addBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price, Genre genre) throws DaoException {
-		
+	public boolean addBook(Book newBook, Genre genre) throws DaoException, BookException {
+		newBook.setGenre(genre);
 		boolean result = false;
 		Session session = ConnectionDB.getSession();
-		Book book =(Book) session.get(Book.class, isbn); // no utilizo el getBook por que lanzaría una exception si es nulo y no podría crear un libro nuevo
-		
-		if(book == null) {
-			try {
-				Book newBook = new Book(isbn, title, author, publishedDate, quantity, price, quantity, genre);
-				session.getTransaction().begin();
-				session.save(newBook);
-				session.getTransaction().commit();
-				result = true;
-			}catch(Exception e) {
-				throw new DaoException(e.getMessage());
-			}
-		} else {
+
+		try {
+			session.getTransaction().begin();
+			session.save(newBook);
+			session.getTransaction().commit();
+			result = true;
+		}catch(Exception e) {
 			throw new DaoException("Ya existe un libro con ese isbn");
 		}
+		
 		return result;
 	}
 		

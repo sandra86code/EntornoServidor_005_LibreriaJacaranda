@@ -269,6 +269,19 @@ public class Book {
 		return genre;
 	}
 
+	/**
+	 * Método que comprueba que el género del libro no esté vacío 
+	 * @param genre el género del libro, objeto de la clase Genre
+	 * @throws BookException lanza la excepción cuando el género está vacío 
+	 */
+	public void setGenre(Genre genre) throws BookException {
+		if(genre == null) {
+			throw new BookException("El genero no puede ser nulo"); //Sin tildes porque sino las entiende el jsp al saltar el error
+		}else {
+			this.genre = genre;
+		}
+		
+	}
 
 	/**
 	 * Método hashCode, según el ISBN
