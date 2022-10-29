@@ -38,12 +38,15 @@ body, html {
     text-align: center; 
 }
 
-#buttons{
+.buttonsGenre{
 	float:left;
-	width:80%;
+	width:90%;
     text-align: right; 
 }
 
+.buttonsBook{
+	width:100%;
+}
 
 #table{
 	float:left;
@@ -102,11 +105,26 @@ th {
     cursor:pointer;
     font-size: 30px;
     text-align: right;
+    margin-left: 10%;
+    margin-top: 1%;
+}
+
+.closeSessionGenre{
+	float:left;
+    background-color: #000;
+  	background-image: linear-gradient(125deg,#a72879,#064497);
+  	color: #fff;
+    padding: 10px 20px;
+    text-decoration:none;
+    font-weight:bold;
+    border-radius:5px;
+    cursor:pointer;
+    font-size: 30px;
+    text-align: right;
     margin-left: 20%;
 }
 
-
-.addBook {
+.addGenre {
 	float:right;
 	margin-right:10%;
     background-color: #000;
@@ -120,6 +138,45 @@ th {
     font-size: 30px;
     text-align: right;
  
+}
+
+.addBook {
+	float:left;
+	margin-top: 1%;
+	margin-left: 15%;
+    background-color: #000;
+  	background-image: linear-gradient(125deg,#a72879,#064497);
+  	color: #fff;
+    padding: 10px 20px;
+    text-decoration:none;
+    font-weight:bold;
+    border-radius:5px;
+    cursor:pointer;
+    font-size: 30px;
+    text-align: right;
+ 
+}
+
+.backGenre {
+	float:left;
+    background-color: #000;
+  	background-image: linear-gradient(125deg,#a72879,#064497);
+  	color: #fff;
+    padding: 10px 20px;
+    text-decoration:none;
+    font-weight:bold;
+    border-radius:5px;
+    cursor:pointer;
+    font-size: 30px;
+    text-align: right;
+    margin-left: 15%;
+    margin-top: 1%;
+}
+
+
+#activeUser h3{
+	color: #219ebc;
+	font-style: italic;
 }
 
 .listGenres tr th {
