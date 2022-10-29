@@ -1,9 +1,8 @@
 package com.jacaranda.model;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Objects;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -33,7 +32,7 @@ public class Genre {
 	}
 	
 	/**
-	 * Constructor con parámetros
+	 * Constructor con parámetros. Inicializa la list de books a nulo
 	 * @param name nombre del género
 	 * @param description descripción del género
 	 * @throws GenreException propaga la excepción desde los setters

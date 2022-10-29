@@ -1,22 +1,11 @@
 package com.jacaranda.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
-
 import com.jacaranda.model.Book;
-import com.jacaranda.model.BookException;
 import com.jacaranda.model.Genre;
 
 /**
@@ -55,7 +44,8 @@ public class DaoBook {
 	/**
 	 * Método que borra un libro en la base de datos a partir de su ISBN
 	 * @param isbn el ISBN del libro
-	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
+	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos y propaga
+	 * la excepción del método getBook
 	 */
 	public boolean deleteBook(String isbn) throws DaoException {
 		boolean result = false; 
@@ -81,9 +71,9 @@ public class DaoBook {
 	 * @param publishedDate la fecha de publicación del libro
 	 * @param quantity la cantidad de unidades del libro
 	 * @param price el precio del libro
-	 * @throws BookException lanza la excepción cuando alguno de los parámetros no cumplan los requisitos
-	 * @throws SQLException lanza la excepción cuando no se pueda añadir el libro en la base de datos
-	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
+	 * @param genre el objeto género del libro
+	 * @throws DaoException lanza la excepción cuando hay un error en la inserción y propaga la excepción del constructor
+	 * de libro si hay algún error en su creación
 	 */
 	public boolean addBook(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price, Genre genre) throws DaoException {
 		
@@ -93,7 +83,7 @@ public class DaoBook {
 		
 		if(book == null) {
 			try {
-				Book newBook = new Book(isbn, title, author, publishedDate, quantity, price, quantity, genre);
+				Book newBook = new Book(isbn, title, author, publishedDate, quantity, price, genre);
 				session.getTransaction().begin();
 				session.save(newBook);
 				session.getTransaction().commit();
@@ -112,9 +102,9 @@ public class DaoBook {
 	 * @param isbn el ISBN del libro
 	 * @param modifiedBook un objeto libro sin el ISBN, que usa para comparar cada campo con el libro 
 	 * en la base de datos
-	 * @throws BookException lanza la excepción cuando alguno de los parámetros no cumplan los requerimientos
-	 * @throws SQLException lanza la excepción cuando no se puede ejecutar la actualización en la base de datos
-	 * @throws DaoException lanza la excepción cuando hay un error en la base de datos
+	 * @param date objeto de tipo Localdate
+	 * @throws DaoException lanza la excepción cuando hay un error al actualizar el libro en la base de datos,
+	 * propaga la excepción del método getBook y propaga la excepción de los setters de la clase Book
 	 */
 	public boolean updateBook(String isbn, Book modifiedBook, LocalDate date) throws DaoException {
 	
@@ -157,7 +147,11 @@ public class DaoBook {
 		return result;
 		}
 	
-	
+	/**
+	 * Método que recupera todos los libros de un género
+	 * @param genre el género del libro
+	 * @return la lista de libros de ese género
+	 */
 	public ArrayList<Book> findBooksByGenre(String genre) {
 		Session session = ConnectionDB.getSession();
 		Query<Book> query = session.createQuery("SELECT b FROM com.jacaranda.model.Book b where genre='" + genre + "'");
