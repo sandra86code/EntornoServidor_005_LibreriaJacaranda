@@ -21,7 +21,7 @@ function confirmUpdate() {
    	if (confirm("¡ATENCIÓN! Estás a punto de actualizar el género. ¿Estás seguro/a de que quieres continuar?")) {
     	document.getElementById("updateGenreForm").submit();
     } else {
-    	window.location='listGenres.jsp';
+    	window.location='genreList.jsp';
     }
 }
 
@@ -57,7 +57,7 @@ function confirmUpdate() {
 				</div>
 				<div class="form-field col-lg-12">
 					<button class="submit-btn" type="submit" name="updateGenre" value=updateGenre" onclick="confirmUpdate()">Actualizar</button>
-					<button class="back-btn" id="returnButton" class="returnButton" role="link" onclick="javascript:window.location='listGenres.jsp';">Cancelar</button>
+					<button class="back-btn" id="returnButton" class="returnButton" role="link" onclick="javascript:window.location='genreList.jsp';">Cancelar</button>
 				</div>
 			</form>
 		</section>

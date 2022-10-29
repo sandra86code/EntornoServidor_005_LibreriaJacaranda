@@ -31,7 +31,7 @@
 			
 			try {
 				dg.addGenre(newName, newDescription);%>
-				<jsp:forward page="listGenres.jsp"></jsp:forward>
+				<jsp:forward page="genreList.jsp"></jsp:forward>
 				
 			<%} catch (Exception e){
 				String message = e.getMessage();%>

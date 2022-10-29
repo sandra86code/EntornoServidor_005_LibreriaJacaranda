@@ -1,11 +1,8 @@
 package com.jacaranda.dao;
 
 import java.util.ArrayList;
-
-
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-
 import com.jacaranda.model.Genre;
 import com.jacaranda.model.GenreException;
 

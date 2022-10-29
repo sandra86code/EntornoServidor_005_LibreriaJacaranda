@@ -45,7 +45,6 @@ function confirmDelete(genre) {
 			book.setAuthor(bookDetails.getAuthor());
 			book.setQuantity(bookDetails.getQuantity());
 			book.setPrice(bookDetails.getPrice());
-			book.setStock(bookDetails.getQuantity());
 			book.setPublishedDate(bookDetails.getPublishedDate());
 			
 			genre.setName(bookDetails.getGenre().getName());

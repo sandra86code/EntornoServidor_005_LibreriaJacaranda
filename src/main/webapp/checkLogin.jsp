@@ -15,7 +15,7 @@
 		HttpSession sesion = request.getSession();
 		session.setAttribute("login", "True");
 		session.setAttribute("user", user);%>
-		<jsp:forward page="listGenres.jsp"></jsp:forward>
+		<jsp:forward page="genreList.jsp"></jsp:forward>
 	<%}else{%>
 		<jsp:forward page="error.jsp?msg='El usuario o la clave no son correctos'"></jsp:forward>
 	<%}%>

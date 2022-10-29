@@ -11,23 +11,34 @@
 <title>LJ - Añadir libro</title>
 <link href="css/forms.css" rel="stylesheet" id="bootstrap-css">
 <script>
+	function TDate() {
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth() + 1; //January is 0!
+		var yyyy = today.getFullYear();
+		if (dd < 10) {
+			dd = '0' + dd;
+		}
+		if (mm < 10) {
+			mm = '0' + mm;
+		}
 
-function TDate() {
-var today = new Date();
-var dd = today.getDate();
-var mm = today.getMonth() + 1; //January is 0!
-var yyyy = today.getFullYear();
-if (dd < 10) {
-   dd = '0' + dd;
-}
-if (mm < 10) {
-   mm = '0' + mm;
-} 
-    
-today = yyyy + '-' + mm + '-' + dd;
-document.getElementById("published_date").setAttribute("max", today);
-}
+		today = yyyy + '-' + mm + '-' + dd;
+		document.getElementById("published_date").setAttribute("max", today);
+	}
 
+	function onSubmit() {
+		return false;
+	}
+
+	function confirmAdd() {
+
+		if (confirm("¡ATENCIÓN! Estás a punto de añadir el libro. ¿Estás seguro/a de que quieres continuar?")) {
+			document.getElementById("addBookForm").submit();
+		} else {
+			history.back();
+		}
+	}
 </script>
 </head>
 
@@ -70,9 +81,14 @@ document.getElementById("published_date").setAttribute("max", today);
 				<label class="label" for="price">Precio</label>
 			</div>
 			<div class="form-field col-lg-12">
+<<<<<<< HEAD
 				<button class="submit-btn" type="submit"  name="addBook">Añadir</button>
 				<a href="bookList.jsp?genre=<%= genre %>" class="back-btn">Volver</a>
 				<%-- <button id="returnButton" class="back-btn" type="submit"  onclick="javascript:window.location='bookList.jsp?value=<%= genre %>';" >Cancelar</button> --%>
+=======
+				<button class="submit-btn" type="submit"  name="addBook" onclick="javascript:confirmAdd()">Añadir</button>
+				<button id="returnButton" class="back-btn" type="submit"  onclick="javascript:window.location='bookList.jsp?genre=<%= genre %>';" >Cancelar</button>
+>>>>>>> sandra
 			</div>
 			<input type="hidden" value ="<%=genre%>" name="genre">
 		
