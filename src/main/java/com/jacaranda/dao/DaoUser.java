@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import com.jacaranda.model.Genre;
 import com.jacaranda.model.User;
 import com.jacaranda.model.UserException;
 
@@ -41,6 +40,8 @@ public class DaoUser {
 	 * @param userCod código de usuario
 	 * @return User cuyo userCod sea el mismo que se ha pasado por parámetro
 	 * @throws DaoException lanza la excepción cuando no exista dicho usuario en la base de datos
+	 * @throws UserException lanza la excepción cuando algún parámetro al crear un objeto Usuario no cumpla con
+	 * los requisitos de la clase User
 	 */
 	public User getUser(String userCod) throws UserException, DaoException {
 		Session session = ConnectionDB.getSession();
@@ -57,8 +58,8 @@ public class DaoUser {
 	 * @param code código de usuario
 	 * @param key contraseña 
 	 * @return boolean true si coincide, exception si no 
-	 * @throws DaoException 
-	 * @throws UserException 
+	 * @throws UserException lanza la excepción cuando algún parámetro al crear un objeto Usuario no cumpla con
+	 * los requisitos de la clase User
 	 */
 	public boolean userIsValid(String code, String key) throws UserException {
 		boolean result = false;
