@@ -77,12 +77,17 @@ public class User {
 		}
 	}
 	
-	//Two users will be equals if they have the same userCod
+	/**
+	 * Two users will have the same hash if they have the same userCod
+	 */
 	@Override
 	public int hashCode() {
 		return Objects.hash(userCod);
 	}
-
+	
+	/**
+	 * Two users will be equals if they have the same userCod
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -94,7 +99,10 @@ public class User {
 		User other = (User) obj;
 		return Objects.equals(userCod, other.userCod);
 	}
-
+	
+	/**
+	 * Método toString
+	 */
 	@Override
 	public String toString() {
 		return "User [userCod=" + userCod + ", password=" + password + "]";
