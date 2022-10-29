@@ -29,9 +29,9 @@
 		}
 
 		today = yyyy + '-' + mm + '-' + dd;
-		document.getElementById("published_date").setAttribute("max", today);
+		document.getElementById("date").setAttribute("max", today);
 	}
-
+	
 	function onSubmit() {
 		return false;
 	}
@@ -39,11 +39,12 @@
 	function confirmUpdate(genre) {
 
 		if (confirm("¡ATENCIÓN! Estás a punto de actualizar el libro. ¿Estás seguro/a de que quieres continuar?")) {
-
+			console.log('1');
 			var f = document.getElementById("updateBookForm");
 
 			f.submit();
 		} else {
+			console.log('2');
 			history.back();
 		}
 	}
@@ -96,16 +97,16 @@
 					<label class="label" for="date">Fecha de publicación</label>
 				</div>
 				<div class="form-field col-lg-6 ">
-					<input id="price" class="input-text js-input" type="text" name="price" value="<jsp:getProperty name="book" property="price"/>" placeholder="Ejemplo: 5" required>
+					<input id="price" class="input-text js-input" type="text" name="price" value="<jsp:getProperty name="book" property="price"/>" placeholder="Ejemplo: 1.99" required>
 					<label class="label" for="price">Precio</label>
 				</div>
 				<div class="form-field col-lg-6">
-					<input id="quantity" class="input-text js-input" type="number" name="quantity" value="<jsp:getProperty name="book" property="quantity"/>" placeholder="Ejemplo: 1.99" required>
+					<input id="quantity" class="input-text js-input" type="number" name="quantity" value="<jsp:getProperty name="book" property="quantity"/>" placeholder="Ejemplo: 5" step="1" required>
 					<label class="label" for="quantity">Cantidad</label>
 				</div>
 				<div class="form-field col-lg-12">
 					<button class="submit-btn" type="submit" name="updateGenre" value=updateBook" onclick="javascript:confirmUpdate()">Actualizar</button>
-					<button class="back-btn" id="returnButton" class="returnButton" role="link" onclick="javascript:window.location='bookList.jsp?genre=<%=genre%>';">Cancelar</button>
+					<a href="bookList.jsp?genre=<%= genre %>" class="back-btn returnButton">Cancelar</a>
 				</div>
 			</form>
 		</section>
