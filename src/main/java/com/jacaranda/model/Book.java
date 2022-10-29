@@ -2,7 +2,6 @@ package com.jacaranda.model;
 
 import java.time.LocalDate;
 import java.util.Objects;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -55,7 +54,6 @@ public class Book {
 		this.setPublishedDate(publishedDate);
 		this.setQuantity(quantity);
 		this.setPrice(price);
-		this.setStock(quantity);
 	}
 	
 	/**
@@ -76,7 +74,6 @@ public class Book {
 		this.setPublishedDate(publishedDate);
 		this.setQuantity(quantity);
 		this.setPrice(price);
-		this.setStock(quantity);
 	}
 	
 	
@@ -88,23 +85,19 @@ public class Book {
 	 * @param publishedDate la fecha de publicación del libro
 	 * @param quantity la cantidad de libros
 	 * @param price el precio del libro
-	 * @param stock si hay stock (1) es true, si no hay stock (0) es false
-	 * @throws BookException 
+	 * @param genre un objeto de tipo género
+	 * @throws BookException se lanza si los campos no cumplen los requerimientos de los setters
+	 * o el objeto género es nulo
 	 */
 	public Book(String isbn, String title, String author, LocalDate publishedDate, int quantity, double price,
-			int stock, Genre genre) throws BookException {
+			Genre genre) throws BookException {
 		super();
-		this.isbn = isbn;
-		this.title = title;
-		this.author = author;
-		this.publishedDate = publishedDate;
-		this.quantity = quantity;
-		this.price = price;
-		if(stock==0) {
-			this.stock = false;
-		}else {
-			this.stock = true;
-		}
+		this.setIsbn(isbn);
+		this.setTitle(title);
+		this.setAuthor(author);
+		this.setPublishedDate(publishedDate);
+		this.setQuantity(quantity);
+		this.setPrice(price);
 		if(genre!=null) {
 			this.genre = genre;
 		}else {
@@ -141,8 +134,6 @@ public class Book {
 	public double getPrice() {
 		return price;
 	}
-	
-	
 	
 
 	public boolean isStock() {
@@ -190,6 +181,7 @@ public class Book {
 
 	/**
 	 * Método que comprueba que la cantidad de libros sea mayor o igual a 0
+	 * y asigna el stock conforme a la cantidad de libros
 	 * @param quantity la cantidad de libros
 	 * @throws BookException lanza la excepción cuando la cantidad es inferior a 0
 	 */
@@ -244,22 +236,6 @@ public class Book {
 		}
 	}
 	
-	/**
-	 * Método que asigna el stock según la cantidad. true si la cantidad es mayor que 0, 
-	 * false si la cantidad es 0
-	 * Esto es necesario por como trata mysql los valores booleanos
-	 * @param quantity la cantidad de libros
-	 * @throws BookException lanza la excepción cuando la cantidad es incorrecta (valor negativo)
-	 */
-	public void setStock(int quantity) throws BookException {
-		if((this.quantity>0)) {
-			this.stock = true;
-		}else if(this.quantity==0){
-			this.stock = false;
-		}else {
-			throw new BookException("Cantidad incorrecta");
-		}
-	}
 	
 	/**
 	 * Método que obtiene un objeto género de un libro

@@ -34,7 +34,7 @@
 				%>
 				<h2><%= message %></h2>
 			</div>
-			<a href="listGenres.jsp">volver</a>
+			<a href="genreList.jsp">volver</a>
 		</div>
 	</div>
 

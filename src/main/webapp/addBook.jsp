@@ -11,22 +11,22 @@
 <title>LJ - Añadir libro</title>
 <link href="css/forms.css" rel="stylesheet" id="bootstrap-css">
 <script>
+	function TDate() {
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth() + 1; //January is 0!
+		var yyyy = today.getFullYear();
+		if (dd < 10) {
+			dd = '0' + dd;
+		}
+		if (mm < 10) {
+			mm = '0' + mm;
+		}
 
-function TDate() {
-var today = new Date();
-var dd = today.getDate();
-var mm = today.getMonth() + 1; //January is 0!
-var yyyy = today.getFullYear();
-if (dd < 10) {
-   dd = '0' + dd;
-}
-if (mm < 10) {
-   mm = '0' + mm;
-} 
-    
-today = yyyy + '-' + mm + '-' + dd;
-document.getElementById("published_date").setAttribute("max", today);
-}
+		today = yyyy + '-' + mm + '-' + dd;
+		document.getElementById("published_date").setAttribute("max", today);
+	}
+
 
 </script>
 </head>
@@ -43,7 +43,7 @@ document.getElementById("published_date").setAttribute("max", today);
 
 	<section class="get-in-touch">
 		<h1 class="title">Añadir libro</h1>
-		<form class="contact-form row" id="addBookForm" action="addBookPersist.jsp" method="post" onSubmit="return onSubmit();">
+		<form class="contact-form row" id="addBookForm" action="addBookPersist.jsp" method="post">
 			<div class="form-field col-lg-6">
 				<input id="isbn" class="input-text js-input" type="text" name="isbn" maxlength="10" minlength="10" pattern="[0-9]{10}" placeholder="XXXXXXXXXX - Ejemplo: 0123456789" required>
 				<label class="label" for="isbn">ISBN</label>
@@ -57,7 +57,6 @@ document.getElementById("published_date").setAttribute("max", today);
 				<label class="label" for="author">Autor</label>
 			</div>
 			<div class="form-field col-lg-6 ">
-				<!--  <input id="published_date" class="input-text js-input" name="published_date" type="date" onclick="TDate()" required>-->
 				<input  id="published_date" class="input-text js-input" name="published_date" type='date' min='1899-01-01' max='2000-13-13' onclick="TDate()" required></input>
 				<label class="label" for="published_date">Fecha de publicación</label>
 			</div>
@@ -71,8 +70,7 @@ document.getElementById("published_date").setAttribute("max", today);
 			</div>
 			<div class="form-field col-lg-12">
 				<button class="submit-btn" type="submit"  name="addBook">Añadir</button>
-				<a href="bookList.jsp?genre=<%= genre %>" class="back-btn">Volver</a>
-				<%-- <button id="returnButton" class="back-btn" type="submit"  onclick="javascript:window.location='bookList.jsp?value=<%= genre %>';" >Cancelar</button> --%>
+				<a href="bookList.jsp?genre=<%= genre %>" class="back-btn">Cancelar</a>
 			</div>
 			<input type="hidden" value ="<%=genre%>" name="genre">
 		

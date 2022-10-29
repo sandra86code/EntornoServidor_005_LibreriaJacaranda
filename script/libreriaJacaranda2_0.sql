@@ -69,15 +69,15 @@ insert into GENRE (name, description) values ('War', 'Leptoptilos crumeniferus')
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('2104657342','Bible, The (a.k.a. Bible... In the Beginning, The)','Martita Joinson','2022-05-09',0,51.13,0,'Documentary');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('2231555875','Mr. Lucky','Isadore O'' Hogan','2022-06-19',28,98.38,1,'Documentary');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('2744295825','What If','Gilberto Avramovsky','2020-12-19',49,90.58,1,'Western');
-INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('278564722X','10 MPH','Stanfield Brogi','2021-05-27',63,69.59,1,'Western');
-INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('283504793X','Fortress 2','Marrilee Jasiak','2021-05-06',61,76.86,1,'Western');
+INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('2785647224','10 MPH','Stanfield Brogi','2021-05-27',63,69.59,1,'Western');
+INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('2835047933','Fortress 2','Marrilee Jasiak','2021-05-06',61,76.86,1,'Western');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('3010737351','Snipes','Bondy Pilkington','2020-09-20',6,40.70,1,'Comedy');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('3124125711','Heart of a Dog (Sobachye serdtse)','Morna Wildman','2020-02-02',0,71.72,0,'Comedy');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('3153216673','Carson City','Crichton Woodhall','2022-05-21',0,19.05,0,'Comedy');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('3183667134','Paz!','Bob Fransson','2022-01-18',28,3.73,1,'Comedy');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('3441758196','Decoys 2: Alien Seduction ','Brigida Findlay','2021-04-12',97,4.95,1,'Sci-Fi');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('3206082480','Dreamchild','Cori Dudbridge','2021-10-27',42,7.58,1,'Sci-Fi');
-INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('362740324X','Shadowlands','Kirsti Pregal','2021-09-03',0,47.11,0,'Sci-Fi');
+INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('3627403242','Shadowlands','Kirsti Pregal','2021-09-03',0,47.11,0,'Sci-Fi');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('3679348797','Shutter','Veriee Bladge','2021-02-01',0,35.90,0,'Musical');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('3681221367','Italian Job, The','Godiva Orhtmann','2022-07-01',0,60.59,0,'Musical');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('3812321483','Frankie Starlight','Lurette Kilrow','2021-11-14',0,50.63,0,'Musical');
@@ -125,7 +125,7 @@ INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) V
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('2005488526','Callan','Connie Fairlamb','2020-12-05',6,78.97,1,'Action');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('0152960937','Kings of Pastry (Les rois de la pâtisserie)','Lil Sink','2020-10-21',0,47.88,0,'Drama');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('0341854743','It''s a Wonderful Afterlife','Tabitha McFayden','2022-04-17',40,12.28,1,'Drama');
-INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('054865607X','Welcome, or No Trespassing','Roxana Menear','2022-06-06',97,13.40,1,'Drama');
+INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('0548656073','Welcome, or No Trespassing','Roxana Menear','2022-06-06',97,13.40,1,'Drama');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('1604480653','China 9, Liberty 37 (Amore, piombo e furore)','Deidre Staneland','2021-05-14',0,38.56,0,'Drama');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('1778193803','The Hire: Hostage','Hasheem Hundall','2022-06-23',99,21.10,1,'Drama');
 INSERT INTO BOOK (isbn,title,author,published_date,quantity,price,stock,genre) VALUES ('1964626889','Camp Hell','Ferd Fidelli','2020-09-18',0,42.73,0,'Drama');
