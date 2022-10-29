@@ -21,7 +21,7 @@
 			if(result){
 				%><jsp:forward page="listGenres.jsp"></jsp:forward><%
 			}else {
-				String message = "No se ha realizado ninguna modificacion.";%>
+				String message = "No se ha realizado ninguna modificacion";%>
 				<jsp:forward page="errorBackToGenreTable.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward><%
 			}
 		}catch (Exception e) {
@@ -31,7 +31,7 @@
 			<%
 		}
 	} else {
-		%><jsp:forward page="error.jsp?msg='No te has autenticado.'"></jsp:forward><%
+		%><jsp:forward page="error.jsp?msg='No te has autenticado'"></jsp:forward><%
 	}%>
 	
 </body>

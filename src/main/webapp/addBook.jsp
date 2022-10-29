@@ -71,7 +71,8 @@ document.getElementById("published_date").setAttribute("max", today);
 			</div>
 			<div class="form-field col-lg-12">
 				<button class="submit-btn" type="submit"  name="addBook">Añadir</button>
-				<button id="returnButton" class="back-btn" type="submit"  onclick="javascript:window.location='bookList.jsp?value=<%= genre %>';" >Cancelar</button>
+				<a href="bookList.jsp?genre=<%= genre %>" class="back-btn">Volver</a>
+				<%-- <button id="returnButton" class="back-btn" type="submit"  onclick="javascript:window.location='bookList.jsp?value=<%= genre %>';" >Cancelar</button> --%>
 			</div>
 			<input type="hidden" value ="<%=genre%>" name="genre">
 		
