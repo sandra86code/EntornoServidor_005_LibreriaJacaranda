@@ -31,14 +31,7 @@
 		return false;
 	}
 
-	function confirmAdd() {
 
-		if (confirm("¡ATENCIÓN! Estás a punto de añadir el libro. ¿Estás seguro/a de que quieres continuar?")) {
-			document.getElementById("addBookForm").submit();
-		} else {
-			history.back();
-		}
-	}
 </script>
 </head>
 
@@ -68,7 +61,6 @@
 				<label class="label" for="author">Autor</label>
 			</div>
 			<div class="form-field col-lg-6 ">
-				<!--  <input id="published_date" class="input-text js-input" name="published_date" type="date" onclick="TDate()" required>-->
 				<input  id="published_date" class="input-text js-input" name="published_date" type='date' min='1899-01-01' max='2000-13-13' onclick="TDate()" required></input>
 				<label class="label" for="published_date">Fecha de publicación</label>
 			</div>
@@ -81,14 +73,8 @@
 				<label class="label" for="price">Precio</label>
 			</div>
 			<div class="form-field col-lg-12">
-<<<<<<< HEAD
 				<button class="submit-btn" type="submit"  name="addBook">Añadir</button>
 				<a href="bookList.jsp?genre=<%= genre %>" class="back-btn">Volver</a>
-				<%-- <button id="returnButton" class="back-btn" type="submit"  onclick="javascript:window.location='bookList.jsp?value=<%= genre %>';" >Cancelar</button> --%>
-=======
-				<button class="submit-btn" type="submit"  name="addBook" onclick="javascript:confirmAdd()">Añadir</button>
-				<button id="returnButton" class="back-btn" type="submit"  onclick="javascript:window.location='bookList.jsp?genre=<%= genre %>';" >Cancelar</button>
->>>>>>> sandra
 			</div>
 			<input type="hidden" value ="<%=genre%>" name="genre">
 		
