@@ -27,10 +27,6 @@
 		document.getElementById("published_date").setAttribute("max", today);
 	}
 
-	function onSubmit() {
-		return false;
-	}
-
 
 </script>
 </head>
@@ -47,7 +43,7 @@
 
 	<section class="get-in-touch">
 		<h1 class="title">Añadir libro</h1>
-		<form class="contact-form row" id="addBookForm" action="addBookPersist.jsp" method="post" onSubmit="return onSubmit();">
+		<form class="contact-form row" id="addBookForm" action="addBookPersist.jsp" method="post">
 			<div class="form-field col-lg-6">
 				<input id="isbn" class="input-text js-input" type="text" name="isbn" maxlength="10" minlength="10" pattern="[0-9]{10}" placeholder="XXXXXXXXXX - Ejemplo: 0123456789" required>
 				<label class="label" for="isbn">ISBN</label>
@@ -74,7 +70,7 @@
 			</div>
 			<div class="form-field col-lg-12">
 				<button class="submit-btn" type="submit"  name="addBook">Añadir</button>
-				<a href="bookList.jsp?genre=<%= genre %>" class="back-btn">Volver</a>
+				<a href="bookList.jsp?genre=<%= genre %>" class="back-btn">Cancelar</a>
 			</div>
 			<input type="hidden" value ="<%=genre%>" name="genre">
 		

@@ -43,7 +43,7 @@
 			
 			try {
 				daob.addBook(newBook, genre);%>
-				<jsp:forward page="bookList.jsp"><jsp:param name="value" value="<%= newBook.getGenre() %>"/></jsp:forward>
+				<jsp:forward page="bookList.jsp"><jsp:param name="value" value="<%= newBook.getGenre().getName() %>"/></jsp:forward>
 				
 			<%} catch (Exception e){
 					String message = e.getMessage();%>

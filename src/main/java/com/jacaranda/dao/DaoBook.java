@@ -80,9 +80,12 @@ public class DaoBook {
 			session.getTransaction().commit();
 			result = true;
 		}catch(BookException e1) {
+			session.getTransaction().rollback();
 			throw new DaoException(e1.getMessage());
 		}catch(Exception e) {
+			session.getTransaction().rollback();
 			throw new DaoException("Ya existe un libro con ese isbn");
+			
 		}
 		
 		return result;
