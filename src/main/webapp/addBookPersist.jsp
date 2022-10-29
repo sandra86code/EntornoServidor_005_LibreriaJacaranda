@@ -20,39 +20,30 @@
 	String isSession = (String) session.getAttribute("login");
 	String userSession = (String) session.getAttribute("user");
 	if(isSession != null && userSession !=null && isSession.equals("True")){
-	
-		String empty = "";
-									
+		%>
+		<jsp:useBean id="daob" class="com.jacaranda.dao.DaoBook" scope="session"/>
+		<%
+		
 		String newIsbn = request.getParameter("isbn");
 		String newTitle = request.getParameter("title");
 		String newAuthor = request.getParameter("author");
-		String newPublished_date = request.getParameter("published_date");
+		String newPublishedDate = request.getParameter("published_date");
 		int newQuantity = Integer.parseInt(request.getParameter("quantity"));
 		double newPrice = Double.parseDouble(request.getParameter("price"));
-		String mainGenre = request.getParameter("genre");
+		String genre = request.getParameter("genre");
 		
+		DaoGenre newDaoGenre = new DaoGenre();
 		
-		if(newIsbn == null || empty.equals(newIsbn.trim()) || newTitle == null || empty.equals(newTitle.trim()) || newAuthor == null || empty.equals(newAuthor.trim()) ||
-		newPublished_date == null || empty.equals(newPublished_date) || newQuantity < 0 || newPrice < 0){%>
-			<jsp:forward
-				page="errorAddBook.jsp?msg='Los campos no son correctos'"></jsp:forward>
-		<% } else {
-			LocalDate date = LocalDate.parse(newPublished_date);
+		try {
+			Genre newGenre = newDaoGenre.getGenre(genre);
+			daob.addBook(newIsbn, newTitle, newAuthor, LocalDate.parse(newPublishedDate), newQuantity, newPrice, newGenre);%>
+			<jsp:forward page="bookList.jsp"><jsp:param name="genre" value="<%= genre %>"/></jsp:forward>
+		<%} catch (Exception e){
+				String message = e.getMessage();%>
+			<jsp:forward page="errorBackToTable.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward>
+		<%}
 			
-			DaoBook newDaoBook = new DaoBook();
-			DaoGenre newDaoGenre = new DaoGenre();
-			
-			try {
-				Genre newGenre = newDaoGenre.getGenre(mainGenre);
-				newDaoBook.addBook(newIsbn, newTitle, newAuthor, date, newQuantity, newPrice, newGenre);%>
-				<jsp:forward page="bookList.jsp"><jsp:param name="value" value="<%= mainGenre %>"/></jsp:forward>
-				
-			<%} catch (Exception e){
-					String message = e.getMessage();%>
-				<jsp:forward page="errorBackToTable.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward>
-			<%}
-			
-		}
+
 
 	} else {%>
 	<jsp:forward
