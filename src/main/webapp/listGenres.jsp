@@ -34,9 +34,9 @@
 			<div id="activeUser">
 				<h3>Usuario: <%= user %></h3>
 			</div>
-			<div id="buttons">
-				<a href="closeSession.jsp" class="closeSession">Cerrar sesión</a>
-				<a href="addGenre.jsp" class="addBook">Añadir Género</a>
+			<div id="buttons" class="buttonsGenre">
+				<a href="closeSession.jsp" class="closeSessionGenre">Cerrar sesión</a>
+				<a href="addGenre.jsp" class="addGenre">Añadir Género</a>
 			</div>
 		
 			<div id="table">		
