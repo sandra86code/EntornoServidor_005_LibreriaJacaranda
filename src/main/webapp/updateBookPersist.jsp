@@ -24,7 +24,11 @@
    		%>
    		<jsp:useBean id="daob" class="com.jacaranda.dao.DaoBook" scope="session"/>
    		<jsp:useBean id="book" class="com.jacaranda.model.Book" scope="session"/>
-   		<jsp:setProperty property="*" name="book"/>
+   		<jsp:setProperty property="isbn" name="book" param="isbn"/>
+   		<jsp:setProperty property="title" name="book" param="title"/>
+   		<jsp:setProperty property="author" name="book" param="author"/>
+   		<jsp:setProperty property="price" name="book" param="price"/>
+   		<jsp:setProperty property="quantity" name="book" param="quantity"/>
 		<%	
 		try {
 			boolean result = daob.updateBook(book.getIsbn(), book, LocalDate.parse(date));
