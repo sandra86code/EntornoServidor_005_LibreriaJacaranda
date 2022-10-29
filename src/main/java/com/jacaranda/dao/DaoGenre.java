@@ -62,8 +62,10 @@ public class DaoGenre {
 			session.save(g);
 			session.getTransaction().commit();
 		} catch (GenreException e1) {
+			session.getTransaction().rollback();
 			throw new DaoException(e1.getMessage());
 		} catch (Exception e) {
+			session.getTransaction().rollback();//cuando da error se queda atrapado, tenemos que deshacer la transacción que se ha intentado realizar
 			throw new DaoException("Ya existe un genero con ese nombre");
 		}
 	}
@@ -100,6 +102,7 @@ public class DaoGenre {
 				session.update(g);
 				session.getTransaction().commit();
 			}catch(GenreException e) {
+				session.getTransaction().rollback();
 				throw new DaoException(e.getMessage());
 			}
 			result = true;
