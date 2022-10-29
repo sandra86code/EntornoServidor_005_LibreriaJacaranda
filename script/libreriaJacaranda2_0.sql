@@ -1,6 +1,7 @@
 -- Base de Datos Librer�a Jacarand� 2.0
 
--- Creacion usuario --
+-- Creacion base de datos y usuario --
+CREATE DATABASE libreriaJacaranda;
 CREATE USER 'librera'@'%' IDENTIFIED BY 'librera';
 GRANT ALL PRIVILEGES ON libreriaJacaranda TO 'librera'@'%';
 
