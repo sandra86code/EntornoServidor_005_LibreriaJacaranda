@@ -60,11 +60,15 @@ public class DaoUser {
 	 * @throws DaoException 
 	 * @throws UserException 
 	 */
-	public boolean userIsValid(String code, String key) throws UserException, DaoException {
+	public boolean userIsValid(String code, String key) throws UserException {
 		boolean result = false;
-		User u = getUser(code);
-		if(u.getPassword().equals(key)) {
-			result = true;
+		try {
+			User u = getUser(code);
+			if(u.getPassword().equals(key)) {
+				result = true;
+			}
+		}catch(DaoException e) {
+			
 		}
 		//session.close();
 		return result;
