@@ -40,7 +40,7 @@
 			</div>
 			<div id="buttons">
 				<a href="closeSession.jsp" class="closeSession">Cerrar sesión</a>
-				<a href="listGenres.jsp" class="closeSession">Volver a Géneros</a>
+				<a href="genreList.jsp" class="closeSession">Volver a Géneros</a>
 				<a href="addBook.jsp?genre=<%=genre%>" class="addBook">Añadir libro</a>
 			</div>
 		

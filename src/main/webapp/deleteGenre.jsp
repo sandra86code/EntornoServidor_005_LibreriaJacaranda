@@ -17,7 +17,7 @@ function confirmDelete() {
    	if (confirm("¡ATENCIÓN! Estás a punto de borrar no solo este género, sino todos los libros asociados a él. ¿Estás seguro/a de querer borrarlo?")) {
     	document.getElementById("deleteForm").submit();
     } else {
-    	window.location='listGenres.jsp';
+    	window.location='genreList.jsp';
     }
 }
 
@@ -56,7 +56,7 @@ function confirmDelete() {
 
 			<div class="form-field col-lg-12">
 				<button class="submit-btn" type="submit" name="deleteBook" value=deleteGenre" onclick="confirmDelete()">Borrar</button>
-				<button class="back-btn" id="returnButton" class="returnButton" role="link" onclick="javascript:window.location='listGenres.jsp';">Cancelar</button>
+				<button class="back-btn" id="returnButton" class="returnButton" role="link" onclick="javascript:window.location='genreList.jsp';">Cancelar</button>
 			</div>
 		</form>
 		</section>
