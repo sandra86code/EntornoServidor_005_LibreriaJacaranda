@@ -32,15 +32,15 @@ function confirmDelete() {
 	if(isSession != null && userSession!=null && isSession.equals("True")){
 		DaoGenre daog = new DaoGenre();
 		Genre genreDetails = null;
-		String genero = request.getParameter("genre");
+		String genre = request.getParameter("genre");
 		try {
-			genreDetails = daog.getGenre(genero);
+			genreDetails = daog.getGenre(genre);
 		} catch (Exception e) {
 			String message = e.getMessage();
 			%><jsp:forward page="errorBackToGenreTable.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward><%
 		}%>
 		<section class="get-in-touch">
-		<h1 class="title">Borrar género "<%=genero%>"</h1>
+		<h1 class="title">Borrar género "<%=genre%>"</h1>
 		
 		<form class="contact-form row" action="deleteGenrePersist.jsp" method="post" id="deleteForm" onSubmit="return onSubmit();">
 				<table>
@@ -55,7 +55,7 @@ function confirmDelete() {
 				</table>
 
 			<div class="form-field col-lg-12">
-				<button class="submit-btn" type="submit" name="deleteBook" value=deleteGenre" onclick="confirmDelete()">Borrar</button>
+				<button class="submit-btn" type="submit" name="deleteBook" value="deleteGenre" onclick="confirmDelete()">Borrar</button>
 				<button class="back-btn" id="returnButton" class="returnButton" role="link" onclick="javascript:window.location='genreList.jsp';">Cancelar</button>
 			</div>
 		</form>

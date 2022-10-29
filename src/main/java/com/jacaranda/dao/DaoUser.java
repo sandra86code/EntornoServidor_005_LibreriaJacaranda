@@ -43,7 +43,7 @@ public class DaoUser {
 	 * Método para validar el login, comprueba si el usuario y contraseña son correctos
 	 * @param code código de usuario
 	 * @param key contraseña 
-	 * @return boolean true si coincide, exception si no 
+	 * @return boolean true si coinciden los datos con los de la bbdd, false si no 
 	 * @throws UserException lanza la excepción cuando algún parámetro al crear un objeto Usuario no cumpla con
 	 * los requisitos de la clase User
 	 */
@@ -54,7 +54,7 @@ public class DaoUser {
 			if(u.getPassword().equals(key)) {
 				result = true;
 			}
-		}catch(DaoException e) {
+		}catch(DaoException e) {//si no se encuentra el usuario por el código pasado por parámetro recoge la exception de getUser
 			
 		}
 		return result;

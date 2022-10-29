@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Añadir Género</title>
+<title>LJ - Añadir género</title>
 <link href="css/forms.css" rel="stylesheet" id="bootstrap-css">
 <script>
 function onSubmit(){

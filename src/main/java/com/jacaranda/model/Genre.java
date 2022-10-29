@@ -14,12 +14,12 @@ import javax.persistence.Table;
  * Esta clase crea un género
  */
 @Entity
-@Table(name="GENRE")
+@Table(name="GENRE")//mapeamos la clase con la tabla correspondiente en la base de datos
 public class Genre {
-	@Id
+	@Id //indicamos el atributo que será el identificador en la base de datos
 	private String name;
 	private String description;
-	@OneToMany(mappedBy ="genre", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy ="genre", cascade = CascadeType.ALL, orphanRemoval = true) //indicamos la relación que van a tener los géneros con los libros y especificamos la opción para el borrado
 	private List<Book> books;
 	
 	

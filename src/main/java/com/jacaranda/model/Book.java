@@ -14,18 +14,18 @@ import javax.persistence.Table;
  * Esta clase crea un libro
  */
 @Entity
-@Table(name="BOOK")
+@Table(name="BOOK") //mapeamos la clase con la tabla correspondiente en la base de datos
 public class Book {
-	@Id
+	@Id //indicamos el atributo que será el identificador en la base de datos
 	private String isbn;
 	private String title;
 	private String author;
-	@Column(name = "published_date")
+	@Column(name = "published_date") //mapeamos un atributo cuyo nombre es diferente en la base de datos
 	private LocalDate publishedDate;
 	private int quantity;
 	private double price;
 	private boolean stock;
-	@ManyToOne
+	@ManyToOne //indicamos la relación que van a tener los libros con los géneros
 	@JoinColumn(name="genre")
 	private Genre genre;
 	
@@ -39,7 +39,7 @@ public class Book {
 	}
 	
 	/**
-	 * Constructor sin asignación del ISBN, para la validación de la modificación de campos
+	 * Constructor sin asignación del ISBN ni género(genre), para la validación de la modificación de campos
 	 * @param title el título del libro
 	 * @param author el autor del libro
 	 * @param publishedDate la fecha de publicación del libro
@@ -57,7 +57,7 @@ public class Book {
 	}
 	
 	/**
-	 * Constructor sin el parámetro stock, que se asigna según el atributo quantity
+	 * Constructor sin el parámetro stock, que se asigna según el atributo quantity, ni el género(genre)
 	 * @param isbn el ISBN del libro
 	 * @param title el título del libro
 	 * @param author el autor del libro
@@ -105,7 +105,10 @@ public class Book {
 		}
 	}
 
-
+	/**
+	 * Conjunto de métodos get de los atributos
+	 * @return atributo correspondiente
+	 */
 	public String getIsbn() {
 		return isbn;
 	}

@@ -32,7 +32,7 @@
 		}%>
 			
 			<div id="headingTitle">
-				<h1>LISTADO DE LIBROS DEL GÉNERO <%=genre.toUpperCase()%> LA LIBRERIA JACARANDÁ</h1>
+				<h1>LISTADO DE LIBROS DEL GÉNERO <%=genre.toUpperCase()%> DE LA LIBRERIA JACARANDÁ</h1>
 			</div>
 			<!-- adding userName on main page -->
 			<div id="activeUser">

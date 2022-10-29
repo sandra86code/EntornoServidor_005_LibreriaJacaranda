@@ -8,12 +8,11 @@ import javax.persistence.Table;
 /**
  * @author Nadia
  * Esta clase crea un usuario
- * Mapear solo clases de java (no DAO) y verificar nombres de tablas
  */
 @Entity
-@Table(name="USERS")
+@Table(name="USERS")//mapeamos la clase con la tabla correspondiente en la base de datos
 public class User {
-	@Id
+	@Id //indicamos el atributo que será el identificador en la base de datos
 	private String userCod;
 	private String password;
 	
@@ -36,6 +35,10 @@ public class User {
 		setPassword(password);
 	}
 	
+	/**
+	 * Método que devuelve el código del usuario
+	 * @return el código del usuario
+	 */
 	public String getUserCod() {
 		return userCod;
 	}
@@ -55,7 +58,11 @@ public class User {
 				this.userCod = userCod;
 			}
 	}
-
+	
+	/**
+	 * Método que devuelve la contraseña del usuario
+	 * @return la contraseña del usuario
+	 */
 	public String getPassword() {
 		return password;
 	}

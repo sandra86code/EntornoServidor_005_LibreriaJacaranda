@@ -36,19 +36,19 @@ function confirmUpdate() {
 	if(isSession != null && userSession !=null && isSession.equals("True")){ 
 		DaoGenre daog = new DaoGenre();
 		Genre genreDetails = null;
-		String genero = request.getParameter("genre");
+		String genre = request.getParameter("genre");
 		try {
-			genreDetails = daog.getGenre(genero);
+			genreDetails = daog.getGenre(genre);
 		} catch (Exception e) {
 			String message = e.getMessage();
 			%><jsp:forward page="errorBackToGenreTable.jsp"><jsp:param name="error" value="<%= message %>"/></jsp:forward><%
 		}%>
 		<section class="get-in-touch">
-			<h1 class="title">Actualizar género "<%=genero%>"</h1>
+			<h1 class="title">Actualizar género "<%=genre%>"</h1>
 			<form class="contact-form row" id="updateGenreForm" action="updateGenrePersist.jsp" method="post" onSubmit="return onSubmit();">
 				<div class="form-field col-lg-6">
 					<!-- Can't be modified -->
-					<input id="isbn" class="input-text js-input" type="text" name="name" value="<%= genero %>" placeholder="Nombre del género literario" readonly>
+					<input id="isbn" class="input-text js-input" type="text" name="name" value="<%= genre %>" placeholder="Nombre del género literario" readonly>
 					<label class="label" for="isbn">Nombre</label>
 				</div>
 				<div class="form-field col-lg-6">
@@ -56,7 +56,7 @@ function confirmUpdate() {
 					<label class="label" for="title">Descripción</label>
 				</div>
 				<div class="form-field col-lg-12">
-					<button class="submit-btn" type="submit" name="updateGenre" value=updateGenre" onclick="confirmUpdate()">Actualizar</button>
+					<button class="submit-btn" type="submit" name="updateGenre" value="updateGenre" onclick="confirmUpdate()">Actualizar</button>
 					<button class="back-btn" id="returnButton" class="returnButton" role="link" onclick="javascript:window.location='genreList.jsp';">Cancelar</button>
 				</div>
 			</form>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>LJ - Borrando género</title>
+<title>LJ - Actualizando género</title>
 </head>
 <body>
 	<%
