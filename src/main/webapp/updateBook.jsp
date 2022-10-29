@@ -71,7 +71,6 @@
    			book.setPublishedDate(bookDetails.getPublishedDate());
    			book.setPrice(bookDetails.getPrice());
    			book.setQuantity(bookDetails.getQuantity());
-   			book.setStock(bookDetails.getQuantity());
    			%>
    			
    			<section class="get-in-touch">
